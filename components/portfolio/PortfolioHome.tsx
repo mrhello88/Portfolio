@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useLocomotiveScroll } from "./hooks/useLocomotiveScroll";
 import { usePortfolioAnimations } from "./hooks/usePortfolioAnimations";
 import SiteHeader from "./SiteHeader";
 import HeroSectionV2 from "./HeroSectionV2";
@@ -14,6 +15,7 @@ export default function PortfolioHome() {
   const heroRef = useRef<HTMLElement>(null);
   const lineFillRef = useRef<HTMLDivElement>(null);
 
+  useLocomotiveScroll();
   usePortfolioAnimations(rootRef, mainRef, heroRef, lineFillRef);
 
   return (

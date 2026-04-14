@@ -157,7 +157,12 @@ export function usePortfolioAnimations(
         scrollTl.fromTo(
           heroInner,
           { y: 0, opacity: 1 },
-          { y: -70, opacity: 0.72, ease: "none", duration: 0.35 },
+          {
+            y: -70,
+            opacity: 0.72,
+            ease: "none",
+            duration: 0.35,
+          },
           0,
         );
       }

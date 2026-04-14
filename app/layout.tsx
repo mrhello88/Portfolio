@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Geist_Mono } from "next/font/google";
+import { Anton, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const bebasNeue = Bebas_Neue({
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+const anton = Anton({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-bebas-neue",
+  variable: "--font-anton-family",
   display: "swap",
 });
 
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebasNeue.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${anton.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body
