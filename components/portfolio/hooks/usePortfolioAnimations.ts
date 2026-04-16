@@ -24,14 +24,16 @@ export function usePortfolioAnimations(
 
     const ctx = gsap.context(() => {
       if (reduceMotion) {
-        gsap.set(".hero-word, .hero-word-muted", { yPercent: 0 });
-        gsap.set(".hero-line", { scaleX: 1 });
-        gsap.set(".hero-eyebrow, .hero-sub, .hero-cta, .hero-scroll-hint", {
-          opacity: 1,
-          y: 0,
-        });
+        gsap.set(".hero-center-headline", { opacity: 1, y: 0 });
         gsap.set(".hero-bg-orb", { opacity: 1, scale: 1 });
         gsap.set(".hero-portrait-reveal", { opacity: 1, scale: 1, y: 0 });
+        gsap.set(".hero-bg-scroll-zoom, .hero-portrait-scroll-zoom", {
+          scale: 1,
+        });
+        gsap.set(
+          ".hero-side-labels, .hero-tagline-shift, .hero-bottom-stack, .hero-stage-inner",
+          { y: 0 },
+        );
         gsap.set(".site-header", { y: 0, opacity: 1 });
         gsap.set(".nav-link", { opacity: 1, y: 0 });
         gsap.set(".timeline-node", { opacity: 1, y: 0 });
@@ -44,10 +46,7 @@ export function usePortfolioAnimations(
         return;
       }
 
-      gsap.set(".hero-word, .hero-word-muted", { yPercent: 110 });
-      gsap.set(".hero-line", { scaleX: 0, transformOrigin: "left center" });
-      gsap.set(".hero-eyebrow, .hero-sub, .hero-cta", { opacity: 0, y: 20 });
-      gsap.set(".hero-scroll-hint", { opacity: 0, y: 8 });
+      gsap.set(".hero-center-headline", { opacity: 0, y: 18 });
       gsap.set(".hero-bg-orb", { opacity: 0, scale: 0.6 });
       gsap.set(".hero-portrait-reveal", {
         opacity: 0,
@@ -55,6 +54,13 @@ export function usePortfolioAnimations(
         y: 36,
         transformOrigin: "bottom right",
       });
+      gsap.set(".hero-bg-scroll-zoom, .hero-portrait-scroll-zoom", {
+        scale: 1,
+      });
+      gsap.set(
+        ".hero-side-labels, .hero-tagline-shift, .hero-bottom-stack, .hero-stage-inner",
+        { y: 0 },
+      );
       gsap.set(".site-header", { y: -16, opacity: 0 });
       gsap.set(".nav-link", { opacity: 0, y: -6 });
 
@@ -92,41 +98,10 @@ export function usePortfolioAnimations(
           },
           0.12,
         )
-        .to(".hero-line", { scaleX: 1, duration: 0.75 }, 0.15)
-        .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.5 }, 0.2)
         .to(
-          ".hero-word",
-          { yPercent: 0, duration: 0.72, stagger: 0.06, ease: "power4.out" },
-          0.28,
-        )
-        .to(
-          ".hero-word-muted",
-          { yPercent: 0, duration: 0.65, stagger: 0.05, ease: "power3.out" },
-          0.42,
-        )
-        .to(".hero-sub", { opacity: 1, y: 0, duration: 0.6 }, 0.55)
-        .to(
-          ".hero-cta",
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "back.out(1.35)",
-          },
-          0.62,
-        )
-        .to(".hero-scroll-hint", { opacity: 1, y: 0, duration: 0.45 }, 0.85)
-        .to(
-          ".hero-scroll-chevron",
-          {
-            y: 6,
-            duration: 0.85,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-          },
-          ">-0.05",
+          ".hero-center-headline",
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          0.22,
         );
 
       gsap.set(".timeline-node", { opacity: 0, y: 56 });
@@ -156,9 +131,8 @@ export function usePortfolioAnimations(
       if (heroInner) {
         scrollTl.fromTo(
           heroInner,
-          { y: 0, opacity: 1 },
+          { opacity: 1 },
           {
-            y: -70,
             opacity: 0.72,
             ease: "none",
             duration: 0.35,
@@ -171,6 +145,37 @@ export function usePortfolioAnimations(
           heroBg,
           { opacity: 1 },
           { opacity: 0.35, ease: "none", duration: 0.35 },
+          0,
+        );
+      }
+
+      const heroBgScrollZoom = heroStage?.querySelector(".hero-bg-scroll-zoom");
+      const heroPortraitScrollZoom = heroStage?.querySelector(
+        ".hero-portrait-scroll-zoom",
+      );
+      if (heroStage && heroBgScrollZoom && heroPortraitScrollZoom) {
+        const heroScrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroStage,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.65,
+            invalidateOnRefresh: true,
+          },
+        });
+        const heroScrollEase = { ease: "none", duration: 1 } as const;
+        heroScrollTl.fromTo(
+          heroBgScrollZoom,
+          { scale: 1, transformOrigin: "50% 50%" },
+          { scale: 1.14, ...heroScrollEase },
+        );
+        heroScrollTl.fromTo(
+          heroPortraitScrollZoom,
+          {
+            scale: 1,
+            transformOrigin: "82% 96%",
+          },
+          { scale: 1.09, ...heroScrollEase },
           0,
         );
       }
@@ -222,5 +227,5 @@ export function usePortfolioAnimations(
     return () => {
       ctx.revert();
     };
-  }, []);
+  }, [rootRef, mainRef, heroRef, lineFillRef]);
 }
