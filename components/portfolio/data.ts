@@ -7,6 +7,12 @@ export type TimelineMilestone = {
   tags?: string[];
 };
 
+/** Layout “truth” width (CSS px): content does not grow wider than this on ultra-wide. */
+export const LAYOUT_MAX_WIDTH_CLASS = "max-w-[2560px]";
+
+/** Hero stage min-height: full viewport until 1280px, then capped (tall monitors). */
+export const LAYOUT_HERO_MIN_HEIGHT_CLASS = "min-h-[min(100svh,1280px)]";
+
 export const SITE_NAV = [
   { href: "#journey", label: "Journey" },
   { href: "#contact", label: "Contact" },

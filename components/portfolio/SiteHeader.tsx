@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { SITE_NAV } from "./data";
+import { LAYOUT_MAX_WIDTH_CLASS, SITE_NAV } from "./data";
 
 export default function SiteHeader() {
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50 w-full bg-transparent">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
+      <div
+        className={`mx-auto flex h-14 w-full ${LAYOUT_MAX_WIDTH_CLASS} items-center justify-between px-6`}
+      >
         <Link
           href="/"
           className="font-mono text-sm font-medium tracking-tight text-foreground"

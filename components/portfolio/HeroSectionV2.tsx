@@ -3,19 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { forwardRef, useLayoutEffect, useRef } from "react";
 import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  type PointerEvent as ReactPointerEvent,
-} from "react";
+  LAYOUT_HERO_MIN_HEIGHT_CLASS,
+  LAYOUT_MAX_WIDTH_CLASS,
+} from "./data";
 
 type ParallaxFrameFn = () => void;
 
 /** Hero bg mouse parallax: max translate (px) each axis; lerp factor per frame. */
-const HERO_BG_MOUSE_MAX_PX = 10;
-const HERO_BG_MOUSE_LERP = 0.01;
+const HERO_BG_MOUSE_MAX_PX = 12;
+const HERO_BG_MOUSE_LERP = 0.085;
 
 /** Fiverr has no Lucide icon; monochrome mark, uses `currentColor` for red. */
 function FiverrIcon({ className }: { className?: string }) {
@@ -79,13 +77,11 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
   const reduceMotionRef = useRef(false);
   const runParallaxFrameRef = useRef<ParallaxFrameFn>(() => {});
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     reduceMotionRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-  }, []);
 
-  useEffect(() => {
     runParallaxFrameRef.current = () => {
       const pos = mousePosRef.current;
       const tgt = mouseTargetRef.current;
@@ -103,33 +99,41 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
         parallaxRafActiveRef.current = false;
       }
     };
-  }, []);
 
-  const onHeroStagePointerMove = useCallback(
-    (e: ReactPointerEvent<HTMLDivElement>) => {
-      if (reduceMotionRef.current) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const w = Math.max(rect.width, 1);
-      const h = Math.max(rect.height, 1);
-      const nx = (e.clientX - rect.left) / w - 0.5;
-      const ny = (e.clientY - rect.top) / h - 0.5;
-      const m = HERO_BG_MOUSE_MAX_PX;
-      mouseTargetRef.current = { x: nx * 2 * m, y: ny * 2 * m };
+    const stage = heroStageRef.current;
+    if (!stage || reduceMotionRef.current) return;
+
+    const kickParallax = () => {
       if (!parallaxRafActiveRef.current) {
         parallaxRafActiveRef.current = true;
         requestAnimationFrame(() => runParallaxFrameRef.current());
       }
-    },
-    [],
-  );
+    };
 
-  const onHeroStagePointerLeave = useCallback(() => {
-    mouseTargetRef.current = { x: 0, y: 0 };
-    if (reduceMotionRef.current) return;
-    if (!parallaxRafActiveRef.current) {
-      parallaxRafActiveRef.current = true;
-      requestAnimationFrame(() => runParallaxFrameRef.current());
-    }
+    const onPointerMove = (e: PointerEvent) => {
+      if (reduceMotionRef.current) return;
+      const rect = stage.getBoundingClientRect();
+      const { clientX: cx, clientY: cy } = e;
+      if (
+        cx < rect.left ||
+        cx > rect.right ||
+        cy < rect.top ||
+        cy > rect.bottom
+      ) {
+        mouseTargetRef.current = { x: 0, y: 0 };
+      } else {
+        const w = Math.max(rect.width, 1);
+        const h = Math.max(rect.height, 1);
+        const nx = (cx - rect.left) / w - 0.5;
+        const ny = (cy - rect.top) / h - 0.5;
+        const m = HERO_BG_MOUSE_MAX_PX;
+        mouseTargetRef.current = { x: nx * 2 * m, y: ny * 2 * m };
+      }
+      kickParallax();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onPointerMove);
   }, []);
 
   return (
@@ -139,12 +143,10 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
     >
       <div
         ref={heroStageRef}
-        className="hero-stage-sticky sticky top-0 z-0 flex min-h-svh w-full flex-col items-center justify-center overflow-hidden"
-        onPointerLeave={onHeroStagePointerLeave}
-        onPointerMove={onHeroStagePointerMove}
+        className={`hero-stage-sticky sticky top-0 z-0 flex w-full flex-col items-stretch overflow-hidden ${LAYOUT_HERO_MIN_HEIGHT_CLASS}`}
       >
         <div
-          className="hero-bg-wrap pointer-events-none absolute inset-0 overflow-hidden"
+          className="hero-bg-wrap pointer-events-none absolute inset-0 z-0 overflow-hidden"
           aria-hidden
         >
           <div className="hero-bg-orb absolute inset-0 overflow-hidden">
@@ -169,13 +171,16 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
         </div>
 
         <div
+          className={`hero-layout-rail relative z-10 mx-auto flex w-full flex-col items-stretch ${LAYOUT_HERO_MIN_HEIGHT_CLASS} ${LAYOUT_MAX_WIDTH_CLASS}`}
+        >
+        <div
           aria-hidden
           className="pointer-events-none absolute top-[35%] right-[max(3rem,env(safe-area-inset-right))] z-5 h-[min(60vh,30rem)] w-11 -translate-y-1/2 border-4 border-[#e60000] bg-transparent md:top-[32%] md:right-[max(4rem,env(safe-area-inset-right))] md:h-[min(64vh,34rem)] md:w-14 lg:top-[30%] lg:right-[max(5rem,env(safe-area-inset-right))] lg:h-[min(68vh,38rem)]"
         />
 
         <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pb-[max(9rem,calc(env(safe-area-inset-bottom)+12rem))] pl-[max(0.5rem,calc(env(safe-area-inset-left)+10.85rem))] pr-4 pt-24 sm:pb-[max(9.5rem,calc(env(safe-area-inset-bottom)+13rem))] sm:pl-[max(0.5rem,calc(env(safe-area-inset-left)+11.65rem))] md:pb-[max(10rem,calc(env(safe-area-inset-bottom)+14rem))] md:pl-[max(1rem,calc(env(safe-area-inset-left)+13.15rem))] md:pr-8 lg:pb-[max(10.5rem,calc(env(safe-area-inset-bottom)+15rem))] lg:pl-[max(1.25rem,calc(env(safe-area-inset-left)+14.5rem))]">
           <div className="inline-flex flex-col items-start">
-            <p className="pointer-events-auto max-w-[min(100%,46rem)] cursor-text -translate-y-22 translate-x-3 select-text text-left font-sans text-base font-normal leading-snug tracking-normal sm:-translate-y-27 sm:translate-x-4 sm:text-lg md:-translate-y-36 md:translate-x-5 md:text-xl lg:-translate-y-45 lg:translate-x-6 lg:text-2xl">
+            <p className="pointer-events-auto max-w-[min(100%,46rem)] cursor-text -translate-y-22 -translate-x-0.5 select-text text-left font-sans text-base font-normal leading-snug tracking-normal sm:-translate-y-27 sm:translate-x-0 sm:text-lg md:-translate-y-36 md:translate-x-1 md:text-xl lg:-translate-y-45 lg:translate-x-2 lg:text-2xl">
               <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                 Hi there<span className="text-[#e60000]">!</span> this is
               </span>
@@ -234,9 +239,9 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </div>
         </div>
 
-        <div className="hero-stage-inner relative z-10 flex w-full flex-1 flex-col justify-end pr-0 pt-16 pl-6 pb-[max(0px,env(safe-area-inset-bottom))] md:pl-10 md:pb-[max(0.25rem,env(safe-area-inset-bottom))]">
-          <div className="self-end translate-y-12 md:translate-y-20 lg:translate-y-24">
-            <div className="hero-portrait relative aspect-4/5 w-[min(100vw,45rem)] max-w-210 sm:w-[min(100vw,50rem)] md:w-[min(100vw,52.5rem)]">
+        <div className="hero-stage-inner pointer-events-auto relative z-10 flex w-full flex-1 flex-col justify-end pr-0 pt-16 pl-6 pb-[max(0px,env(safe-area-inset-bottom))] md:pl-10 md:pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+          <div className="flex w-full translate-y-12 justify-end md:translate-y-20 lg:translate-y-24">
+            <div className="hero-portrait relative aspect-4/5 w-[min(100%,45rem)] max-w-210 sm:w-[min(100%,50rem)] md:w-[min(100%,52.5rem)]">
               <div className="hero-portrait-reveal absolute inset-0 opacity-0">
                 <div className="hero-portrait-scroll-zoom absolute inset-0 will-change-transform">
                   <Image
@@ -325,7 +330,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </nav>
         </div>
 
-        <div className="hero-tagline-shift pointer-events-none absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] right-10 z-30 flex w-max max-w-[calc(100vw-1.25rem)] shrink-0 flex-col gap-y-1 pr-[max(0.25rem,env(safe-area-inset-right))] md:bottom-[max(3.5rem,env(safe-area-inset-bottom))] md:right-12 md:gap-y-1.5 md:pr-[max(0.5rem,env(safe-area-inset-right))] lg:bottom-[max(4.5rem,env(safe-area-inset-bottom))] lg:right-16 lg:pr-[max(0.75rem,env(safe-area-inset-right))]">
+        <div className="hero-tagline-shift pointer-events-none absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] right-10 z-30 flex w-max max-w-[calc(100%-1.25rem)] shrink-0 flex-col gap-y-1 pr-[max(0.25rem,env(safe-area-inset-right))] md:bottom-[max(3.5rem,env(safe-area-inset-bottom))] md:right-12 md:gap-y-1.5 md:pr-[max(0.5rem,env(safe-area-inset-right))] lg:bottom-[max(4.5rem,env(safe-area-inset-bottom))] lg:right-16 lg:pr-[max(0.75rem,env(safe-area-inset-right))]">
           <p className="hero-tagline font-anton flex flex-col gap-y-1 text-center text-2xl font-semibold leading-[1.08] tracking-[0.14em] text-[#e60000] [text-shadow:0.01em_0_0_currentColor,-0.01em_0_0_currentColor] drop-shadow-[0_2px_8px_rgba(0,0,0,0.38)] md:text-3xl md:tracking-[0.18em] lg:text-4xl lg:tracking-[0.2em] xl:text-5xl 2xl:text-6xl">
             <span className="block w-full text-center">Turning</span>
             <span className="block w-full text-center">Coffee</span>
@@ -334,6 +339,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
             </span>
             <span className="block w-full text-center">Code</span>
           </p>
+        </div>
         </div>
       </div>
     </section>
