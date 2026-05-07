@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Timeline — Your Name",
+  title: "Portfolio",
   description:
-    "Interactive career timeline with GSAP scroll animations. Built with Next.js.",
+    "Portfolio with GSAP scroll-driven motion. Built with Next.js.",
 };
 
 export default function RootLayout({

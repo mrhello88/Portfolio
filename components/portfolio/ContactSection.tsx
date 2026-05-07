@@ -9,9 +9,8 @@ export default function ContactSection() {
           Contact
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-[var(--muted)]">
-          Same scroll timeline brings this section in — tweak times in{" "}
-          <span className="font-mono text-[var(--foreground)]">scrollTl</span>{" "}
-          to re-order.
+          Open to collaborations and product-minded teams — say hello with a
+          short note about what you are building.
         </p>
         <a
           href="mailto:you@example.com"

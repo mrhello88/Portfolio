@@ -188,7 +188,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                 {HERO_INTRO_LINE_2}
               </span>
             </p>
-            <p className="inline-flex max-w-[min(100%,46rem)] origin-bottom-left scale-x-[1.095] scale-y-[1.28] flex-col items-start gap-0 text-left font-sans uppercase text-[clamp(2.5rem,11.5vw,8.25rem)] font-black leading-none tracking-[0.06em] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)] sm:max-w-5xl sm:scale-x-[1.12] sm:scale-y-[1.36] sm:tracking-[0.09em] md:max-w-6xl md:scale-x-[1.15] md:scale-y-[1.44] md:tracking-[0.11em] lg:max-w-7xl lg:scale-x-[1.18] lg:scale-y-[1.52] lg:tracking-[0.13em] xl:max-w-[min(100%,88rem)] [&>span+span]:-mt-[0.18em] sm:[&>span+span]:-mt-[0.22em] md:[&>span+span]:-mt-[0.26em] lg:[&>span+span]:-mt-[0.12em]">
+            <p className="inline-flex max-w-[min(100%,46rem)] origin-bottom-left scale-x-[1.095] scale-y-[1.28] flex-col items-start gap-0 text-left font-sans uppercase text-[clamp(2.5rem,11.5vw,8.25rem)] font-black leading-none tracking-[0.03em] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)] sm:max-w-5xl sm:scale-x-[1.12] sm:scale-y-[1.36] sm:tracking-[0.045em] md:max-w-6xl md:scale-x-[1.15] md:scale-y-[1.44] md:tracking-[0.06em] lg:max-w-7xl lg:scale-x-[1.18] lg:scale-y-[1.52] lg:tracking-[0.075em] xl:max-w-[min(100%,88rem)] [&>span+span]:-mt-[0.18em] sm:[&>span+span]:-mt-[0.22em] md:[&>span+span]:-mt-[0.26em] lg:[&>span+span]:-mt-[0.12em]">
               <span className="block leading-[0.92] text-white">
                 {HERO_CENTER_LINE_1}
               </span>

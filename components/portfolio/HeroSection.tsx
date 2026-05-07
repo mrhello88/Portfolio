@@ -150,12 +150,12 @@ const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) {
           <code className="rounded bg-(--surface) px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
             gsap.timeline
           </code>{" "}
-          tied to scroll: journey, line, and contact all sequenced together.
+          tied to scroll: work section, and contact all sequenced together.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <a
-            href="#journey"
+            href="#work"
             className="hero-cta inline-flex h-11 items-center justify-center rounded-lg bg-(--accent) px-6 text-sm font-medium text-white transition-colors hover:bg-(--accent-hover) dark:text-stone-950"
           >
             Scroll the story

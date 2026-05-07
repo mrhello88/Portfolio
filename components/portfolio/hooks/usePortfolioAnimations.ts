@@ -8,14 +8,12 @@ export function usePortfolioAnimations(
   rootRef: RefObject<HTMLDivElement | null>,
   mainRef: RefObject<HTMLElement | null>,
   heroRef: RefObject<HTMLElement | null>,
-  lineFillRef: RefObject<HTMLDivElement | null>,
 ) {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const root = rootRef.current;
     const main = mainRef.current;
-    const lineFill = lineFillRef.current;
     if (!root || !main) return;
 
     const reduceMotion = window.matchMedia(
@@ -36,13 +34,15 @@ export function usePortfolioAnimations(
         );
         gsap.set(".site-header", { y: 0, opacity: 1 });
         gsap.set(".nav-link", { opacity: 1, y: 0 });
-        gsap.set(".timeline-node", { opacity: 1, y: 0 });
-        gsap.set(".journey-head, .journey-lede, .contact-block", {
+        gsap.set(".brand-logos-head, .brand-marquee-wrap", {
           opacity: 1,
           y: 0,
         });
+        gsap.set(
+          ".work-section-head, .work-section-title, .work-section-lede, .contact-block",
+          { opacity: 1, y: 0 },
+        );
         gsap.set(".footer-line", { scaleX: 1 });
-        if (lineFill) gsap.set(lineFill, { scaleY: 1 });
         return;
       }
 
@@ -63,6 +63,8 @@ export function usePortfolioAnimations(
       );
       gsap.set(".site-header", { y: -16, opacity: 0 });
       gsap.set(".nav-link", { opacity: 0, y: -6 });
+      gsap.set(".brand-logos-head", { opacity: 0, y: 24 });
+      gsap.set(".brand-marquee-wrap", { opacity: 0, y: 22 });
 
       const introTl = gsap.timeline({
         defaults: { ease: "power3.out" },
@@ -104,16 +106,14 @@ export function usePortfolioAnimations(
           0.22,
         );
 
-      gsap.set(".timeline-node", { opacity: 0, y: 56 });
-      gsap.set(".journey-head, .journey-lede", { opacity: 0, y: 28 });
+      gsap.set(".work-section-head", { opacity: 0, y: 28 });
+      gsap.set(".work-section-title", { opacity: 0, y: 40 });
+      gsap.set(".work-section-lede", { opacity: 0, y: 28 });
       gsap.set(".contact-block", { opacity: 0, y: 40 });
       gsap.set(".footer-line", {
         scaleX: 0,
         transformOrigin: "center center",
       });
-      if (lineFill) {
-        gsap.set(lineFill, { scaleY: 0, transformOrigin: "top center" });
-      }
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
@@ -181,51 +181,47 @@ export function usePortfolioAnimations(
       }
 
       scrollTl.to(
-        ".journey-head",
+        ".brand-logos-head",
+        { opacity: 1, y: 0, duration: 0.09, ease: "power2.out" },
+        0.06,
+      );
+      scrollTl.to(
+        ".brand-marquee-wrap",
         { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
         0.08,
       );
-      scrollTl.to(
-        ".journey-lede",
-        { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" },
-        0.11,
-      );
 
       scrollTl.to(
-        ".timeline-node",
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.22,
-          stagger: 0.07,
-          ease: "power2.out",
-        },
-        0.14,
+        ".work-section-head",
+        { opacity: 1, y: 0, duration: 0.11, ease: "power2.out" },
+        0.16,
       );
-
-      if (lineFill) {
-        scrollTl.to(
-          lineFill,
-          { scaleY: 1, ease: "none", duration: 0.38 },
-          0.12,
-        );
-      }
+      scrollTl.to(
+        ".work-section-title",
+        { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
+        0.2,
+      );
+      scrollTl.to(
+        ".work-section-lede",
+        { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+        0.24,
+      );
 
       scrollTl.to(
         ".contact-block",
         { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" },
-        0.62,
+        0.58,
       );
 
       scrollTl.to(
         ".footer-line",
         { scaleX: 1, duration: 0.14, ease: "power2.out" },
-        0.78,
+        0.74,
       );
     }, root);
 
     return () => {
       ctx.revert();
     };
-  }, [rootRef, mainRef, heroRef, lineFillRef]);
+  }, [rootRef, mainRef, heroRef]);
 }

@@ -1,6 +1,4 @@
 export {
-  timelineMilestones,
-  type TimelineMilestone,
   SITE_NAV,
   heroWordsPrimary,
   heroWordsAccent,
