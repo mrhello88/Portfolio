@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useCallback, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import { LAYOUT_MAX_WIDTH_CLASS } from "./data";
 
 type BrandLogo = {
   name: string;
@@ -122,14 +121,6 @@ export default function BrandLogosSection() {
       id="brands"
       className="relative w-full overflow-x-hidden border-t border-white/10 bg-black py-14 md:py-18"
     >
-      <div
-        className={`mx-auto w-full ${LAYOUT_MAX_WIDTH_CLASS} px-6 sm:px-8 md:px-10 lg:px-12`}
-      >
-        <p className="brand-logos-head text-center font-mono text-xs uppercase tracking-[0.24em] text-white/60 sm:text-sm">
-          Trusted by global teams
-        </p>
-      </div>
-
       <div className="relative left-1/2 mt-8 w-screen max-w-[100vw] -translate-x-1/2">
         <div
           className="brand-marquee-wrap cursor-pointer overflow-hidden py-2"
