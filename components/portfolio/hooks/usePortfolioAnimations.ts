@@ -39,7 +39,7 @@ export function usePortfolioAnimations(
           y: 0,
         });
         gsap.set(
-          ".work-section-head, .work-section-title, .work-section-lede, .contact-block",
+          ".work-section-head, .work-section-title, .work-section-lede, .projects-section-head, .projects-section-grid, .contact-block",
           { opacity: 1, y: 0 },
         );
         gsap.set(".footer-line", { scaleX: 1 });
@@ -109,6 +109,8 @@ export function usePortfolioAnimations(
       gsap.set(".work-section-head", { opacity: 0, y: 28 });
       gsap.set(".work-section-title", { opacity: 0, y: 40 });
       gsap.set(".work-section-lede", { opacity: 0, y: 28 });
+      gsap.set(".projects-section-head", { opacity: 0, y: 28 });
+      gsap.set(".projects-section-grid", { opacity: 0, y: 36 });
       gsap.set(".contact-block", { opacity: 0, y: 40 });
       gsap.set(".footer-line", {
         scaleX: 0,
@@ -208,15 +210,26 @@ export function usePortfolioAnimations(
       );
 
       scrollTl.to(
+        ".projects-section-head",
+        { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+        0.3,
+      );
+      scrollTl.to(
+        ".projects-section-grid",
+        { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
+        0.34,
+      );
+
+      scrollTl.to(
         ".contact-block",
         { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" },
-        0.58,
+        0.54,
       );
 
       scrollTl.to(
         ".footer-line",
         { scaleX: 1, duration: 0.14, ease: "power2.out" },
-        0.74,
+        0.7,
       );
     }, root);
 

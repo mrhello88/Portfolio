@@ -3,7 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Code2 } from "lucide-react";
-import { LAYOUT_MAX_WIDTH_CLASS } from "./data";
+import {
+  IMPACT_SECTION_RAIL_CLASS,
+  SECTION_EYEBROW_CLASS,
+  SECTION_EYEBROW_TO_CONTENT_CLASS,
+} from "./data";
 
 const ACCENT = "#e60000";
 
@@ -79,22 +83,24 @@ export default function WorkSection() {
       </div>
 
       <div
-        className={`impact-section-rail relative z-20 mx-auto flex w-full flex-col items-center ${LAYOUT_MAX_WIDTH_CLASS} px-6 pb-0 pt-10 sm:px-8 md:px-10 lg:px-12`}
+        className={IMPACT_SECTION_RAIL_CLASS}
       >
         <div className="work-section-head mx-auto w-full max-w-5xl text-left">
-          <p
-            className="font-mono text-sm font-medium tracking-[0.12em] md:text-base"
-            style={{ color: ACCENT }}
-          >
+          <p className={SECTION_EYEBROW_CLASS} style={{ color: ACCENT }}>
             {"// Skills"}
           </p>
         </div>
 
-        <div className="work-section-title mx-auto mt-10 grid w-full max-w-5xl items-start gap-12 md:mt-14 md:grid-cols-2 md:gap-16 lg:gap-20">
+        <div
+          className={`work-section-title mx-auto grid w-full max-w-5xl items-start gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 ${SECTION_EYEBROW_TO_CONTENT_CLASS}`}
+        >
           <div className="text-left">
             <ul className="space-y-0">
               {SKILL_GROUPS.map((group) => (
-                <li key={group.title} className="border-b border-white/10 py-6 first:pt-0">
+                <li
+                  key={group.title}
+                  className="border-b border-white/10 py-6 first:pt-0"
+                >
                   <div className="flex items-start justify-between gap-4">
                     <span className="font-sans text-base font-semibold text-white md:text-lg">
                       {group.title}
@@ -116,7 +122,8 @@ export default function WorkSection() {
           <div className="flex flex-col justify-start text-left md:pl-2">
             <p className="font-sans text-base leading-relaxed text-white/90 md:text-lg">
               I build fast, accessible interfaces and solid backends focused on
-              clarity, performance, and shipping work that holds up in production.
+              clarity, performance, and shipping work that holds up in
+              production.
             </p>
             <Link
               href="/resume.pdf"
@@ -127,7 +134,7 @@ export default function WorkSection() {
           </div>
         </div>
 
-        <div className="work-section-lede mx-auto mt-16 grid w-full max-w-5xl grid-cols-1 gap-10 border-t border-white/10 pt-14 sm:grid-cols-3 sm:gap-8 md:mt-20 md:pt-16">
+        <div className="work-section-lede mx-auto mt-16 grid w-full max-w-5xl grid-cols-1 gap-10 pt-14 sm:grid-cols-3 sm:gap-8 md:mt-20 md:pt-16">
           {STATS.map((s) => (
             <div
               key={s.label}
@@ -146,7 +153,6 @@ export default function WorkSection() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

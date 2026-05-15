@@ -8,6 +8,7 @@ import HeroSectionV2 from "./HeroSectionV2";
 import BrandLogosSection from "./BrandLogosSection";
 import { LAYOUT_MAX_WIDTH_CLASS } from "./data";
 import WorkSection from "./WorkSection";
+import ProjectsSection from "./ProjectsSection";
 import ContactSection from "./ContactSection";
 import SiteFooter from "./SiteFooter";
 
@@ -26,6 +27,7 @@ export default function PortfolioHome() {
         <div className={`mx-auto w-full ${LAYOUT_MAX_WIDTH_CLASS}`}>
           <BrandLogosSection />
           <WorkSection />
+          <ProjectsSection />
           <ContactSection />
           <SiteFooter />
         </div>
