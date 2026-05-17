@@ -15,7 +15,8 @@ export const LAYOUT_HERO_MIN_HEIGHT_CLASS = "min-h-[min(100svh,1280px)]";
 export const SITE_NAV = [
   { href: "#work", label: "Work" },
   { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "#services", label: "Services" },
+  { href: "#testimonials", label: "Testimonials" },
 ] as const;
 
 export const heroWordsPrimary = ["Career", "&", "work,"];

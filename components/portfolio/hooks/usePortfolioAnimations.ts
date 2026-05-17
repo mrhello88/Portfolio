@@ -39,7 +39,7 @@ export function usePortfolioAnimations(
           y: 0,
         });
         gsap.set(
-          ".work-section-head, .work-section-title, .work-section-lede, .projects-section-head, .projects-section-grid, .contact-block",
+          ".work-section-head, .work-section-title, .work-section-lede, .projects-section-head, .projects-section-grid, .services-section-head, .services-section-body, .testimonials-section-head, .testimonials-section-body",
           { opacity: 1, y: 0 },
         );
         gsap.set(".footer-line", { scaleX: 1 });
@@ -111,7 +111,10 @@ export function usePortfolioAnimations(
       gsap.set(".work-section-lede", { opacity: 0, y: 28 });
       gsap.set(".projects-section-head", { opacity: 0, y: 28 });
       gsap.set(".projects-section-grid", { opacity: 0, y: 36 });
-      gsap.set(".contact-block", { opacity: 0, y: 40 });
+      gsap.set(".services-section-head", { opacity: 0, y: 28 });
+      gsap.set(".services-section-body", { opacity: 0, y: 36 });
+      gsap.set(".testimonials-section-head", { opacity: 0, y: 28 });
+      gsap.set(".testimonials-section-body", { opacity: 0, y: 36 });
       gsap.set(".footer-line", {
         scaleX: 0,
         transformOrigin: "center center",
@@ -221,9 +224,25 @@ export function usePortfolioAnimations(
       );
 
       scrollTl.to(
-        ".contact-block",
-        { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" },
-        0.54,
+        ".services-section-head",
+        { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+        0.42,
+      );
+      scrollTl.to(
+        ".services-section-body",
+        { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
+        0.48,
+      );
+
+      scrollTl.to(
+        ".testimonials-section-head",
+        { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+        0.56,
+      );
+      scrollTl.to(
+        ".testimonials-section-body",
+        { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
+        0.62,
       );
 
       scrollTl.to(

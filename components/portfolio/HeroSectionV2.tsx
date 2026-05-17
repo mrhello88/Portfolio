@@ -268,7 +268,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
             </ul>
             <div className="h-px w-full bg-white/12" aria-hidden />
             <Link
-              href="/#contact"
+              href="/#services"
               className="mt-3 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] md:mt-4 md:text-[0.9375rem]"
             >
               How can I help?

@@ -9,7 +9,8 @@ import BrandLogosSection from "./BrandLogosSection";
 import { LAYOUT_MAX_WIDTH_CLASS } from "./data";
 import WorkSection from "./WorkSection";
 import ProjectsSection from "./ProjectsSection";
-import ContactSection from "./ContactSection";
+import ServicesSection from "./ServicesSection";
+import TestimonialsSection from "./TestimonialsSection";
 import SiteFooter from "./SiteFooter";
 
 export default function PortfolioHome() {
@@ -28,7 +29,8 @@ export default function PortfolioHome() {
           <BrandLogosSection />
           <WorkSection />
           <ProjectsSection />
-          <ContactSection />
+          <ServicesSection />
+          <TestimonialsSection />
           <SiteFooter />
         </div>
       </main>
