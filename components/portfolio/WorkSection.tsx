@@ -43,7 +43,7 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="relative w-full min-h-[88vh] border-t border-white/10 bg-black pt-20 pb-0 md:min-h-[102vh] md:pt-28 md:pb-0 lg:pt-36 lg:pb-0"
+      className="relative w-full min-h-[88vh] overflow-x-clip border-t border-white/10 bg-black pt-20 pb-0 md:min-h-[102vh] md:pt-28 md:pb-0 lg:pt-36 lg:pb-0"
     >
       <div
         aria-label={`${WORK_SIDE_TOP}. ${WORK_SIDE_VERTICAL}.`}
@@ -68,7 +68,7 @@ export default function WorkSection() {
 
       <div
         aria-hidden
-        className="work-section-preview pointer-events-none absolute right-0 -bottom-4 z-10 w-full max-w-4xl translate-x-2 sm:translate-x-4 md:-bottom-6 md:max-w-5xl md:translate-x-6 lg:bottom-0 lg:max-w-6xl lg:translate-x-8 xl:max-w-7xl 2xl:max-w-[min(92rem,96vw)] 2xl:translate-x-10"
+        className="work-section-preview pointer-events-none absolute right-0 -bottom-4 z-10 w-[min(100%,42rem)] max-w-[calc(100vw-1.5rem)] sm:w-[min(100%,48rem)] md:-bottom-6 md:w-[min(100%,52rem)] lg:bottom-0 lg:w-[min(100%,58rem)] xl:w-[min(100%,64rem)] 2xl:w-[min(100%,72rem)]"
       >
         <Image
           src="/about-us-page.png"

@@ -4,10 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { forwardRef, useLayoutEffect, useRef } from "react";
-import {
-  LAYOUT_HERO_MIN_HEIGHT_CLASS,
-  LAYOUT_MAX_WIDTH_CLASS,
-} from "./data";
+import { LAYOUT_MAX_WIDTH_CLASS } from "./data";
 
 type ParallaxFrameFn = () => void;
 
@@ -56,10 +53,7 @@ const HERO_NAME = `${HERO_NAME_ABUBAKR}${HERO_NAME_SIDDIQI}`;
 const HERO_NAME_RED_END_INDEX = HERO_NAME_ABUBAKR.length;
 
 const heroVerticalLetterClass =
-  "font-sans block w-full origin-center scale-y-[1.05] select-none text-center text-2xl font-bold uppercase leading-none tracking-tight antialiased sm:scale-y-[1.06] md:scale-y-[1.07] md:text-3xl lg:scale-y-[1.08] lg:text-4xl xl:text-5xl [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]";
-
-/** Extra scroll distance while hero stays in view (sticky inner); delays next section. */
-const HERO_SCROLL_RUNWAY = "min-h-[220vh]";
+  "font-sans block w-full origin-center scale-y-[1.05] select-none text-center font-bold uppercase leading-none tracking-tight antialiased text-(length:--hero-side-letter) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]";
 
 const HERO_INTRO_LINE_2 = "abubakr siddiqi";
 
@@ -126,7 +120,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
         const h = Math.max(rect.height, 1);
         const nx = (cx - rect.left) / w - 0.5;
         const ny = (cy - rect.top) / h - 0.5;
-        const m = HERO_BG_MOUSE_MAX_PX;
+        const m = Math.min(HERO_BG_MOUSE_MAX_PX, rect.width * 0.012);
         mouseTargetRef.current = { x: nx * 2 * m, y: ny * 2 * m };
       }
       kickParallax();
@@ -139,11 +133,11 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
   return (
     <section
       ref={ref}
-      className={`hero-section relative w-full ${HERO_SCROLL_RUNWAY}`}
+      className="hero-section relative w-full min-h-(--hero-scroll-runway)"
     >
       <div
         ref={heroStageRef}
-        className={`hero-stage-sticky sticky top-0 z-0 flex w-full flex-col items-stretch overflow-hidden ${LAYOUT_HERO_MIN_HEIGHT_CLASS}`}
+        className="hero-stage-sticky sticky top-0 z-0 flex w-full min-h-(--hero-stage-min-h) flex-col items-stretch overflow-hidden"
       >
         <div
           className="hero-bg-wrap pointer-events-none absolute inset-0 z-0 overflow-hidden"
@@ -171,42 +165,64 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
         </div>
 
         <div
-          className={`hero-layout-rail relative z-10 mx-auto flex w-full flex-col items-stretch ${LAYOUT_HERO_MIN_HEIGHT_CLASS} ${LAYOUT_MAX_WIDTH_CLASS}`}
+          className={`hero-layout-rail relative z-10 mx-auto flex w-full min-h-(--hero-stage-min-h) flex-col items-stretch ${LAYOUT_MAX_WIDTH_CLASS}`}
         >
         <div
           aria-hidden
-          className="pointer-events-none absolute top-[35%] right-[max(3rem,env(safe-area-inset-right))] z-5 h-[min(60vh,30rem)] w-11 -translate-y-1/2 border-4 border-[#e60000] bg-transparent md:top-[32%] md:right-[max(4rem,env(safe-area-inset-right))] md:h-[min(64vh,34rem)] md:w-14 lg:top-[30%] lg:right-[max(5rem,env(safe-area-inset-right))] lg:h-[min(68vh,38rem)]"
+          className="pointer-events-none absolute top-(--hero-frame-top) right-(--hero-frame-right) z-5 h-(--hero-frame-h) w-(--hero-frame-w) -translate-y-1/2 border-solid border-[#e60000] bg-transparent"
+          style={{ borderWidth: "var(--hero-frame-border)" }}
         />
 
-        <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pb-[max(9rem,calc(env(safe-area-inset-bottom)+12rem))] pl-[max(0.5rem,calc(env(safe-area-inset-left)+10.85rem))] pr-4 pt-24 sm:pb-[max(9.5rem,calc(env(safe-area-inset-bottom)+13rem))] sm:pl-[max(0.5rem,calc(env(safe-area-inset-left)+11.65rem))] md:pb-[max(10rem,calc(env(safe-area-inset-bottom)+14rem))] md:pl-[max(1rem,calc(env(safe-area-inset-left)+13.15rem))] md:pr-8 lg:pb-[max(10.5rem,calc(env(safe-area-inset-bottom)+15rem))] lg:pl-[max(1.25rem,calc(env(safe-area-inset-left)+14.5rem))]">
-          <div className="inline-flex flex-col items-start">
-            <p className="pointer-events-auto max-w-[min(100%,46rem)] cursor-text -translate-y-22 -translate-x-0.5 select-text text-left font-sans text-base font-normal leading-snug tracking-normal sm:-translate-y-27 sm:translate-x-0 sm:text-lg md:-translate-y-36 md:translate-x-1 md:text-xl lg:-translate-y-45 lg:translate-x-2 lg:text-2xl">
+        <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pt-(--hero-headline-pt) pr-(--hero-headline-pr) pb-(--hero-headline-pb) pl-(--hero-headline-pl)">
+          <div className="hero-headline-stack inline-flex max-w-(--hero-headline-max-w) flex-col items-start">
+            <p className="hero-intro pointer-events-auto max-w-(--hero-headline-max-w) cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
               <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                 Hi there<span className="text-[#e60000]">!</span> this is
               </span>
-              <span className="mt-0.5 block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)] sm:mt-1">
+              <span className="mt-0.5 block font-semibold capitalize text-[#e60000] sm:mt-1 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                 {HERO_INTRO_LINE_2}
               </span>
             </p>
-            <p className="inline-flex max-w-[min(100%,46rem)] origin-bottom-left scale-x-[1.095] scale-y-[1.28] flex-col items-start gap-0 text-left font-sans uppercase text-[clamp(2.5rem,11.5vw,8.25rem)] font-black leading-none tracking-[0.03em] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)] sm:max-w-5xl sm:scale-x-[1.12] sm:scale-y-[1.36] sm:tracking-[0.045em] md:max-w-6xl md:scale-x-[1.15] md:scale-y-[1.44] md:tracking-[0.06em] lg:max-w-7xl lg:scale-x-[1.18] lg:scale-y-[1.52] lg:tracking-[0.075em] xl:max-w-[min(100%,88rem)] [&>span+span]:-mt-[0.18em] sm:[&>span+span]:-mt-[0.22em] md:[&>span+span]:-mt-[0.26em] lg:[&>span+span]:-mt-[0.12em]">
-              <span className="block leading-[0.92] text-white">
+            <p className="hero-headline-display inline-flex max-w-(--hero-headline-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+              <span className="hero-headline-line text-white">
                 {HERO_CENTER_LINE_1}
               </span>
-              <span className="block leading-[0.92] text-white">
+              <span className="hero-headline-line text-white">
                 {HERO_CENTER_LINE_2}
               </span>
-              <span className="block leading-[0.92] text-[#e60000]">
+              <span className="hero-headline-line text-[#e60000]">
                 {HERO_CENTER_LINE_3}
               </span>
             </p>
+
+            <div className="hero-services-panel pointer-events-auto w-full max-w-[min(100%,15.5rem)] text-left">
+              <div className="h-px w-full bg-white/12" aria-hidden />
+              <ul className="space-y-[0.35em] py-[0.85em] font-sans font-medium leading-tight text-white/50 text-(length:--hero-services-text)">
+                <li>Website Design</li>
+                <li>Product Design</li>
+                <li>Branding & Strategy</li>
+              </ul>
+              <div className="h-px w-full bg-white/12" aria-hidden />
+              <Link
+                href="/#services"
+                className="mt-[0.75em] inline-flex items-center gap-[0.4em] font-sans font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] text-(length:--hero-services-text)"
+              >
+                How can I help?
+                <ArrowUpRight
+                  className="size-[0.95em] shrink-0 text-[#e60000]"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+              </Link>
+            </div>
           </div>
         </div>
 
         <div
           aria-label={`${HERO_NAME}. ${HERO_VERTICAL_LABEL}`}
-          className="hero-side-labels pointer-events-none absolute inset-y-0 left-2 z-20 flex h-full min-h-0 flex-row items-stretch gap-2 pt-[max(4.5rem,env(safe-area-inset-top))] pb-[max(4.5rem,env(safe-area-inset-bottom))] md:left-6 md:gap-3 md:pt-[max(5.5rem,env(safe-area-inset-top))] md:pb-[max(5.5rem,env(safe-area-inset-bottom))]"
+          className="hero-side-labels pointer-events-none absolute inset-y-0 left-(--hero-side-inset-x) z-20 flex h-full min-h-0 flex-row items-stretch gap-(--hero-side-gap) pt-[max(env(safe-area-inset-top),var(--hero-side-pad-top))] pb-[max(env(safe-area-inset-bottom),var(--hero-side-pad-bottom))]"
         >
-          <div className="flex min-h-0 min-w-11 flex-col items-stretch justify-between px-1 md:min-w-13 md:px-1.5 lg:min-w-15 lg:px-2">
+          <div className="hero-side-col hero-side-col--name flex min-h-0 min-w-(--hero-side-col-w) flex-col items-stretch justify-between">
             {HERO_NAME.split("").map((ch, i) => (
               <span
                 key={`hero-name-${i}`}
@@ -220,10 +236,10 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </div>
           <div
             aria-hidden
-            className="w-1 shrink-0 self-stretch rounded-full"
+            className="w-(--hero-side-divider-w) shrink-0 self-stretch rounded-full"
             style={{ backgroundColor: HERO_LABEL_COLOR_DEVELOPER }}
           />
-          <div className="flex min-h-0 min-w-13 flex-col items-stretch justify-between px-1.5 md:min-w-17 md:px-2.5 lg:min-w-19 lg:px-3">
+          <div className="hero-side-col hero-side-col--role flex min-h-0 min-w-[calc(var(--hero-side-col-w)*1.15)] flex-col items-stretch justify-between">
             {HERO_VERTICAL_LABEL.split("").map((ch, i) => (
               <span
                 key={`hero-v-${i}`}
@@ -239,9 +255,9 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </div>
         </div>
 
-        <div className="hero-stage-inner pointer-events-auto relative z-10 flex w-full flex-1 flex-col justify-end pr-0 pt-16 pl-6 pb-[max(0px,env(safe-area-inset-bottom))] md:pl-10 md:pb-[max(0.25rem,env(safe-area-inset-bottom))]">
-          <div className="flex w-full translate-y-12 justify-end md:translate-y-20 lg:translate-y-24">
-            <div className="hero-portrait relative aspect-4/5 w-[min(100%,45rem)] max-w-210 sm:w-[min(100%,50rem)] md:w-[min(100%,52.5rem)]">
+        <div className="hero-stage-inner pointer-events-auto relative z-10 flex w-full flex-1 flex-col justify-end overflow-hidden pr-0 pt-(--hero-stage-pt) pl-(--hero-stage-pl) pb-[max(0px,env(safe-area-inset-bottom))]">
+          <div className="hero-portrait-row flex w-full justify-end overflow-hidden">
+            <div className="hero-portrait relative aspect-4/5 w-(--hero-portrait-w) overflow-hidden">
               <div className="hero-portrait-reveal absolute inset-0 opacity-0">
                 <div className="hero-portrait-scroll-zoom absolute inset-0 will-change-transform">
                   <Image
@@ -258,33 +274,12 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </div>
         </div>
 
-        <div className="hero-bottom-stack pointer-events-none absolute bottom-[max(2.25rem,env(safe-area-inset-bottom))] left-0 right-0 z-25 flex flex-col items-center gap-5 px-4 md:gap-6">
-          <div className="hero-services-panel pointer-events-auto w-full max-w-62 -translate-x-3 text-left md:-translate-x-6 lg:-translate-x-228">
-            <div className="h-px w-full bg-white/12" aria-hidden />
-            <ul className="space-y-0.5 py-2.5 font-sans text-[0.9375rem] font-medium leading-tight text-white/50 md:space-y-1 md:py-3 md:text-[0.97rem]">
-              <li>Website Design</li>
-              <li>Product Design</li>
-              <li>Branding & Strategy</li>
-            </ul>
-            <div className="h-px w-full bg-white/12" aria-hidden />
-            <Link
-              href="/#services"
-              className="mt-3 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] md:mt-4 md:text-[0.9375rem]"
-            >
-              How can I help?
-              <ArrowUpRight
-                className="size-3.5 shrink-0 text-[#e60000] md:size-4"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </Link>
-          </div>
-
+        <div className="hero-bottom-stack pointer-events-none absolute bottom-(--hero-bottom-inset) left-0 right-0 z-25 flex flex-col items-center gap-(--hero-bottom-gap) px-[clamp(1rem,3vw,1.5rem)]">
           <nav
             aria-label="Social profiles"
-            className="pointer-events-auto flex items-center justify-center gap-6 md:gap-8"
+            className="pointer-events-auto flex items-center justify-center gap-(--hero-social-gap)"
           >
-            <ul className="flex items-center gap-6 md:gap-8">
+            <ul className="flex items-center gap-(--hero-social-gap)">
               <li>
                 <a
                   href={heroSocialLinks.linkedin}
@@ -293,7 +288,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   className={iconLinkClass}
                 >
                   <Linkedin
-                    className="size-7 md:size-8"
+                    className="size-(--hero-social-size)"
                     strokeWidth={1.85}
                     aria-hidden
                   />
@@ -307,7 +302,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   rel="noopener noreferrer"
                   className={iconLinkClass}
                 >
-                  <FiverrIcon className="size-7 md:size-8" />
+                  <FiverrIcon className="size-(--hero-social-size)" />
                   <span className="sr-only">Fiverr</span>
                 </a>
               </li>
@@ -319,7 +314,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   className={iconLinkClass}
                 >
                   <Github
-                    className="size-7 md:size-8"
+                    className="size-(--hero-social-size)"
                     strokeWidth={1.85}
                     aria-hidden
                   />
@@ -330,11 +325,11 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           </nav>
         </div>
 
-        <div className="hero-tagline-shift pointer-events-none absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] right-10 z-30 flex w-max max-w-[calc(100%-1.25rem)] shrink-0 flex-col gap-y-1 pr-[max(0.25rem,env(safe-area-inset-right))] md:bottom-[max(3.5rem,env(safe-area-inset-bottom))] md:right-12 md:gap-y-1.5 md:pr-[max(0.5rem,env(safe-area-inset-right))] lg:bottom-[max(4.5rem,env(safe-area-inset-bottom))] lg:right-16 lg:pr-[max(0.75rem,env(safe-area-inset-right))]">
-          <p className="hero-tagline font-anton flex flex-col gap-y-1 text-center text-2xl font-semibold leading-[1.08] tracking-[0.14em] text-[#e60000] [text-shadow:0.01em_0_0_currentColor,-0.01em_0_0_currentColor] drop-shadow-[0_2px_8px_rgba(0,0,0,0.38)] md:text-3xl md:tracking-[0.18em] lg:text-4xl lg:tracking-[0.2em] xl:text-5xl 2xl:text-6xl">
+        <div className="hero-tagline-shift pointer-events-none absolute bottom-(--hero-tagline-bottom) right-(--hero-tagline-right) z-30 flex w-max max-w-[calc(100%-2rem)] shrink-0 flex-col gap-y-(--hero-tagline-gap)">
+          <p className="hero-tagline font-anton flex flex-col gap-y-(--hero-tagline-gap) text-center font-semibold leading-[1.08] text-[#e60000] text-(length:--hero-tagline-size) tracking-(--hero-tagline-tracking) [text-shadow:0.01em_0_0_currentColor,-0.01em_0_0_currentColor] drop-shadow-[0_2px_8px_rgba(0,0,0,0.38)]">
             <span className="block w-full text-center">Turning</span>
             <span className="block w-full text-center">Coffee</span>
-            <span className="block w-full text-center text-[0.62em] tracking-widest md:text-[0.65em] md:tracking-[0.12em] lg:text-[0.68em] lg:tracking-[0.14em]">
+            <span className="block w-full text-center text-[0.62em] tracking-[0.14em]">
               Into
             </span>
             <span className="block w-full text-center">Code</span>
