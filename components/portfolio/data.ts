@@ -1,4 +1,9 @@
-/** Layout “truth” width (CSS px): content does not grow wider than this on ultra-wide. */
+/** Design canvas (Figma reference): 2560×1440 CSS px. */
+export const DESIGN_VIEWPORT_MAX_WIDTH_PX = 2560;
+export const DESIGN_VIEWPORT_MAX_HEIGHT_PX = 1440;
+export const DESIGN_VIEWPORT_CLASS = "design-viewport";
+
+/** Layout “truth” width — prefer DesignViewportContainer for new sections. */
 export const LAYOUT_MAX_WIDTH_CLASS = "max-w-[2560px]";
 
 /** Shared // Skills / // Projects eyebrow + gap to content below */
@@ -8,9 +13,6 @@ export const SECTION_EYEBROW_CLASS =
 export const SECTION_EYEBROW_TO_CONTENT_CLASS = "mt-4";
 
 export const IMPACT_SECTION_RAIL_CLASS = `impact-section-rail relative z-20 mx-auto flex w-full flex-col items-center ${LAYOUT_MAX_WIDTH_CLASS} px-6 pb-0 pt-10 sm:px-8 md:px-10 lg:px-12`;
-
-/** Hero stage min-height: full viewport until 1280px, then capped (tall monitors). */
-export const LAYOUT_HERO_MIN_HEIGHT_CLASS = "min-h-[min(100svh,1280px)]";
 
 export const SITE_NAV = [
   { href: "#work", label: "Work" },

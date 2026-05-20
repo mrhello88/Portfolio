@@ -41,95 +41,145 @@ body {
   font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
-/* HeroSectionV2 — fluid tokens (clamp/vw/vh); scales continuously with viewport */
-.hero-section {
-  --hero-stage-min-h: min(100dvh, min(100svh, 80rem));
-  --hero-scroll-runway: clamp(150vh, 115vh + 28vw, 220vh);
-
-  --hero-portrait-w: clamp(18.75rem, 54.5vw, 60.5rem);
-  --hero-portrait-shift-x: clamp(0.75rem, 1.5vw, 2rem);
-  --hero-portrait-shift-y: clamp(0.25rem, 2.8vh, 6rem);
-  --hero-stage-pt: clamp(2.5rem, 9vh, 4rem);
-  --hero-stage-pl: clamp(1rem, 3.5vw, 2.5rem);
-
-  --hero-side-letter: clamp(1rem, 2.75vw, 3rem);
-  --hero-side-gap: clamp(0.0625rem, 0.25vw, 0.2rem);
-  --hero-side-inset-x: clamp(0.375rem, 2vw, 1.5rem);
-  --hero-side-pad-top: clamp(3.25rem, 11vh, 5.5rem);
-  --hero-side-pad-bottom: clamp(3rem, 9vh, 5.5rem);
-  --hero-side-col-w: clamp(2.25rem, 5.5vw, 4.75rem);
-  --hero-side-divider-w: clamp(0.125rem, 0.35vw, 0.25rem);
-
-  --hero-headline-pl: max(
-    0.5rem,
-    calc(env(safe-area-inset-left) + clamp(10.85rem, 6vw + 6.5rem, 14.5rem))
-  );
-  --hero-headline-pr: clamp(1rem, 2vw, 2rem);
-  --hero-headline-pt: 6rem;
-  --hero-headline-pb: max(
-    8rem,
-    calc(env(safe-area-inset-bottom) + clamp(10.5rem, 9vh + 7rem, 13.5rem))
-  );
-  --hero-headline-max-w: min(100%, clamp(46rem, 72vw, 88rem));
-  /* Whole stack position (services included) — unchanged across tiers */
-  --hero-headline-stack-shift-y: clamp(3.75rem, 8.5vh, 6.25rem);
-  /* Below 1650: intro + headline only, move up (services stay put) */
-  --hero-intro-headline-lift: 0rem;
-  --hero-headline-lift: 0rem;
-  /* Headline tiers: <1026 | 1026–1081 | 1082+ */
-  --hero-headline-size: 3.5rem;
-  /* Stack gaps + intro lift scale with headline (ratios per tier below) */
-  --hero-stack-gap-scale: 1.08;
-  --hero-intro-gap-ratio: 0.1;
-  --hero-services-gap-ratio: 0.14;
-  --hero-intro-lift-ratio: -0.9;
-  --hero-intro-shift-x: 0.8rem;
-  --hero-headline-scale-x: 1.14;
-  --hero-headline-letter-scale-y: 1.32;
-  --hero-headline-line-overlap: -0.05em;
-  --hero-headline-tracking: clamp(0.03em, 0.02em + 0.05vw, 0.075em);
-
-  --hero-frame-top: clamp(30%, 36% - 1.5vw, 38%);
-  --hero-frame-right: max(clamp(1rem, 3.5vw, 5rem), env(safe-area-inset-right));
-  --hero-frame-h: clamp(14rem, 44vh, 38rem);
-  --hero-frame-w: clamp(2rem, 2.8vw, 3.5rem);
-  --hero-frame-border: clamp(2px, 0.35vw, 4px);
-
-  --hero-bottom-inset: max(
-    env(safe-area-inset-bottom),
-    clamp(1.25rem, 3.5vh, 2.25rem)
-  );
-  --hero-bottom-gap: clamp(1rem, 2.5vh, 1.5rem);
-  --hero-services-shift-x: 0.8rem;
-  --hero-services-text: clamp(0.8125rem, 0.7rem + 0.35vw, 0.97rem);
-
-  --hero-tagline-size: clamp(1.125rem, 0.85rem + 1.8vw, 3.75rem);
-  --hero-tagline-tracking: clamp(0.12em, 0.1em + 0.08vw, 0.2em);
-  --hero-tagline-right: max(
-    clamp(1rem, 4vw, 4rem),
-    env(safe-area-inset-right)
-  );
-  --hero-tagline-bottom: max(
-    env(safe-area-inset-bottom),
-    clamp(1.5rem, 4.5vh, 4.5rem)
-  );
-  --hero-tagline-gap: clamp(0.125rem, 0.8vh, 0.375rem);
-
-  --hero-social-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
-  --hero-social-gap: clamp(1.25rem, 3vw, 2rem);
+/* Shared design canvas — 2560×1440 only (responsive later) */
+.design-viewport {
+  --design-viewport-max-w: 2560px;
+  --design-viewport-max-h: 1440px;
+  --design-viewport-h: min(100dvh, 100svh, var(--design-viewport-max-h));
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  max-width: var(--design-viewport-max-w);
+  height: var(--design-viewport-h);
+  min-height: var(--design-viewport-h);
+  max-height: var(--design-viewport-max-h);
+  margin-inline: auto;
 }
 
-.hero-section .hero-headline-stack {
-  transform: translateY(var(--hero-headline-stack-shift-y));
+/* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */
+.hero-section {
+  --hero-scroll-runway: clamp(150vh, 115vh + 28vw, 220vh);
+
+  --hero-stage-pr: 0px;
+  --hero-portrait-inset-r: 0px;
+  --hero-portrait-object-x: 100%;
+  --hero-portrait-object-y: 100%;
+  --hero-portrait-w: clamp(30rem, min(58vh, 36vw), 76rem);
+  --hero-portrait-shift-x: 0px;
+  --hero-portrait-shift-y: 0px;
+  --hero-stage-pt: 4rem;
+  --hero-stage-pl: 2.5rem;
+
+  --hero-side-letter: 3rem;
+  --hero-side-gap: 0.2rem;
+  --hero-side-inset-x: 1.5rem;
+  --hero-side-pad-top: 5.5rem;
+  --hero-side-pad-bottom: 5.5rem;
+  --hero-side-labels-pt: max(env(safe-area-inset-top), var(--hero-side-pad-top));
+  --hero-side-col-w: 4.75rem;
+  --hero-side-divider-w: 0.25rem;
+
+  --hero-headline-pl: max(0.5rem, calc(env(safe-area-inset-left) + 14.5rem));
+  --hero-headline-pr: 2rem;
+  --hero-headline-pt: 4rem;
+  --hero-headline-pb: max(
+    5.5rem,
+    calc(env(safe-area-inset-bottom) + 6rem)
+  );
+  --hero-headline-max-w: min(100%, 88rem);
+  /* negative = up, positive = down (whole stack: intro + headline + services) */
+  --hero-headline-stack-offset-y: 0.2rem;
+  --hero-headline-pb-effective: calc(
+    var(--hero-headline-pb) - var(--hero-headline-stack-offset-y)
+  );
+  --hero-intro-headline-lift: 0rem;
+  --hero-headline-lift: 0rem;
+  --hero-headline-size: 8.25rem;
+  --hero-stack-gap-scale: 1.1;
+  --hero-intro-font-size: 1.25rem;
+  --hero-intro-font-size-base: 1.125rem;
+  --hero-intro-size-compensate-lines: 2;
+  --hero-intro-gap-ratio: 0.105;
+  --hero-services-gap-ratio: 0.145;
+  --hero-intro-lift-ratio: -1.42;
+  --hero-intro-shift-x: 0.8rem;
+  --hero-headline-scale-x: 1.4;
+  --hero-headline-letter-scale-y: 1.61;
+  --hero-headline-line-overlap: -0.12em;
+  --hero-headline-tracking: 0.075em;
+
+  --hero-frame-top-nudge: 0rem;
+  --hero-frame-right: max(5rem, env(safe-area-inset-right));
+  --hero-frame-h: 38rem;
+  --hero-frame-w: 3.5rem;
+  --hero-frame-border: 4px;
+
+  --hero-bottom-inset: max(env(safe-area-inset-bottom), 2rem);
+  --hero-bottom-gap: 1.5rem;
+  --hero-services-shift-x: 0.8rem;
+  --hero-services-text: 0.97rem;
+
+  --hero-tagline-size: 3.75rem;
+  --hero-tagline-tracking: 0.2em;
+  --hero-tagline-right: max(4rem, env(safe-area-inset-right));
+  --hero-tagline-bottom: max(env(safe-area-inset-bottom), 4.5rem);
+  --hero-tagline-gap: 0.375rem;
+
+  --hero-social-size: 2rem;
+  --hero-social-gap: 2rem;
+}
+
+/* Red frame behind portrait (z-5 < stage z-10 < portrait z-11) */
+.hero-section .hero-red-frame {
+  position: absolute;
+  top: var(--hero-side-labels-pt);
+  margin-top: var(--hero-frame-top-nudge);
+  right: var(--hero-frame-right);
+  z-index: 5;
+  box-sizing: border-box;
+  width: var(--hero-frame-w);
+  height: var(--hero-frame-h);
+  border: var(--hero-frame-border) solid #e60000;
+  background: transparent;
+  pointer-events: none;
+}
+
+.hero-section .hero-stage-inner {
+  position: relative;
+  z-index: 10;
+  padding-right: var(--hero-stage-pr);
 }
 
 .hero-section .hero-portrait-row {
+  position: absolute;
+  right: 0;
+  bottom: max(0px, env(safe-area-inset-bottom));
+  z-index: 11;
   transform: translateY(var(--hero-portrait-shift-y))
     translateX(var(--hero-portrait-shift-x));
 }
 
+.hero-section .design-viewport,
+.hero-section .hero-stage-inner,
+.hero-section .hero-portrait-row,
+.hero-section .hero-portrait,
+.hero-section .hero-portrait-reveal,
+.hero-section .hero-portrait-scroll-zoom {
+  overflow: visible;
+}
+
 .hero-section .hero-portrait {
-  overflow: hidden;
+  width: var(--hero-portrait-w);
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  margin-right: var(--hero-portrait-inset-r);
+  aspect-ratio: 4/5;
+}
+
+.hero-section .hero-portrait img {
+  object-fit: contain !important;
+  object-position: var(--hero-portrait-object-x) var(--hero-portrait-object-y) !important;
 }
 
 /* Services list: under headline, nudged right */
@@ -158,7 +208,12 @@ body {
   display: block;
   position: relative;
   z-index: 2;
-  font-size: 1rem;
+  font-size: var(--hero-intro-font-size);
+  /* items-end pins stack bottom — larger intro grows upward; pull back by ~line count */
+  margin-top: calc(
+    (var(--hero-intro-font-size-base) - var(--hero-intro-font-size)) *
+      var(--hero-intro-size-compensate-lines) * 1.35
+  );
   margin-left: var(--hero-intro-shift-x);
   margin-bottom: calc(
     var(--hero-headline-size) * var(--hero-intro-gap-ratio) *
@@ -174,7 +229,7 @@ body {
   transform-origin: bottom left;
 }
 
-/* Headline: size + stretch (font-size here so media-query tokens always apply) */
+/* Headline: size + stretch */
 .hero-section .hero-headline-display {
   font-size: var(--hero-headline-size);
   transform-origin: bottom left;
@@ -190,259 +245,5 @@ body {
 
 .hero-section .hero-headline-line + .hero-headline-line {
   margin-top: var(--hero-headline-line-overlap);
-}
-
-@media (min-width: 640px) {
-  .hero-section {
-    --hero-intro-lift-ratio: -1;
-  }
-}
-
-@media (min-width: 768px) {
-  .hero-section {
-    --hero-intro-lift-ratio: -1.12;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-section {
-    --hero-intro-lift-ratio: -1.28;
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero-section {
-    --hero-intro-lift-ratio: -1.4;
-  }
-}
-
-/* 1650px and below: intro + headline up only (services panel position unchanged) */
-@media (max-width: 1650px) {
-  .hero-section {
-    --hero-intro-headline-lift: -1.5rem;
-    --hero-headline-lift: -1.5rem;
-  }
-}
-
-/* 1550px and below: intro + headline thora aur up */
-@media (max-width: 1550px) {
-  .hero-section {
-    --hero-intro-headline-lift: -1.75rem;
-    --hero-headline-lift: -1.75rem;
-  }
-}
-
-/* 1450px and below: intro + headline aur up */
-@media (max-width: 1450px) {
-  .hero-section {
-    --hero-intro-headline-lift: -2rem;
-    --hero-headline-lift: -2rem;
-  }
-}
-
-/* 1350px and below: intro + headline aur up */
-@media (max-width: 1350px) {
-  .hero-section {
-    --hero-intro-headline-lift: -2.25rem;
-    --hero-headline-lift: -2.25rem;
-  }
-}
-
-/* 1280px and below (under 1281): intro + headline aur up */
-@media (max-width: 1280px) {
-  .hero-section {
-    --hero-intro-headline-lift: -2.5rem;
-    --hero-headline-lift: -2.5rem;
-  }
-}
-
-/* 1220px and below (under 1221): intro + headline aur up */
-@media (max-width: 1220px) {
-  .hero-section {
-    --hero-intro-headline-lift: -2.75rem;
-    --hero-headline-lift: -2.75rem;
-  }
-}
-
-/* 1140px and below (under 1141): intro + headline aur up */
-@media (max-width: 1140px) {
-  .hero-section {
-    --hero-intro-headline-lift: -3rem;
-    --hero-headline-lift: -3rem;
-  }
-}
-
-/* 1081px and below (under 1082): intro + headline aur up */
-@media (max-width: 1081px) {
-  .hero-section {
-    --hero-intro-headline-lift: -3.25rem;
-    --hero-headline-lift: -3.25rem;
-  }
-}
-
-/* 1025px and below (under 1026): intro + headline aur up */
-@media (max-width: 1025px) {
-  .hero-section {
-    --hero-intro-headline-lift: -3.5rem;
-    --hero-headline-lift: -3.5rem;
-  }
-}
-
-/* 1026px–1081px */
-@media (min-width: 1026px) {
-  .hero-section {
-    --hero-portrait-w: clamp(18.25rem, 53vw, 59.5rem);
-    --hero-headline-size: 3.8rem;
-    --hero-headline-scale-x: 1.16;
-    --hero-headline-letter-scale-y: 1.34;
-    --hero-headline-line-overlap: -0.055em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1082px–1140px */
-@media (min-width: 1082px) {
-  .hero-section {
-    --hero-portrait-w: clamp(17.75rem, 51.5vw, 58.5rem);
-    --hero-headline-size: 4.15rem;
-    --hero-headline-scale-x: 1.18;
-    --hero-headline-letter-scale-y: 1.36;
-    --hero-headline-line-overlap: -0.06em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1141px–1220px */
-@media (min-width: 1141px) {
-  .hero-section {
-    --hero-portrait-w: clamp(17.25rem, 50vw, 57.5rem);
-    --hero-headline-size: 4.5rem;
-    --hero-headline-scale-x: 1.2;
-    --hero-headline-letter-scale-y: 1.38;
-    --hero-headline-line-overlap: -0.065em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1221px–1280px */
-@media (min-width: 1221px) {
-  .hero-section {
-    --hero-portrait-w: clamp(16.75rem, 49.5vw, 56.5rem);
-    --hero-headline-size: 4.85rem;
-    --hero-headline-scale-x: 1.22;
-    --hero-headline-letter-scale-y: 1.4;
-    --hero-headline-line-overlap: -0.07em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1281px–1349px */
-@media (min-width: 1281px) {
-  .hero-section {
-    --hero-portrait-w: clamp(16.5rem, 48.5vw, 55.5rem);
-    --hero-headline-size: 5.25rem;
-    --hero-headline-scale-x: 1.24;
-    --hero-headline-letter-scale-y: 1.42;
-    --hero-headline-line-overlap: -0.075em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1350px–1449px */
-@media (min-width: 1350px) {
-  .hero-section {
-    --hero-portrait-w: clamp(15.75rem, 46.5vw, 53.5rem);
-    --hero-headline-size: 5.65rem;
-    --hero-headline-scale-x: 1.26;
-    --hero-headline-letter-scale-y: 1.44;
-    --hero-headline-line-overlap: -0.08em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1450px–1549px */
-@media (min-width: 1450px) {
-  .hero-section {
-    --hero-portrait-w: clamp(15.75rem, 45.5vw, 52.5rem);
-    --hero-headline-size: 6.05rem;
-    --hero-headline-scale-x: 1.28;
-    --hero-headline-letter-scale-y: 1.46;
-    --hero-headline-line-overlap: -0.085em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1550px–1649px */
-@media (min-width: 1550px) {
-  .hero-section {
-    --hero-headline-size: 6.45rem;
-    --hero-headline-scale-x: 1.3;
-    --hero-headline-letter-scale-y: 1.48;
-    --hero-headline-line-overlap: -0.09em;
-    --hero-stack-gap-scale: 1.08;
-  }
-}
-
-/* 1650px–1749px */
-@media (min-width: 1650px) {
-  .hero-section {
-    --hero-portrait-w: clamp(14rem, 41.5vw, 49.5rem);
-    --hero-headline-size: 6.85rem;
-    --hero-headline-scale-x: 1.32;
-    --hero-headline-letter-scale-y: 1.5;
-    --hero-headline-line-overlap: -0.095em;
-    --hero-stack-gap-scale: 1.08;
-    --hero-intro-lift-ratio: -1.38;
-  }
-}
-
-/* 1750px–1899px */
-@media (min-width: 1750px) {
-  .hero-section .hero-center-headline .hero-intro {
-    font-size: 1.0625rem;
-  }
-
-  .hero-section {
-    --hero-headline-size: 7.25rem;
-    --hero-headline-scale-x: 1.34;
-    --hero-headline-letter-scale-y: 1.52;
-    --hero-headline-line-overlap: -0.1em;
-    --hero-stack-gap-scale: 1.08;
-    --hero-intro-lift-ratio: -1.4;
-  }
-}
-
-/* 1900px–2099px */
-@media (min-width: 1900px) {
-  .hero-section .hero-center-headline .hero-intro {
-    font-size: 1.125rem;
-  }
-
-  .hero-section {
-    --hero-headline-size: 7.9rem;
-    --hero-headline-scale-x: 1.37;
-    --hero-headline-letter-scale-y: 1.57;
-    --hero-headline-line-overlap: -0.11em;
-    --hero-stack-gap-scale: 1.08;
-    --hero-intro-lift-ratio: -1.46;
-  }
-}
-
-/* 2100px+: large fluid headline + stack spacing */
-@media (min-width: 2100px) {
-  .hero-section .hero-center-headline .hero-intro {
-    font-size: clamp(1rem, 0.75rem + 0.85vw, 1.5rem);
-  }
-
-  .hero-section {
-    --hero-headline-size: clamp(2.5rem, 11.5vw, 8.25rem);
-    --hero-headline-scale-x: 1.4;
-    --hero-headline-letter-scale-y: 1.61;
-    --hero-headline-line-overlap: -0.12em;
-    --hero-stack-gap-scale: 1.12;
-    --hero-intro-gap-ratio: 0.105;
-    --hero-services-gap-ratio: 0.145;
-    --hero-intro-lift-ratio: -1.46;
-  }
 }
 

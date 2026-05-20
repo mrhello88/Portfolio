@@ -22,7 +22,7 @@ export function usePortfolioAnimations(
 
     const ctx = gsap.context(() => {
       if (reduceMotion) {
-        gsap.set(".hero-center-headline", { opacity: 1, y: 0 });
+        gsap.set(".hero-headline-stack", { opacity: 1 });
         gsap.set(".hero-bg-orb", { opacity: 1, scale: 1 });
         gsap.set(".hero-portrait-reveal", { opacity: 1, scale: 1, y: 0 });
         gsap.set(".hero-bg-scroll-zoom, .hero-portrait-scroll-zoom", {
@@ -46,7 +46,7 @@ export function usePortfolioAnimations(
         return;
       }
 
-      gsap.set(".hero-center-headline", { opacity: 0, y: 18 });
+      gsap.set(".hero-headline-stack", { opacity: 0 });
       gsap.set(".hero-bg-orb", { opacity: 0, scale: 0.6 });
       gsap.set(".hero-portrait-reveal", {
         opacity: 0,
@@ -101,8 +101,8 @@ export function usePortfolioAnimations(
           0.12,
         )
         .to(
-          ".hero-center-headline",
-          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          ".hero-headline-stack",
+          { opacity: 1, duration: 0.7, ease: "power2.out" },
           0.22,
         );
 
@@ -178,9 +178,9 @@ export function usePortfolioAnimations(
           heroPortraitScrollZoom,
           {
             scale: 1,
-            transformOrigin: "82% 96%",
+            transformOrigin: "100% 100%",
           },
-          { scale: 1.09, ...heroScrollEase },
+          { scale: 1.02, ...heroScrollEase },
           0,
         );
       }
