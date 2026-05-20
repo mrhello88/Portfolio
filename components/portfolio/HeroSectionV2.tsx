@@ -169,8 +169,8 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
             <div aria-hidden className="hero-red-frame" />
 
             <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pt-(--hero-headline-pt) pr-(--hero-headline-pr) pb-(--hero-headline-pb-effective) pl-(--hero-headline-pl)">
-              <div className="hero-headline-stack inline-flex max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
-                <p className="hero-intro pointer-events-auto max-w-(--hero-headline-max-w) cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
+              <div className="hero-headline-stack inline-flex w-max max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
+                <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
                   <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                     Hi there<span className="text-[#e60000]">!</span> this is
                   </span>
@@ -178,7 +178,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                     {HERO_INTRO_LINE_2}
                   </span>
                 </p>
-                <p className="hero-headline-display inline-flex max-w-(--hero-headline-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                <p className="hero-headline-display inline-flex max-w-(--hero-headline-display-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                   <span className="hero-headline-line text-white">
                     {HERO_CENTER_LINE_1}
                   </span>

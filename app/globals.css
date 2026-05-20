@@ -54,6 +54,8 @@ body {
   min-height: var(--design-viewport-h);
   max-height: var(--design-viewport-max-h);
   margin-inline: auto;
+  container-type: inline-size;
+  container-name: hero-design;
 }
 
 /* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */
@@ -87,6 +89,7 @@ body {
     calc(env(safe-area-inset-bottom) + 6rem)
   );
   --hero-headline-max-w: min(100%, 88rem);
+  --hero-headline-display-max-w: min(100%, 88rem);
   /* negative = up, positive = down (whole stack: intro + headline + services) */
   --hero-headline-stack-offset-y: 0.2rem;
   --hero-headline-pb-effective: calc(
@@ -94,7 +97,9 @@ body {
   );
   --hero-intro-headline-lift: 0rem;
   --hero-headline-lift: 0rem;
+  /* stack spacing + intro lift (fixed; not tied to display shrink) */
   --hero-headline-size: 8.25rem;
+  --hero-headline-display-size: 8.25rem;
   --hero-stack-gap-scale: 1.1;
   --hero-intro-font-size: 1.25rem;
   --hero-intro-font-size-base: 1.125rem;
@@ -216,12 +221,12 @@ body {
   );
   margin-left: var(--hero-intro-shift-x);
   margin-bottom: calc(
-    var(--hero-headline-size) * var(--hero-intro-gap-ratio) *
+    var(--hero-headline-display-size) * var(--hero-intro-gap-ratio) *
       var(--hero-stack-gap-scale)
   );
   transform: translateY(
       calc(
-        var(--hero-headline-size) * var(--hero-intro-lift-ratio) +
+        var(--hero-headline-display-size) * var(--hero-intro-lift-ratio) +
           var(--hero-intro-headline-lift)
       )
     )
@@ -231,7 +236,7 @@ body {
 
 /* Headline: size + stretch */
 .hero-section .hero-headline-display {
-  font-size: var(--hero-headline-size);
+  font-size: var(--hero-headline-display-size);
   transform-origin: bottom left;
   transform: translateY(var(--hero-headline-lift))
     scaleX(var(--hero-headline-scale-x)) scaleY(var(--hero-headline-letter-scale-y));
@@ -245,5 +250,70 @@ body {
 
 .hero-section .hero-headline-line + .hero-headline-line {
   margin-top: var(--hero-headline-line-overlap);
+}
+
+/*
+ * Hero breakpoints (canvas width = .design-viewport inline-size)
+ * >2150px  → .hero-section defaults (2560 design)
+ * ≤2150px  → @container hero-design (max-width: 2150px)
+ * ≤1920px  → @container hero-design (max-width: 1920px) — overrides 2150
+ */
+@container hero-design (max-width: 2150px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 7rem;
+    --hero-headline-scale-x: 1.28;
+    --hero-headline-letter-scale-y: 1.5;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-portrait-w: clamp(32rem, min(62vh, 42vw), 76rem);
+    /* +ve = intro neeche (kam gap); 8.25rem lift choti headline par zyada khali jagah banati thi */
+    --hero-intro-headline-lift: 1.85rem;
+    --hero-intro-gap-ratio: 0.088;
+  }
+
+  .hero-headline-display {
+    font-size: var(--hero-headline-display-size);
+    transform: translateY(var(--hero-headline-lift))
+      scaleX(var(--hero-headline-scale-x))
+      scaleY(var(--hero-headline-letter-scale-y));
+  }
+
+  .hero-portrait {
+    width: var(--hero-portrait-w);
+  }
+}
+
+@container hero-design (max-width: 1920px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 6rem;
+    --hero-headline-scale-x: 1.22;
+    --hero-headline-letter-scale-y: 1.4;
+    /* portrait: same as 2150 block (do not override --hero-portrait-w here) */
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-intro-headline-lift: 2rem;
+    --hero-intro-gap-ratio: 0.085;
+    --hero-frame-h: 34rem;
+  }
+
+  .hero-headline-display {
+    font-size: var(--hero-headline-display-size);
+    transform: translateY(var(--hero-headline-lift))
+      scaleX(var(--hero-headline-scale-x))
+      scaleY(var(--hero-headline-letter-scale-y));
+  }
+
+  .hero-portrait {
+    width: var(--hero-portrait-w);
+  }
+
+  .hero-section .hero-red-frame {
+    height: 34rem !important;
+    max-height: 34rem;
+  }
 }
 
