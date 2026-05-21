@@ -5,7 +5,7 @@ export default function SiteHeader() {
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50 w-full bg-transparent">
       <div
-        className={`mx-auto flex h-14 w-full ${LAYOUT_MAX_WIDTH_CLASS} items-center justify-between px-6`}
+        className={`mx-auto flex h-(--site-header-h) w-full ${LAYOUT_MAX_WIDTH_CLASS} items-center justify-between px-6`}
       >
         <Link
           href="/"

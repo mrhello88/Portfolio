@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { forwardRef, useLayoutEffect, useRef } from "react";
 import { DesignViewportContainer } from "./DesignViewportContainer";
+import { useHeroCanvasBreakpoint } from "./hooks/useHeroCanvasBreakpoint";
 
 type ParallaxFrameFn = () => void;
 
@@ -64,6 +65,7 @@ const HERO_CENTER_LINE_3 = "STANDARDS";
 
 const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
   const heroStageRef = useRef<HTMLDivElement>(null);
+  useHeroCanvasBreakpoint(heroStageRef);
   const heroBgParallaxRef = useRef<HTMLDivElement>(null);
   const mouseTargetRef = useRef({ x: 0, y: 0 });
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -168,7 +170,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           <div className="hero-layout-rail relative z-10 flex h-full min-h-0 w-full flex-col items-stretch">
             <div aria-hidden className="hero-red-frame" />
 
-            <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pt-(--hero-headline-pt) pr-(--hero-headline-pr) pb-(--hero-headline-pb-effective) pl-(--hero-headline-pl)">
+            <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pt-(--hero-headline-pt) pr-(--hero-headline-pr) pb-(--hero-headline-pb-effective) pl-(--hero-headline-pl-effective)">
               <div className="hero-headline-stack inline-flex w-max max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
                 <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
                   <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
@@ -215,7 +217,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
 
             <div
               aria-label={`${HERO_NAME}. ${HERO_VERTICAL_LABEL}`}
-              className="hero-side-labels pointer-events-none absolute inset-y-0 left-(--hero-side-inset-x) z-20 flex h-full min-h-0 flex-row items-stretch gap-(--hero-side-gap) pt-(--hero-side-labels-pt) pb-[max(env(safe-area-inset-bottom),var(--hero-side-pad-bottom))]"
+              className="hero-side-labels pointer-events-none z-20 flex min-h-0 flex-row items-stretch gap-(--hero-side-gap)"
             >
               <div className="hero-side-col hero-side-col--name flex min-h-0 min-w-(--hero-side-col-w) flex-col items-stretch justify-between">
                 {HERO_NAME.split("").map((ch, i) => (

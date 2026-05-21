@@ -2,6 +2,8 @@
 @import "locomotive-scroll/locomotive-scroll.css";
 
 :root {
+  /* Fixed SiteHeader bar (h-14) — added to hero side-labels top for visual balance */
+  --site-header-h: 3.5rem;
   --background: #fafaf9;
   --foreground: #1c1917;
   --muted: #78716c;
@@ -57,6 +59,13 @@ body {
   /* size = width (2150/1920) + height (side labels 1440→600) container queries */
   container-type: size;
   container-name: hero-design;
+  /* cqh + side insets must live on the container (not .hero-section) */
+  --hero-side-pad-y: clamp(2rem, 6.11cqh, 5.5rem);
+  --hero-side-labels-pt: calc(
+    var(--hero-side-pad-y) + var(--site-header-h, 3.5rem) +
+      env(safe-area-inset-top, 0px)
+  );
+  --hero-side-labels-pb: var(--hero-side-pad-y);
 }
 
 /* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */
@@ -77,13 +86,11 @@ body {
   --hero-side-letter: clamp(1.25rem, 3.33cqh, 3rem);
   --hero-side-gap: clamp(0.1rem, 0.2cqh, 0.2rem);
   --hero-side-inset-x: 1.5rem;
-  --hero-side-pad-top: clamp(2rem, 6.11cqh, 5.5rem);
-  --hero-side-pad-bottom: clamp(2rem, 6.11cqh, 5.5rem);
-  --hero-side-labels-pt: max(env(safe-area-inset-top), var(--hero-side-pad-top));
   --hero-side-col-w: clamp(3.25rem, 5.28cqh, 4.75rem);
   --hero-side-divider-w: 0.25rem;
 
   --hero-headline-pl: max(0.5rem, calc(env(safe-area-inset-left) + 14.5rem));
+  --hero-headline-pl-effective: var(--hero-headline-pl);
   --hero-headline-pr: 2rem;
   --hero-headline-pt: 4rem;
   --hero-headline-pb: max(
@@ -94,6 +101,8 @@ body {
   --hero-headline-display-max-w: min(100%, 88rem);
   /* negative = up, positive = down (whole stack: intro + headline + services) */
   --hero-headline-stack-offset-y: 0.2rem;
+  /* negative = left, positive = right */
+  --hero-headline-stack-shift-x: 0rem;
   --hero-headline-pb-effective: calc(
     var(--hero-headline-pb) - var(--hero-headline-stack-offset-y)
   );
@@ -136,8 +145,15 @@ body {
   --hero-social-gap: 2rem;
 }
 
-/* Red frame behind portrait (z-5 < stage z-10 < portrait z-11) */
-.hero-section .hero-red-frame {
+/* Side labels + red frame: positioned inside .design-viewport (cqh + navbar offset) */
+.hero-section .design-viewport .hero-side-labels {
+  position: absolute !important;
+  top: var(--hero-side-labels-pt) !important;
+  bottom: var(--hero-side-labels-pb) !important;
+  left: var(--hero-side-inset-x);
+}
+
+.hero-section .design-viewport .hero-red-frame {
   position: absolute;
   top: var(--hero-side-labels-pt);
   margin-top: var(--hero-frame-top-nudge);
@@ -190,6 +206,14 @@ body {
 }
 
 /* Services list: under headline, nudged right */
+.hero-section .hero-center-headline {
+  padding-left: var(--hero-headline-pl-effective) !important;
+}
+
+.hero-section .hero-headline-stack {
+  transform: translate3d(var(--hero-headline-stack-shift-x), 0, 0);
+}
+
 .hero-section .hero-headline-stack .hero-services-panel {
   margin-top: calc(
     var(--hero-headline-size) * var(--hero-services-gap-ratio) *
@@ -268,8 +292,9 @@ body {
 
 /*
  * Hero breakpoints (canvas = .design-viewport, container-type: size)
- * Width: >2150 default | ≤2150 | ≤1920 | ≤1620
+ * Width: >2150 default | ≤2150 | ≤1920 | ≤1620 | ≤1440 | ≤1366 | ≤1280 | ≤1240 | ≤1180 | ≤1135 | ≤1095 (narrow file)
  * Height: side labels fluid 1440→600 via cqh on .hero-section tokens
+ * IMPORTANT: smaller max-width blocks must be LAST (later rules override).
  */
 @container hero-design (max-width: 2150px) {
   .hero-layout-rail {
@@ -363,4 +388,310 @@ body {
   }
 }
 
+@container hero-design (max-width: 1440px) {
+  .hero-layout-rail {
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 12.75rem)
+    );
+  }
 
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 12.75rem)
+      )
+      !important;
+  }
+}
+
+@media (max-width: 1440px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 12.75rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 12.75rem)
+      )
+      !important;
+  }
+}
+
+@container hero-design (max-width: 1366px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 5.25rem;
+    --hero-headline-scale-x: 1.18;
+    --hero-headline-letter-scale-y: 1.32;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 12rem)
+    );
+    --hero-intro-font-size: 1.125rem;
+    --hero-intro-gap-ratio: 0.078;
+    --hero-intro-headline-lift: 2.35rem;
+  }
+
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 5.25rem;
+    --hero-intro-font-size: 1.125rem;
+    --hero-intro-gap-ratio: 0.078;
+    --hero-intro-headline-lift: 2.5rem;
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 12rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro {
+    font-size: 1.125rem !important;
+    margin-bottom: calc(5.25rem * 0.078 * 1.1) !important;
+    transform: translateY(calc(5.25rem * -1.42 + 2.5rem)) !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro > span + span {
+    margin-top: 0.125rem !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5.25rem !important;
+    margin-top: -0.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.18)
+      scaleY(1.32) !important;
+  }
+}
+
+@media (max-width: 1366px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-display-size: 5.25rem;
+    --hero-headline-scale-x: 1.18;
+    --hero-headline-letter-scale-y: 1.32;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 12rem)
+    );
+    --hero-intro-font-size: 1.125rem;
+    --hero-intro-gap-ratio: 0.078;
+    --hero-intro-headline-lift: 2.5rem;
+  }
+
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 5.25rem;
+    --hero-intro-font-size: 1.125rem;
+    --hero-intro-gap-ratio: 0.078;
+    --hero-intro-headline-lift: 2.5rem;
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 12rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro {
+    font-size: 1.125rem !important;
+    margin-bottom: calc(5.25rem * 0.078 * 1.1) !important;
+    transform: translateY(calc(5.25rem * -1.42 + 2.5rem)) !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro > span + span {
+    margin-top: 0.125rem !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5.25rem !important;
+    margin-top: -0.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.18)
+      scaleY(1.32) !important;
+  }
+}
+
+@container hero-design (max-width: 1280px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 5rem;
+    --hero-headline-scale-x: 1.16;
+    --hero-headline-letter-scale-y: 1.3;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 11.5rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 11.5rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.16)
+      scaleY(1.3) !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-display-size: 5rem;
+    --hero-headline-scale-x: 1.16;
+    --hero-headline-letter-scale-y: 1.3;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 11.5rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 11.5rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.16)
+      scaleY(1.3) !important;
+  }
+}
+
+@container hero-design (max-width: 1240px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 4.75rem;
+    --hero-headline-scale-x: 1.14;
+    --hero-headline-letter-scale-y: 1.28;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 11rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 11rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 4.75rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.14)
+      scaleY(1.28) !important;
+  }
+}
+
+@media (max-width: 1240px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-display-size: 4.75rem;
+    --hero-headline-scale-x: 1.14;
+    --hero-headline-letter-scale-y: 1.28;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 11rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 11rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 4.75rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.14)
+      scaleY(1.28) !important;
+  }
+}
+
+@container hero-design (max-width: 1180px) {
+  .hero-layout-rail {
+    --hero-headline-size: 4.5rem;
+    --hero-headline-display-size: 4.5rem;
+    --hero-headline-scale-x: 1.12;
+    --hero-headline-letter-scale-y: 1.26;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 10.5rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 4.5rem;
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 10.5rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro {
+    margin-bottom: calc(4.5rem * 0.078 * 1.1) !important;
+    transform: translateY(calc(4.5rem * -1.42 + 2.5rem)) !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 4.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.12)
+      scaleY(1.26) !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-size: 4.5rem;
+    --hero-headline-display-size: 4.5rem;
+    --hero-headline-scale-x: 1.12;
+    --hero-headline-letter-scale-y: 1.26;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + 10.5rem)
+    );
+  }
+
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 4.5rem;
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + 10.5rem)
+      )
+      !important;
+  }
+
+  .hero-section .hero-center-headline .hero-intro {
+    margin-bottom: calc(4.5rem * 0.078 * 1.1) !important;
+    transform: translateY(calc(4.5rem * -1.42 + 2.5rem)) !important;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 4.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.12)
+      scaleY(1.26) !important;
+  }
+}
