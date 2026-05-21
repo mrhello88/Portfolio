@@ -54,7 +54,8 @@ body {
   min-height: var(--design-viewport-h);
   max-height: var(--design-viewport-max-h);
   margin-inline: auto;
-  container-type: inline-size;
+  /* size = width (2150/1920) + height (side labels 1440→600) container queries */
+  container-type: size;
   container-name: hero-design;
 }
 
@@ -72,13 +73,14 @@ body {
   --hero-stage-pt: 4rem;
   --hero-stage-pl: 2.5rem;
 
-  --hero-side-letter: 3rem;
-  --hero-side-gap: 0.2rem;
+  /* Side labels: fluid on canvas height (3rem @ 1440px → ~1.25rem @ 600px) */
+  --hero-side-letter: clamp(1.25rem, 3.33cqh, 3rem);
+  --hero-side-gap: clamp(0.1rem, 0.2cqh, 0.2rem);
   --hero-side-inset-x: 1.5rem;
-  --hero-side-pad-top: 5.5rem;
-  --hero-side-pad-bottom: 5.5rem;
+  --hero-side-pad-top: clamp(2rem, 6.11cqh, 5.5rem);
+  --hero-side-pad-bottom: clamp(2rem, 6.11cqh, 5.5rem);
   --hero-side-labels-pt: max(env(safe-area-inset-top), var(--hero-side-pad-top));
-  --hero-side-col-w: 4.75rem;
+  --hero-side-col-w: clamp(3.25rem, 5.28cqh, 4.75rem);
   --hero-side-divider-w: 0.25rem;
 
   --hero-headline-pl: max(0.5rem, calc(env(safe-area-inset-left) + 14.5rem));
@@ -197,7 +199,12 @@ body {
   align-self: flex-start;
 }
 
-/* Side labels: tight to red divider */
+/* Side labels: no squash when canvas height shrinks */
+.hero-section .hero-side-col > span {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
 .hero-section .hero-side-col--name {
   padding-right: 0;
   padding-left: 0.1em;
@@ -206,6 +213,13 @@ body {
 .hero-section .hero-side-col--role {
   padding-left: 0;
   padding-right: 0.1em;
+}
+
+/* Low height: drop scale-y so letter sizes stay even */
+@container hero-design (max-height: 900px) {
+  .hero-section .hero-side-col > span {
+    transform: none;
+  }
 }
 
 /* Intro above headline — margin-left = right; translateY = up only */
@@ -253,10 +267,9 @@ body {
 }
 
 /*
- * Hero breakpoints (canvas width = .design-viewport inline-size)
- * >2150px  → .hero-section defaults (2560 design)
- * ≤2150px  → @container hero-design (max-width: 2150px)
- * ≤1920px  → @container hero-design (max-width: 1920px) — overrides 2150
+ * Hero breakpoints (canvas = .design-viewport, container-type: size)
+ * Width: >2150 default | ≤2150 | ≤1920 | ≤1620
+ * Height: side labels fluid 1440→600 via cqh on .hero-section tokens
  */
 @container hero-design (max-width: 2150px) {
   .hero-layout-rail {
@@ -273,11 +286,11 @@ body {
     --hero-intro-gap-ratio: 0.088;
   }
 
-  .hero-headline-display {
-    font-size: var(--hero-headline-display-size);
+  .hero-section .hero-headline-display {
+    font-size: var(--hero-headline-display-size) !important;
     transform: translateY(var(--hero-headline-lift))
       scaleX(var(--hero-headline-scale-x))
-      scaleY(var(--hero-headline-letter-scale-y));
+      scaleY(var(--hero-headline-letter-scale-y)) !important;
   }
 
   .hero-portrait {
@@ -300,11 +313,11 @@ body {
     --hero-frame-h: 34rem;
   }
 
-  .hero-headline-display {
-    font-size: var(--hero-headline-display-size);
+  .hero-section .hero-headline-display {
+    font-size: var(--hero-headline-display-size) !important;
     transform: translateY(var(--hero-headline-lift))
       scaleX(var(--hero-headline-scale-x))
-      scaleY(var(--hero-headline-letter-scale-y));
+      scaleY(var(--hero-headline-letter-scale-y)) !important;
   }
 
   .hero-portrait {
@@ -316,4 +329,38 @@ body {
     max-height: 34rem;
   }
 }
+
+@container hero-design (max-width: 1620px) {
+  .hero-layout-rail {
+    --hero-headline-display-size: 5.5rem;
+    --hero-headline-scale-x: 1.2;
+    --hero-headline-letter-scale-y: 1.36;
+    --hero-headline-display-max-w: min(
+      100%,
+      calc(100% - var(--hero-portrait-w) - 5rem)
+    );
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.2)
+      scaleY(1.36) !important;
+  }
+}
+
+/* 1620 fallback when container query does not run (same canvas width) */
+@media (max-width: 1620px) {
+  .hero-section .hero-layout-rail {
+    --hero-headline-display-size: 5.5rem;
+    --hero-headline-scale-x: 1.2;
+    --hero-headline-letter-scale-y: 1.36;
+  }
+
+  .hero-section .hero-headline-display {
+    font-size: 5.5rem !important;
+    transform: translateY(var(--hero-headline-lift)) scaleX(1.2)
+      scaleY(1.36) !important;
+  }
+}
+
 
