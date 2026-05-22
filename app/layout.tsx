@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Anton, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./hero-breakpoints-narrow.css";
+import "./hero-red-frame.css";
+import "./hero-side-labels-fluid.css";
+import "./hero-portrait-fluid.css";
+import "./hero-headline-fluid.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

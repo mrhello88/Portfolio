@@ -1,0 +1,71 @@
+/**
+ * Portrait: fluid on canvas (cqh/cqw), capped vs headline + red frame.
+ * Design ~2560×1440: min(58cqh, 42cqw) ≈ 52rem width, 4/5 aspect, bottom-right.
+ */
+.hero-section .design-viewport {
+  --hero-portrait-gap-copy: 4rem;
+  --hero-portrait-copy-min-w: 17.5rem;
+  --hero-portrait-frame-reserve: calc(
+    var(--hero-frame-w, 3.5rem) + max(3rem, env(safe-area-inset-right, 0px)) +
+      1.25rem
+  );
+
+  --hero-portrait-w-h: clamp(14rem, 58cqh, 76rem);
+  --hero-portrait-w-w: clamp(14rem, 42cqw, 76rem);
+  --hero-portrait-w-fluid: min(var(--hero-portrait-w-h), var(--hero-portrait-w-w));
+
+  --hero-portrait-max-h: calc(var(--hero-red-frame-span) * 0.9);
+  --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+
+  --hero-portrait-w-layout-cap: max(
+    11rem,
+    calc(
+      100cqw - var(--hero-headline-pl-effective) -
+        var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+    )
+  );
+
+  --hero-portrait-w: min(
+    var(--hero-portrait-w-fluid),
+    var(--hero-portrait-w-layout-cap),
+    var(--hero-portrait-w-from-h)
+  );
+
+  --hero-headline-display-max-w: min(
+    88rem,
+    max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+  );
+  --hero-headline-max-w: var(--hero-headline-display-max-w);
+}
+
+.hero-section .design-viewport .hero-portrait {
+  width: var(--hero-portrait-w) !important;
+  max-width: var(--hero-portrait-w) !important;
+}
+
+.hero-section .design-viewport .hero-portrait img {
+  object-fit: contain !important;
+  object-position: var(--hero-portrait-object-x) var(--hero-portrait-object-y) !important;
+}
+
+@container hero-design (max-width: 1095px) {
+  .hero-section .design-viewport {
+    --hero-portrait-gap-copy: 3rem;
+    --hero-portrait-copy-min-w: 15rem;
+  }
+}
+
+@container hero-design (max-height: 900px) {
+  .hero-section .design-viewport {
+    --hero-portrait-max-h: calc(var(--hero-red-frame-span) * 0.85);
+    --hero-portrait-copy-min-w: 15rem;
+  }
+}
+
+@container hero-design (max-height: 700px) {
+  .hero-section .design-viewport {
+    --hero-portrait-max-h: calc(var(--hero-red-frame-span) * 0.78);
+    --hero-portrait-gap-copy: 2.5rem;
+    --hero-portrait-copy-min-w: 13rem;
+  }
+}

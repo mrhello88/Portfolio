@@ -4,9 +4,26 @@ import { type RefObject, useLayoutEffect } from "react";
 
 /** Canvas width breakpoints (smallest first). Syncs `data-hero-bp` on .design-viewport. */
 const HERO_CANVAS_BPS = [
+  { max: 1024, id: "1024" },
   { max: 1095, id: "1095" },
   { max: 1135, id: "1135" },
 ] as const;
+
+/** Inline tokens on canvas — reliable when @media / container lag behind canvas width */
+const CANVAS_TOKEN_OVERRIDES: Record<string, Record<string, string>> = {
+  "1095": {
+    "--hero-headline-stack-offset-y": "0.85rem",
+  },
+  "1135": {
+    "--hero-headline-stack-offset-y": "0rem",
+  },
+};
+
+const CANVAS_OVERRIDE_KEYS = [
+  ...new Set(
+    Object.values(CANVAS_TOKEN_OVERRIDES).flatMap((o) => Object.keys(o)),
+  ),
+];
 
 export function useHeroCanvasBreakpoint(
   canvasRef: RefObject<HTMLDivElement | null>,
@@ -18,10 +35,22 @@ export function useHeroCanvasBreakpoint(
     const sync = () => {
       const w = el.getBoundingClientRect().width;
       const match = HERO_CANVAS_BPS.find((bp) => w <= bp.max);
+
       if (match) {
         el.setAttribute("data-hero-bp", match.id);
       } else {
         el.removeAttribute("data-hero-bp");
+      }
+
+      for (const key of CANVAS_OVERRIDE_KEYS) {
+        el.style.removeProperty(key);
+      }
+      if (match && CANVAS_TOKEN_OVERRIDES[match.id]) {
+        for (const [key, value] of Object.entries(
+          CANVAS_TOKEN_OVERRIDES[match.id],
+        )) {
+          el.style.setProperty(key, value);
+        }
       }
 
       const header = document.querySelector<HTMLElement>(".site-header");

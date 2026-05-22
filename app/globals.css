@@ -76,27 +76,20 @@ body {
   --hero-portrait-inset-r: 0px;
   --hero-portrait-object-x: 100%;
   --hero-portrait-object-y: 100%;
-  --hero-portrait-w: clamp(30rem, min(58vh, 36vw), 76rem);
+  /* Portrait width: hero-portrait-fluid.css (on .design-viewport) */
   --hero-portrait-shift-x: 0px;
   --hero-portrait-shift-y: 0px;
   --hero-stage-pt: 4rem;
   --hero-stage-pl: 2.5rem;
 
-  /* Side labels: fluid on canvas height (3rem @ 1440px → ~1.25rem @ 600px) */
-  --hero-side-letter: clamp(1.25rem, 3.33cqh, 3rem);
-  --hero-side-gap: clamp(0.1rem, 0.2cqh, 0.2rem);
-  --hero-side-inset-x: 1.5rem;
-  --hero-side-col-w: clamp(3.25rem, 5.28cqh, 4.75rem);
-  --hero-side-divider-w: 0.25rem;
-
-  --hero-headline-pl: max(0.5rem, calc(env(safe-area-inset-left) + 14.5rem));
-  --hero-headline-pl-effective: var(--hero-headline-pl);
+  /* Side labels + headline left inset: hero-side-labels-fluid.css (on .design-viewport) */
   --hero-headline-pr: 2rem;
   --hero-headline-pt: 4rem;
   --hero-headline-pb: max(
     5.5rem,
     calc(env(safe-area-inset-bottom) + 6rem)
   );
+  /* Headline max-width ↔ portrait: hero-portrait-fluid.css on .design-viewport */
   --hero-headline-max-w: min(100%, 88rem);
   --hero-headline-display-max-w: min(100%, 88rem);
   /* negative = up, positive = down (whole stack: intro + headline + services) */
@@ -106,18 +99,16 @@ body {
   --hero-headline-pb-effective: calc(
     var(--hero-headline-pb) - var(--hero-headline-stack-offset-y)
   );
-  --hero-intro-headline-lift: 0rem;
   --hero-headline-lift: 0rem;
-  /* stack spacing + intro lift (fixed; not tied to display shrink) */
   --hero-headline-size: 8.25rem;
   --hero-headline-display-size: 8.25rem;
   --hero-stack-gap-scale: 1.1;
   --hero-intro-font-size: 1.25rem;
-  --hero-intro-font-size-base: 1.125rem;
-  --hero-intro-size-compensate-lines: 2;
-  --hero-intro-gap-ratio: 0.105;
   --hero-services-gap-ratio: 0.145;
-  --hero-intro-lift-ratio: -1.42;
+  /* Intro ↔ visible headline top (hero-headline-fluid.css) */
+  --hero-intro-headline-gap: 0.45rem;
+  /* ~3 lines × 0.9 lh before scaleY bleed upward */
+  --hero-headline-stack-em: 2.2;
   --hero-intro-shift-x: 0.8rem;
   --hero-headline-scale-x: 1.4;
   --hero-headline-letter-scale-y: 1.61;
@@ -126,14 +117,15 @@ body {
 
   --hero-frame-top-nudge: 0rem;
   --hero-frame-right: max(5rem, env(safe-area-inset-right));
-  --hero-frame-h: 38rem;
   --hero-frame-w: 3.5rem;
   --hero-frame-border: 4px;
 
   --hero-bottom-inset: max(env(safe-area-inset-bottom), 2rem);
   --hero-bottom-gap: 1.5rem;
   --hero-services-shift-x: 0.8rem;
-  --hero-services-text: 0.97rem;
+  --hero-services-text: 1.05rem;
+  --hero-services-panel-max-w: 17.5rem;
+  --hero-services-panel-py: 0.95em;
 
   --hero-tagline-size: 3.75rem;
   --hero-tagline-tracking: 0.2em;
@@ -153,34 +145,21 @@ body {
   left: var(--hero-side-inset-x);
 }
 
-.hero-section .design-viewport .hero-red-frame {
+/* Red frame rules: app/hero-red-frame.css (imported after globals) */
+
+.hero-section .hero-stage-inner {
   position: absolute;
-  top: var(--hero-side-labels-pt);
-  margin-top: var(--hero-frame-top-nudge);
-  right: var(--hero-frame-right);
-  z-index: 5;
-  box-sizing: border-box;
-  width: var(--hero-frame-w);
-  height: var(--hero-frame-h);
-  border: var(--hero-frame-border) solid #e60000;
-  background: transparent;
+  inset: 0;
+  z-index: 10;
+  padding-right: var(--hero-stage-pr);
   pointer-events: none;
 }
 
-.hero-section .hero-stage-inner {
-  position: relative;
-  z-index: 10;
-  padding-right: var(--hero-stage-pr);
+.hero-section .hero-stage-inner .hero-portrait-row {
+  pointer-events: auto;
 }
 
-.hero-section .hero-portrait-row {
-  position: absolute;
-  right: 0;
-  bottom: max(0px, env(safe-area-inset-bottom));
-  z-index: 11;
-  transform: translateY(var(--hero-portrait-shift-y))
-    translateX(var(--hero-portrait-shift-x));
-}
+/* Portrait vs red frame: app/hero-red-frame.css */
 
 .hero-section .design-viewport,
 .hero-section .hero-stage-inner,
@@ -192,12 +171,7 @@ body {
 }
 
 .hero-section .hero-portrait {
-  width: var(--hero-portrait-w);
-  max-width: 100%;
-  height: auto;
-  max-height: none;
   margin-right: var(--hero-portrait-inset-r);
-  aspect-ratio: 4/5;
 }
 
 .hero-section .hero-portrait img {
@@ -246,39 +220,7 @@ body {
   }
 }
 
-/* Intro above headline — margin-left = right; translateY = up only */
-.hero-section .hero-center-headline .hero-intro {
-  display: block;
-  position: relative;
-  z-index: 2;
-  font-size: var(--hero-intro-font-size);
-  /* items-end pins stack bottom — larger intro grows upward; pull back by ~line count */
-  margin-top: calc(
-    (var(--hero-intro-font-size-base) - var(--hero-intro-font-size)) *
-      var(--hero-intro-size-compensate-lines) * 1.35
-  );
-  margin-left: var(--hero-intro-shift-x);
-  margin-bottom: calc(
-    var(--hero-headline-display-size) * var(--hero-intro-gap-ratio) *
-      var(--hero-stack-gap-scale)
-  );
-  transform: translateY(
-      calc(
-        var(--hero-headline-display-size) * var(--hero-intro-lift-ratio) +
-          var(--hero-intro-headline-lift)
-      )
-    )
-    !important;
-  transform-origin: bottom left;
-}
-
-/* Headline: size + stretch */
-.hero-section .hero-headline-display {
-  font-size: var(--hero-headline-display-size);
-  transform-origin: bottom left;
-  transform: translateY(var(--hero-headline-lift))
-    scaleX(var(--hero-headline-scale-x)) scaleY(var(--hero-headline-letter-scale-y));
-}
+/* Intro + headline layout: hero-headline-fluid.css */
 
 .hero-section .hero-headline-line {
   display: block;
@@ -292,8 +234,8 @@ body {
 
 /*
  * Hero breakpoints (canvas = .design-viewport, container-type: size)
- * Width: >2150 default | ≤2150 | ≤1920 | ≤1620 | ≤1440 | ≤1366 | ≤1280 | ≤1240 | ≤1180 | ≤1135 | ≤1095 (narrow file)
- * Height: side labels fluid 1440→600 via cqh on .hero-section tokens
+ * Width: >2150 default | ≤2150 | ≤1920 | ≤1620 | ≤1440 | ≤1366 | ≤1280 | ≤1240 | ≤1180 | ≤1135 | ≤1095 | ≤1024 (narrow file)
+ * Height/width: side labels + portrait fluid on .design-viewport (hero-side-labels-fluid.css, hero-portrait-fluid.css)
  * IMPORTANT: smaller max-width blocks must be LAST (later rules override).
  */
 @container hero-design (max-width: 2150px) {
@@ -301,25 +243,6 @@ body {
     --hero-headline-display-size: 7rem;
     --hero-headline-scale-x: 1.28;
     --hero-headline-letter-scale-y: 1.5;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-portrait-w: clamp(32rem, min(62vh, 42vw), 76rem);
-    /* +ve = intro neeche (kam gap); 8.25rem lift choti headline par zyada khali jagah banati thi */
-    --hero-intro-headline-lift: 1.85rem;
-    --hero-intro-gap-ratio: 0.088;
-  }
-
-  .hero-section .hero-headline-display {
-    font-size: var(--hero-headline-display-size) !important;
-    transform: translateY(var(--hero-headline-lift))
-      scaleX(var(--hero-headline-scale-x))
-      scaleY(var(--hero-headline-letter-scale-y)) !important;
-  }
-
-  .hero-portrait {
-    width: var(--hero-portrait-w);
   }
 }
 
@@ -328,30 +251,6 @@ body {
     --hero-headline-display-size: 6rem;
     --hero-headline-scale-x: 1.22;
     --hero-headline-letter-scale-y: 1.4;
-    /* portrait: same as 2150 block (do not override --hero-portrait-w here) */
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-intro-headline-lift: 2rem;
-    --hero-intro-gap-ratio: 0.085;
-    --hero-frame-h: 34rem;
-  }
-
-  .hero-section .hero-headline-display {
-    font-size: var(--hero-headline-display-size) !important;
-    transform: translateY(var(--hero-headline-lift))
-      scaleX(var(--hero-headline-scale-x))
-      scaleY(var(--hero-headline-letter-scale-y)) !important;
-  }
-
-  .hero-portrait {
-    width: var(--hero-portrait-w);
-  }
-
-  .hero-section .hero-red-frame {
-    height: 34rem !important;
-    max-height: 34rem;
   }
 }
 
@@ -360,17 +259,8 @@ body {
     --hero-headline-display-size: 5.5rem;
     --hero-headline-scale-x: 1.2;
     --hero-headline-letter-scale-y: 1.36;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
   }
 
-  .hero-section .hero-headline-display {
-    font-size: 5.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.2)
-      scaleY(1.36) !important;
-  }
 }
 
 /* 1620 fallback when container query does not run (same canvas width) */
@@ -381,45 +271,6 @@ body {
     --hero-headline-letter-scale-y: 1.36;
   }
 
-  .hero-section .hero-headline-display {
-    font-size: 5.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.2)
-      scaleY(1.36) !important;
-  }
-}
-
-@container hero-design (max-width: 1440px) {
-  .hero-layout-rail {
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 12.75rem)
-    );
-  }
-
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 12.75rem)
-      )
-      !important;
-  }
-}
-
-@media (max-width: 1440px) {
-  .hero-section .hero-layout-rail {
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 12.75rem)
-    );
-  }
-
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 12.75rem)
-      )
-      !important;
-  }
 }
 
 @container hero-design (max-width: 1366px) {
@@ -427,46 +278,16 @@ body {
     --hero-headline-display-size: 5.25rem;
     --hero-headline-scale-x: 1.18;
     --hero-headline-letter-scale-y: 1.32;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 12rem)
-    );
     --hero-intro-font-size: 1.125rem;
-    --hero-intro-gap-ratio: 0.078;
-    --hero-intro-headline-lift: 2.35rem;
   }
 
   .hero-section .hero-center-headline {
     --hero-headline-display-size: 5.25rem;
     --hero-intro-font-size: 1.125rem;
-    --hero-intro-gap-ratio: 0.078;
-    --hero-intro-headline-lift: 2.5rem;
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 12rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro {
-    font-size: 1.125rem !important;
-    margin-bottom: calc(5.25rem * 0.078 * 1.1) !important;
-    transform: translateY(calc(5.25rem * -1.42 + 2.5rem)) !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro > span + span {
-    margin-top: 0.125rem !important;
   }
 
   .hero-section .hero-headline-display {
     font-size: 5.25rem !important;
-    margin-top: -0.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.18)
-      scaleY(1.32) !important;
   }
 }
 
@@ -475,42 +296,16 @@ body {
     --hero-headline-display-size: 5.25rem;
     --hero-headline-scale-x: 1.18;
     --hero-headline-letter-scale-y: 1.32;
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 12rem)
-    );
     --hero-intro-font-size: 1.125rem;
-    --hero-intro-gap-ratio: 0.078;
-    --hero-intro-headline-lift: 2.5rem;
   }
 
   .hero-section .hero-center-headline {
     --hero-headline-display-size: 5.25rem;
     --hero-intro-font-size: 1.125rem;
-    --hero-intro-gap-ratio: 0.078;
-    --hero-intro-headline-lift: 2.5rem;
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 12rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro {
-    font-size: 1.125rem !important;
-    margin-bottom: calc(5.25rem * 0.078 * 1.1) !important;
-    transform: translateY(calc(5.25rem * -1.42 + 2.5rem)) !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro > span + span {
-    margin-top: 0.125rem !important;
   }
 
   .hero-section .hero-headline-display {
     font-size: 5.25rem !important;
-    margin-top: -0.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.18)
-      scaleY(1.32) !important;
   }
 }
 
@@ -519,29 +314,8 @@ body {
     --hero-headline-display-size: 5rem;
     --hero-headline-scale-x: 1.16;
     --hero-headline-letter-scale-y: 1.3;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 11.5rem)
-    );
   }
 
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 11.5rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-headline-display {
-    font-size: 5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.16)
-      scaleY(1.3) !important;
-  }
 }
 
 @media (max-width: 1280px) {
@@ -549,18 +323,6 @@ body {
     --hero-headline-display-size: 5rem;
     --hero-headline-scale-x: 1.16;
     --hero-headline-letter-scale-y: 1.3;
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 11.5rem)
-    );
-  }
-
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 11.5rem)
-      )
-      !important;
   }
 
   .hero-section .hero-headline-display {
@@ -575,29 +337,8 @@ body {
     --hero-headline-display-size: 4.75rem;
     --hero-headline-scale-x: 1.14;
     --hero-headline-letter-scale-y: 1.28;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 11rem)
-    );
   }
 
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 11rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-headline-display {
-    font-size: 4.75rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.14)
-      scaleY(1.28) !important;
-  }
 }
 
 @media (max-width: 1240px) {
@@ -605,18 +346,6 @@ body {
     --hero-headline-display-size: 4.75rem;
     --hero-headline-scale-x: 1.14;
     --hero-headline-letter-scale-y: 1.28;
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 11rem)
-    );
-  }
-
-  .hero-section .hero-center-headline {
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 11rem)
-      )
-      !important;
   }
 
   .hero-section .hero-headline-display {
@@ -632,34 +361,14 @@ body {
     --hero-headline-display-size: 4.5rem;
     --hero-headline-scale-x: 1.12;
     --hero-headline-letter-scale-y: 1.26;
-    --hero-headline-display-max-w: min(
-      100%,
-      calc(100% - var(--hero-portrait-w) - 5rem)
-    );
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 10.5rem)
-    );
   }
 
   .hero-section .hero-center-headline {
     --hero-headline-display-size: 4.5rem;
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 10.5rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro {
-    margin-bottom: calc(4.5rem * 0.078 * 1.1) !important;
-    transform: translateY(calc(4.5rem * -1.42 + 2.5rem)) !important;
   }
 
   .hero-section .hero-headline-display {
     font-size: 4.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.12)
-      scaleY(1.26) !important;
   }
 }
 
@@ -669,29 +378,13 @@ body {
     --hero-headline-display-size: 4.5rem;
     --hero-headline-scale-x: 1.12;
     --hero-headline-letter-scale-y: 1.26;
-    --hero-headline-pl-effective: max(
-      0.5rem,
-      calc(env(safe-area-inset-left) + 10.5rem)
-    );
   }
 
   .hero-section .hero-center-headline {
     --hero-headline-display-size: 4.5rem;
-    padding-left: max(
-        0.5rem,
-        calc(env(safe-area-inset-left) + 10.5rem)
-      )
-      !important;
-  }
-
-  .hero-section .hero-center-headline .hero-intro {
-    margin-bottom: calc(4.5rem * 0.078 * 1.1) !important;
-    transform: translateY(calc(4.5rem * -1.42 + 2.5rem)) !important;
   }
 
   .hero-section .hero-headline-display {
     font-size: 4.5rem !important;
-    transform: translateY(var(--hero-headline-lift)) scaleX(1.12)
-      scaleY(1.26) !important;
   }
 }

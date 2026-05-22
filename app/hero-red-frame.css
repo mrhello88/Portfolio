@@ -1,0 +1,48 @@
+/**
+ * Red frame: top = side labels, bottom = 20% gap from canvas bottom (every screen).
+ */
+.hero-section .design-viewport {
+  --hero-red-frame-span: calc(
+    100% - var(--hero-side-labels-pt) - max(0px, env(safe-area-inset-bottom))
+  );
+}
+
+.hero-section .design-viewport > .hero-red-frame {
+  position: absolute !important;
+  top: var(--hero-side-labels-pt) !important;
+  bottom: calc(
+    max(0px, env(safe-area-inset-bottom)) + var(--hero-red-frame-span) * 0.2
+  ) !important;
+  left: auto !important;
+  right: var(--hero-frame-right) !important;
+  margin-top: var(--hero-frame-top-nudge) !important;
+  width: var(--hero-frame-w) !important;
+  height: auto !important;
+  z-index: 5 !important;
+  box-sizing: border-box !important;
+  border: var(--hero-frame-border) solid #e60000 !important;
+  background: transparent !important;
+  pointer-events: none !important;
+}
+
+/* Portrait: bottom 0 */
+.hero-section .design-viewport .hero-portrait-row {
+  position: absolute !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  left: auto !important;
+  z-index: 11 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: flex-end !important;
+  transform: translateY(var(--hero-portrait-shift-y))
+    translateX(var(--hero-portrait-shift-x)) !important;
+}
+
+.hero-section .design-viewport .hero-portrait {
+  width: var(--hero-portrait-w) !important;
+  height: auto !important;
+  max-width: var(--hero-portrait-w) !important;
+  aspect-ratio: 4 / 5 !important;
+}

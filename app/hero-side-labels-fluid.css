@@ -1,0 +1,57 @@
+/**
+ * Side labels: fluid on canvas height + width (cqh/cqw on .design-viewport).
+ * Design refs: 2560×1440 — letter 3rem, col 4.75rem, inset 1.5rem.
+ */
+.hero-section .design-viewport {
+  --hero-side-letter-h: clamp(1.25rem, 3.33cqh, 3rem);
+  --hero-side-letter-w: clamp(1.25rem, 1.875cqw, 3rem);
+  --hero-side-letter: min(var(--hero-side-letter-h), var(--hero-side-letter-w));
+
+  --hero-side-col-w-h: clamp(2rem, 5.28cqh, 4.75rem);
+  --hero-side-col-w-w: clamp(2rem, 2.969cqw, 4.75rem);
+  --hero-side-col-w: min(var(--hero-side-col-w-h), var(--hero-side-col-w-w));
+
+  --hero-side-gap-h: clamp(0.08rem, 0.2cqh, 0.2rem);
+  --hero-side-gap-w: clamp(0.08rem, 0.078cqw, 0.2rem);
+  --hero-side-gap: min(var(--hero-side-gap-h), var(--hero-side-gap-w));
+
+  --hero-side-inset-x: clamp(1rem, 0.9375cqw, 1.5rem);
+  --hero-side-divider-w: clamp(0.15rem, 0.278cqh, 0.25rem);
+
+  --hero-side-labels-end-x: calc(
+    var(--hero-side-inset-x) + var(--hero-side-col-w) + var(--hero-side-gap) +
+      var(--hero-side-divider-w) + var(--hero-side-gap) +
+      calc(var(--hero-side-col-w) * 1.15)
+  );
+  --hero-stack-gap-from-labels: 2.15rem;
+  --hero-headline-pl-label: calc(
+    var(--hero-side-labels-end-x) + var(--hero-stack-gap-from-labels)
+  );
+  --hero-headline-pl: max(
+    0.5rem,
+    calc(env(safe-area-inset-left) + var(--hero-headline-pl-label))
+  );
+  --hero-headline-pl-effective: var(--hero-headline-pl);
+}
+
+.hero-section .design-viewport .hero-side-labels {
+  width: max-content;
+  max-width: calc(100% - var(--hero-side-inset-x) * 2);
+}
+
+.hero-section .design-viewport .hero-side-col--name {
+  width: var(--hero-side-col-w);
+  min-width: 0;
+  max-width: var(--hero-side-col-w);
+}
+
+.hero-section .design-viewport .hero-side-col--role {
+  width: calc(var(--hero-side-col-w) * 1.15);
+  min-width: 0;
+  max-width: calc(var(--hero-side-col-w) * 1.15);
+}
+
+.hero-section .design-viewport .hero-side-col > span {
+  width: 100%;
+  max-width: 100%;
+}

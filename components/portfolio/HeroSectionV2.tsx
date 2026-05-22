@@ -167,34 +167,36 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
             <div className="absolute inset-0 bg-black/25 dark:bg-black/45" />
           </div>
 
+          <div aria-hidden className="hero-red-frame" />
+
           <div className="hero-layout-rail relative z-10 flex h-full min-h-0 w-full flex-col items-stretch">
-            <div aria-hidden className="hero-red-frame" />
-
-            <div className="hero-center-headline pointer-events-none absolute inset-0 z-14 flex items-end justify-start pt-(--hero-headline-pt) pr-(--hero-headline-pr) pb-(--hero-headline-pb-effective) pl-(--hero-headline-pl-effective)">
+            <div className="hero-center-headline pointer-events-none absolute left-0 right-0 z-14 flex items-end justify-start pr-(--hero-headline-pr) pl-(--hero-headline-pl-effective)">
               <div className="hero-headline-stack inline-flex w-max max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
-                <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
-                  <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
-                    Hi there<span className="text-[#e60000]">!</span> this is
-                  </span>
-                  <span className="mt-1 block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
-                    {HERO_INTRO_LINE_2}
-                  </span>
-                </p>
-                <p className="hero-headline-display inline-flex max-w-(--hero-headline-display-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
-                  <span className="hero-headline-line text-white">
-                    {HERO_CENTER_LINE_1}
-                  </span>
-                  <span className="hero-headline-line text-white">
-                    {HERO_CENTER_LINE_2}
-                  </span>
-                  <span className="hero-headline-line text-[#e60000]">
-                    {HERO_CENTER_LINE_3}
-                  </span>
-                </p>
+                <div className="hero-copy-block flex w-max max-w-full flex-col items-start">
+                  <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
+                    <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                      Hi there<span className="text-[#e60000]">!</span> this is
+                    </span>
+                    <span className="mt-1 block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                      {HERO_INTRO_LINE_2}
+                    </span>
+                  </p>
+                  <p className="hero-headline-display inline-flex max-w-(--hero-headline-display-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                    <span className="hero-headline-line text-white">
+                      {HERO_CENTER_LINE_1}
+                    </span>
+                    <span className="hero-headline-line text-white">
+                      {HERO_CENTER_LINE_2}
+                    </span>
+                    <span className="hero-headline-line text-[#e60000]">
+                      {HERO_CENTER_LINE_3}
+                    </span>
+                  </p>
+                </div>
 
-                <div className="hero-services-panel pointer-events-auto w-full max-w-[min(100%,15.5rem)] text-left">
+                <div className="hero-services-panel pointer-events-auto w-full max-w-(--hero-services-panel-max-w) text-left">
                   <div className="h-px w-full bg-white/12" aria-hidden />
-                  <ul className="space-y-[0.35em] py-[0.85em] font-sans font-medium leading-tight text-white/50 text-(length:--hero-services-text)">
+                  <ul className="space-y-[0.35em] py-(--hero-services-panel-py) font-sans font-medium leading-tight text-white/50 text-(length:--hero-services-text)">
                     <li>Website Design</li>
                     <li>Product Design</li>
                     <li>Branding & Strategy</li>
@@ -219,7 +221,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
               aria-label={`${HERO_NAME}. ${HERO_VERTICAL_LABEL}`}
               className="hero-side-labels pointer-events-none z-20 flex min-h-0 flex-row items-stretch gap-(--hero-side-gap)"
             >
-              <div className="hero-side-col hero-side-col--name flex min-h-0 min-w-(--hero-side-col-w) flex-col items-stretch justify-between">
+              <div className="hero-side-col hero-side-col--name flex min-h-0 w-(--hero-side-col-w) flex-col items-stretch justify-between">
                 {HERO_NAME.split("").map((ch, i) => (
                   <span
                     key={`hero-name-${i}`}
@@ -238,7 +240,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                 className="w-(--hero-side-divider-w) shrink-0 self-stretch rounded-full"
                 style={{ backgroundColor: HERO_LABEL_COLOR_DEVELOPER }}
               />
-              <div className="hero-side-col hero-side-col--role flex min-h-0 min-w-[calc(var(--hero-side-col-w)*1.15)] flex-col items-stretch justify-between">
+              <div className="hero-side-col hero-side-col--role flex min-h-0 w-[calc(var(--hero-side-col-w)*1.15)] flex-col items-stretch justify-between">
                 {HERO_VERTICAL_LABEL.split("").map((ch, i) => (
                   <span
                     key={`hero-v-${i}`}
@@ -264,7 +266,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                         alt=""
                         fill
                         priority
-                        sizes="1152px"
+                        sizes="(max-width: 1095px) 42vw, (max-width: 1440px) 52vw, 1152px"
                         className="hero-portrait-img object-contain"
                         style={{
                           objectPosition: "right bottom",
