@@ -77,3 +77,21 @@
     --hero-social-gap-w: clamp(0.75rem, 2.5cqw, 1.5rem);
   }
 }
+
+@container hero-design (max-width: 600px) {
+  .hero-section .design-viewport {
+    --hero-tagline-size-h: clamp(1.1rem, 2.75cqh, 1.85rem);
+    --hero-tagline-size-w: clamp(1.1rem, 5.5cqw, 1.85rem);
+    --hero-tagline-gap-h: clamp(0.12rem, 0.32cqh, 0.28rem);
+    --hero-tagline-gap-w: clamp(0.12rem, 0.35cqw, 0.28rem);
+    --hero-tagline-bottom-h: clamp(1.125rem, 3.25cqh, 2.5rem);
+    --hero-tagline-bottom-w: clamp(1.125rem, 3.5cqw, 2.5rem);
+    --hero-tagline-right-h: clamp(0.75rem, 2.5cqh, 1.75rem);
+    --hero-tagline-right-w: clamp(0.75rem, 2.75cqw, 1.75rem);
+  }
+
+  .hero-section .design-viewport .hero-tagline-shift {
+    display: flex !important;
+    z-index: 35 !important;
+  }
+}

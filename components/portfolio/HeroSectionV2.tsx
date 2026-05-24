@@ -195,13 +195,13 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                 </div>
 
                 <div className="hero-services-panel pointer-events-auto w-full max-w-(--hero-services-panel-max-w) text-left">
-                  <div className="h-px w-full bg-white/12" aria-hidden />
-                  <ul className="space-y-[0.35em] py-(--hero-services-panel-py) font-sans font-medium leading-tight text-white/50 text-(length:--hero-services-text)">
+                  <div className="hero-services-rule h-px bg-white/12" aria-hidden />
+                  <ul className="space-y-(--hero-services-line-gap) py-(--hero-services-panel-py) font-sans font-medium leading-tight text-white/50 text-(length:--hero-services-text)">
                     <li>Website Design</li>
                     <li>Product Design</li>
                     <li>Branding & Strategy</li>
                   </ul>
-                  <div className="h-px w-full bg-white/12" aria-hidden />
+                  <div className="hero-services-rule h-px bg-white/12" aria-hidden />
                   <Link
                     href="/#services"
                     className="mt-[0.75em] inline-flex items-center gap-[0.4em] font-sans font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] text-(length:--hero-services-text)"

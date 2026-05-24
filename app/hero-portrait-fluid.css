@@ -359,6 +359,35 @@
       var(--hero-portrait-w-layout-cap),
       var(--hero-portrait-w-from-h)
     );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+
+/* ≤480: even larger portrait (mobile stack) */
+@container hero-design (max-width: 480px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 92cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.05));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.3);
+    --hero-portrait-w-w: clamp(16rem, 102cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(14rem, 102cqw);
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
     --hero-headline-display-max-w: min(
       88rem,
       max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
@@ -367,6 +396,178 @@
   }
 
   .hero-section .design-viewport .hero-portrait {
-    aspect-ratio: 4 / 5 !important;
+    aspect-ratio: 4 / 5.3 !important;
   }
+}
+
+/* ≤455: same portrait height as ≤480/479 — width from height, not shrinking cqw */
+@container hero-design (max-width: 455px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 92cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.05));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.3);
+    --hero-portrait-w-layout-cap: max(14rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.3 !important;
+  }
+}
+
+/* ≤435: taller portrait (height-led) */
+@container hero-design (max-width: 435px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 100cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.12));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.55);
+    --hero-portrait-w-layout-cap: max(14rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.55 !important;
+  }
+}
+
+/* 413–415px: larger portrait than ≤435 base */
+@container hero-design (max-width: 415px) and (min-width: 413px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 100cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.35));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.95);
+    --hero-portrait-w-layout-cap: max(14rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.95 !important;
+  }
+}
+
+/* ≤412: lock portrait to current ≤435 size (401–412; <400 uses 415-size block below) */
+@container hero-design (max-width: 412px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 100cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.12));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.55);
+    --hero-portrait-w-layout-cap: max(14rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.55 !important;
+  }
+}
+
+/* <400px (max-width 399): same large portrait as 413–415 band */
+@container hero-design (max-width: 399px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1rem;
+    --hero-portrait-w-h: clamp(14rem, 100cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.35));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.95);
+    --hero-portrait-w-layout-cap: max(14rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.95 !important;
+  }
+}
+
+/* <361px: smaller portrait than <400 large band */
+@container hero-design (max-width: 360px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 0.85rem;
+    --hero-portrait-w-h: clamp(13rem, 96cqh, 76rem);
+    --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.1));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.5);
+    --hero-portrait-w-layout-cap: max(13rem, var(--hero-portrait-w-from-h));
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5.5 !important;
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="360"] .hero-layout-rail {
+  --hero-portrait-copy-min-w: 0rem;
+  --hero-portrait-gap-copy: 0.85rem;
+  --hero-portrait-w-h: clamp(13rem, 96cqh, 76rem);
+  --hero-portrait-max-h: min(100cqh, calc(var(--hero-red-frame-span) * 1.1));
+  --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5.5);
+  --hero-portrait-w-layout-cap: max(13rem, var(--hero-portrait-w-from-h));
+  --hero-portrait-w: min(
+    var(--hero-portrait-w-h),
+    var(--hero-portrait-w-from-h)
+  );
+  --hero-headline-display-max-w: min(
+    88rem,
+    max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+  );
+  --hero-headline-max-w: var(--hero-headline-display-max-w);
+}
+
+.hero-section .design-viewport[data-hero-bp="360"] .hero-portrait {
+  aspect-ratio: 4 / 5.5 !important;
 }

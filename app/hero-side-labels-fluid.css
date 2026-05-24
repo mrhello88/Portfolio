@@ -55,3 +55,14 @@
   width: 100%;
   max-width: 100%;
 }
+
+/* ≤390: slightly narrower side labels (width-led) */
+@container hero-design (max-width: 390px) {
+  .hero-section .design-viewport {
+    --hero-side-letter-w: clamp(1.125rem, 1.7cqw, 3rem);
+    --hero-side-letter: min(var(--hero-side-letter-h), var(--hero-side-letter-w));
+    --hero-side-col-w-w: clamp(1.75rem, 2.65cqw, 4.75rem);
+    --hero-side-col-w: min(var(--hero-side-col-w-h), var(--hero-side-col-w-w));
+    --hero-side-inset-x: clamp(0.5rem, 0.55cqw, 1.5rem);
+  }
+}

@@ -5,6 +5,15 @@ import { type RefObject, useLayoutEffect } from "react";
 /** Canvas width breakpoints (smallest first). Syncs `data-hero-bp` on .design-viewport. */
 /** Smallest matching `max` wins. No separate 1024 bucket — it had no CSS and made headline jump bigger. */
 const HERO_CANVAS_BPS = [
+  { max: 360, id: "360" },
+  { max: 390, id: "390" },
+  { max: 399, id: "399" },
+  { max: 412, id: "412" },
+  { max: 415, id: "415" },
+  { max: 435, id: "435" },
+  { max: 455, id: "455" },
+  { max: 479, id: "479" },
+  { max: 480, id: "480" },
   { max: 600, id: "600" },
   { max: 630, id: "630" },
   { max: 695, id: "695" },

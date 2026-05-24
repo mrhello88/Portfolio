@@ -128,6 +128,11 @@
   font-size: var(--hero-services-text-effective) !important;
 }
 
+.hero-section .design-viewport .hero-services-rule {
+  width: var(--hero-services-rule-w) !important;
+  max-width: 100% !important;
+}
+
 /* Shorter canvas: smaller type, no clip, no right drift */
 @container hero-design (max-height: 1439px) {
   .hero-section .design-viewport .hero-layout-rail {

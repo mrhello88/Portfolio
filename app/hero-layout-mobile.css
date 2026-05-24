@@ -66,8 +66,75 @@
   .hero-section .design-viewport .hero-headline-stack .hero-services-panel a {
     justify-content: flex-start !important;
   }
+}
 
-  .hero-section .design-viewport .hero-tagline-shift {
-    display: none !important;
+/* ≤435: copy tighter to side labels */
+@container hero-design (max-width: 435px) {
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.85rem)
+    );
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.85rem)
+      )
+      !important;
   }
+
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-copy-align-x: calc(var(--hero-headline-display-size-effective) * 0.07);
+    --hero-intro-shift-x: var(--hero-copy-align-x);
+    --hero-services-shift-x: var(--hero-copy-align-x);
+  }
+}
+
+/* ≤390: copy stack lower */
+@container hero-design (max-width: 390px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-copy-stack-mt: clamp(0.5rem, 2.5cqh, 1.125rem);
+  }
+
+  .hero-section .design-viewport .hero-headline-stack {
+    margin-top: var(--hero-copy-stack-mt) !important;
+  }
+}
+
+/* <361px: copy tighter left after side labels */
+@container hero-design (max-width: 360px) {
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-pl-effective: max(
+      0.35rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.55rem)
+    );
+    padding-left: max(
+        0.35rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.55rem)
+      )
+      !important;
+  }
+
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-copy-align-x: calc(var(--hero-headline-display-size-effective) * 0.04);
+    --hero-intro-shift-x: var(--hero-copy-align-x);
+    --hero-services-shift-x: var(--hero-copy-align-x);
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="360"] .hero-center-headline {
+  --hero-headline-pl-effective: max(
+    0.35rem,
+    calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.55rem)
+  );
+  padding-left: max(
+      0.35rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 0.55rem)
+    )
+    !important;
+}
+
+.hero-section .design-viewport[data-hero-bp="360"] .hero-layout-rail {
+  --hero-copy-align-x: calc(var(--hero-headline-display-size-effective) * 0.04);
+  --hero-intro-shift-x: var(--hero-copy-align-x);
+  --hero-services-shift-x: var(--hero-copy-align-x);
 }

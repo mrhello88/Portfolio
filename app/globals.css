@@ -125,7 +125,9 @@ body {
   --hero-services-shift-x: var(--hero-copy-align-x);
   --hero-services-text: 1.05rem;
   --hero-services-panel-max-w: 17.5rem;
-  --hero-services-panel-py: 0.95em;
+  --hero-services-panel-py: 0.82em;
+  --hero-services-line-gap: 0.28em;
+  --hero-services-rule-w: 100%;
 
   /* Tagline + social icons: hero-tagline-social-fluid.css (fluid cqh/cqw) */
   --hero-tagline-tracking: 0.2em;
