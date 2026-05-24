@@ -27,6 +27,25 @@
 
 /* Portrait + headline max-width: hero-portrait-fluid.css */
 
+/* Copy block ↔ labels: tighter gap (moves intro + headline + services left) */
+.hero-section .design-viewport[data-hero-bp="810"] .hero-center-headline {
+  --hero-headline-pl-effective: max(
+    0.5rem,
+    calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.45rem)
+  );
+}
+
+.hero-section .design-viewport[data-hero-bp="890"] .hero-layout-rail {
+  --hero-headline-size: 3.35rem;
+  --hero-headline-display-size: 3.35rem;
+  --hero-headline-scale-x: 1.04;
+  --hero-headline-letter-scale-y: 1.16;
+}
+
+.hero-section .design-viewport[data-hero-bp="890"] .hero-center-headline {
+  --hero-headline-display-size: 3.35rem;
+}
+
 @container hero-design (max-width: 1135px) {
   .hero-layout-rail {
     --hero-headline-size: 4.25rem;
@@ -46,6 +65,187 @@
     --hero-headline-stack-offset-y: 0.85rem;
   }
 
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 3.75rem;
+  }
+
+}
+
+@container hero-design (max-width: 810px) {
+  .hero-section .hero-center-headline {
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.45rem)
+    );
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.45rem)
+      )
+      !important;
+  }
+}
+
+@container hero-design (max-width: 890px) {
+  .hero-layout-rail {
+    --hero-headline-size: 3.35rem;
+    --hero-headline-display-size: 3.35rem;
+    --hero-headline-scale-x: 1.04;
+    --hero-headline-letter-scale-y: 1.16;
+  }
+
+  .hero-section .hero-center-headline {
+    --hero-headline-display-size: 3.35rem;
+  }
+}
+
+/* 721–810px, any height (not ≤720 — 768 block keeps 2.75rem below) */
+@container hero-design (max-width: 810px) and (min-width: 721px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-headline-size: 3.1rem;
+    --hero-headline-display-size: 3.1rem;
+    --hero-headline-scale-x: 1.02;
+    --hero-headline-letter-scale-y: 1.12;
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-display-size: 3.1rem;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+    );
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+      )
+      !important;
+  }
+}
+
+/* ≤768: smaller headline + copy left (beats 890 container rules via specificity) */
+@container hero-design (max-width: 768px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-headline-size: 2.75rem;
+    --hero-headline-display-size: 2.75rem;
+    --hero-headline-scale-x: 0.98;
+    --hero-headline-letter-scale-y: 1.08;
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-display-size: 2.75rem;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+    );
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+      )
+      !important;
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="768"] .hero-layout-rail {
+  --hero-headline-size: 2.75rem;
+  --hero-headline-display-size: 2.75rem;
+  --hero-headline-scale-x: 0.98;
+  --hero-headline-letter-scale-y: 1.08;
+}
+
+.hero-section .design-viewport[data-hero-bp="768"] .hero-center-headline {
+  --hero-headline-display-size: 2.75rem;
+}
+
+/* ≤720: slightly smaller services panel */
+@container hero-design (max-width: 720px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-services-text: 0.95rem;
+    --hero-services-text-effective: 0.95rem;
+    --hero-services-panel-max-w: 15rem;
+    --hero-services-panel-py: 0.85em;
+    --hero-services-gap-ratio: 0.132;
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="720"] .hero-layout-rail {
+  --hero-services-text: 0.95rem;
+  --hero-services-text-effective: 0.95rem;
+  --hero-services-panel-max-w: 15rem;
+  --hero-services-panel-py: 0.85em;
+  --hero-services-gap-ratio: 0.132;
+}
+
+/* ≤695: slightly smaller headline + intro (large portrait) */
+@container hero-design (max-width: 695px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-headline-size: 2.5rem;
+    --hero-headline-display-size: 2.5rem;
+    --hero-headline-scale-x: 0.96;
+    --hero-headline-letter-scale-y: 1.06;
+    --hero-intro-font-size: 1rem;
+    --hero-intro-font-size-effective: 1rem;
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-display-size: 2.5rem;
+    --hero-intro-font-size: 1rem;
+    --hero-intro-font-size-effective: 1rem;
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="695"] .hero-layout-rail {
+  --hero-headline-size: 2.5rem;
+  --hero-headline-display-size: 2.5rem;
+  --hero-headline-scale-x: 0.96;
+  --hero-headline-letter-scale-y: 1.06;
+  --hero-intro-font-size: 1rem;
+  --hero-intro-font-size-effective: 1rem;
+}
+
+.hero-section .design-viewport[data-hero-bp="695"] .hero-center-headline {
+  --hero-headline-display-size: 2.5rem;
+  --hero-intro-font-size: 1rem;
+  --hero-intro-font-size-effective: 1rem;
+}
+
+/* 601–630px wide + height ≥500: smaller headline (≤600 uses mobile stack layout) */
+@container hero-design (max-width: 630px) and (min-width: 601px) and (min-height: 500px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-headline-size: 2.35rem;
+    --hero-headline-display-size: 2.35rem;
+    --hero-headline-scale-x: 0.96;
+    --hero-headline-letter-scale-y: 1.06;
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-headline-display-size: 2.35rem;
+  }
+}
+
+/* ≤630: slightly smaller intro + tighter line 1↔2 gap */
+@container hero-design (max-width: 630px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-intro-font-size: 0.9375rem;
+    --hero-intro-font-size-effective: 0.9375rem;
+    --hero-intro-line-gap: 0.05rem;
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    --hero-intro-font-size: 0.9375rem;
+    --hero-intro-font-size-effective: 0.9375rem;
+    --hero-intro-line-gap: 0.05rem;
+  }
+}
+
+.hero-section .design-viewport[data-hero-bp="630"] .hero-layout-rail {
+  --hero-intro-font-size: 0.9375rem;
+  --hero-intro-font-size-effective: 0.9375rem;
+  --hero-intro-line-gap: 0.05rem;
+}
+
+.hero-section .design-viewport[data-hero-bp="630"] .hero-center-headline {
+  --hero-intro-font-size: 0.9375rem;
+  --hero-intro-font-size-effective: 0.9375rem;
+  --hero-intro-line-gap: 0.05rem;
 }
 
 @media (max-width: 1095px) {

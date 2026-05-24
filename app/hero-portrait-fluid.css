@@ -1,13 +1,13 @@
 /**
  * Portrait: fluid on canvas (cqh/cqw), capped vs headline + red frame.
- * Design ~2560×1440: min(58cqh, 42cqw) ≈ 52rem width, 4/5 aspect, bottom-right.
+ * Tokens on .design-viewport; @container overrides on .hero-layout-rail (descendant —
+ * container queries cannot style the container element itself).
  */
 .hero-section .design-viewport {
   --hero-portrait-gap-copy: 4rem;
   --hero-portrait-copy-min-w: 17.5rem;
   --hero-portrait-frame-reserve: calc(
-    var(--hero-frame-w, 3.5rem) + max(3rem, env(safe-area-inset-right, 0px)) +
-      1.25rem
+    var(--hero-frame-w) + var(--hero-frame-right) + 0.75rem
   );
 
   --hero-portrait-w-h: clamp(14rem, 58cqh, 76rem);
@@ -48,24 +48,325 @@
   object-position: var(--hero-portrait-object-x) var(--hero-portrait-object-y) !important;
 }
 
+/* Recompute portrait width on layout-rail so @container queries actually apply */
 @container hero-design (max-width: 1095px) {
-  .hero-section .design-viewport {
+  .hero-section .design-viewport .hero-layout-rail {
     --hero-portrait-gap-copy: 3rem;
     --hero-portrait-copy-min-w: 15rem;
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
   }
 }
 
 @container hero-design (max-height: 900px) {
-  .hero-section .design-viewport {
+  .hero-section .design-viewport .hero-layout-rail {
     --hero-portrait-max-h: calc(var(--hero-red-frame-span) * 0.85);
     --hero-portrait-copy-min-w: 15rem;
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
   }
 }
 
 @container hero-design (max-height: 700px) {
-  .hero-section .design-viewport {
+  .hero-section .design-viewport .hero-layout-rail {
     --hero-portrait-max-h: calc(var(--hero-red-frame-span) * 0.78);
     --hero-portrait-gap-copy: 2.5rem;
     --hero-portrait-copy-min-w: 13rem;
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+  }
+}
+
+/* ≤1024 / ≤960: boost cqw + smaller copy reserve; full w chain on layout-rail */
+@container hero-design (max-width: 1024px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 14rem;
+    --hero-portrait-w-w: clamp(14rem, 46cqw, 76rem);
+    --hero-portrait-w-fluid: min(var(--hero-portrait-w-h), var(--hero-portrait-w-w));
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+@container hero-design (max-width: 960px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 13rem;
+    --hero-portrait-w-w: clamp(14rem, 50cqw, 76rem);
+    --hero-portrait-w-fluid: min(var(--hero-portrait-w-h), var(--hero-portrait-w-w));
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+/* Tall narrow: height-led fluid (canvas height ≥ 550) */
+@container hero-design (max-width: 1024px) and (min-height: 550px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+@container hero-design (max-width: 960px) and (min-height: 550px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+/* ≤800 + tall: slightly larger portrait (fluid cqw), tighter copy reserve */
+@container hero-design (max-width: 800px) and (min-height: 550px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 11.5rem;
+    --hero-portrait-w-w: clamp(14rem, 54cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+/* ≤720: larger portrait (any canvas height) */
+@container hero-design (max-width: 720px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 9.5rem;
+    --hero-portrait-w-w: clamp(14rem, 72cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+/* ≤695: much larger portrait (any canvas height) */
+@container hero-design (max-width: 695px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 6.5rem;
+    --hero-portrait-w-h: clamp(14rem, 62cqh, 76rem);
+    --hero-portrait-max-h: min(72cqh, calc(var(--hero-red-frame-span) * 0.9));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+    --hero-portrait-w-w: clamp(14rem, 94cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+
+/* ≤630: even larger portrait (any canvas height) */
+@container hero-design (max-width: 630px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 5rem;
+    --hero-portrait-w-h: clamp(14rem, 68cqh, 76rem);
+    --hero-portrait-max-h: min(78cqh, calc(var(--hero-red-frame-span) * 0.96));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+    --hero-portrait-w-w: clamp(14rem, 100cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(
+      11rem,
+      calc(
+        100cqw - var(--hero-headline-pl-effective) -
+          var(--hero-portrait-copy-min-w) - var(--hero-portrait-frame-reserve)
+      )
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100% - var(--hero-portrait-w) - var(--hero-portrait-gap-copy)))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+}
+
+/* ≤600: mobile stack — copy top-left, portrait large bottom-right */
+@container hero-design (max-width: 600px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-portrait-copy-min-w: 0rem;
+    --hero-portrait-gap-copy: 1.25rem;
+    --hero-portrait-w-h: clamp(14rem, 74cqh, 76rem);
+    --hero-portrait-max-h: min(84cqh, calc(var(--hero-red-frame-span) * 0.98));
+    --hero-portrait-w-from-h: calc(var(--hero-portrait-max-h) * 4 / 5);
+    --hero-portrait-w-w: clamp(16rem, 88cqw, 76rem);
+    --hero-portrait-w-fluid: min(
+      var(--hero-portrait-w-h),
+      var(--hero-portrait-w-w),
+      var(--hero-portrait-w-from-h),
+      var(--hero-portrait-w-layout-cap)
+    );
+    --hero-portrait-w-layout-cap: max(
+      14rem,
+      calc(100cqw - var(--hero-portrait-frame-reserve) - 0.25rem)
+    );
+    --hero-portrait-w: min(
+      var(--hero-portrait-w-fluid),
+      var(--hero-portrait-w-layout-cap),
+      var(--hero-portrait-w-from-h)
+    );
+    --hero-headline-display-max-w: min(
+      88rem,
+      max(10rem, calc(100cqw - var(--hero-headline-pl-effective) - 1rem))
+    );
+    --hero-headline-max-w: var(--hero-headline-display-max-w);
+  }
+
+  .hero-section .design-viewport .hero-portrait {
+    aspect-ratio: 4 / 5 !important;
   }
 }

@@ -1,0 +1,73 @@
+/**
+ * ≤600px canvas: stacked layout — copy top-left (after side labels), portrait large bottom-right.
+ */
+@container hero-design (max-width: 600px) {
+  .hero-section .design-viewport .hero-layout-rail {
+    --hero-headline-stack-offset-y: 0rem;
+    --hero-headline-stack-shift-x: 0rem;
+    --hero-services-panel-max-w: min(17.5rem, 100%);
+  }
+
+  .hero-section .design-viewport .hero-center-headline {
+    top: calc(
+      var(--hero-side-labels-pt) + clamp(0.35rem, 1.5cqh, 0.75rem)
+    ) !important;
+    bottom: auto !important;
+    height: auto !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    --hero-headline-pl-effective: max(
+      0.5rem,
+      calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+    );
+    padding-left: max(
+        0.5rem,
+        calc(env(safe-area-inset-left) + var(--hero-side-labels-end-x) + 1.25rem)
+      )
+      !important;
+    padding-right: max(1rem, env(safe-area-inset-right)) !important;
+  }
+
+  .hero-section .design-viewport .hero-headline-stack {
+    align-items: flex-start !important;
+    width: max-content !important;
+    max-width: 100% !important;
+    transform-origin: top left !important;
+    margin-bottom: 0 !important;
+  }
+
+  .hero-section .design-viewport .hero-copy-block {
+    align-items: flex-start !important;
+    width: max-content !important;
+    max-width: 100% !important;
+  }
+
+  .hero-section .design-viewport .hero-intro {
+    width: max-content !important;
+    max-width: 100% !important;
+    text-align: left !important;
+  }
+
+  .hero-section .design-viewport .hero-headline-display {
+    align-items: flex-start !important;
+    transform-origin: bottom left !important;
+    max-width: 100% !important;
+  }
+
+  .hero-section .design-viewport .hero-headline-line {
+    margin-inline: 0 !important;
+  }
+
+  .hero-section .design-viewport .hero-headline-stack .hero-services-panel {
+    align-self: flex-start !important;
+    text-align: left !important;
+  }
+
+  .hero-section .design-viewport .hero-headline-stack .hero-services-panel a {
+    justify-content: flex-start !important;
+  }
+
+  .hero-section .design-viewport .hero-tagline-shift {
+    display: none !important;
+  }
+}

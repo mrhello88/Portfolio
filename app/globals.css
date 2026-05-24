@@ -107,34 +107,28 @@ body {
   --hero-services-gap-ratio: 0.145;
   /* Intro ↔ visible headline top (hero-headline-fluid.css) */
   --hero-intro-headline-gap: 0.45rem;
+  --hero-intro-line-gap: 0.125rem;
   /* ~3 lines × 0.9 lh before scaleY bleed upward */
   --hero-headline-stack-em: 2.2;
-  --hero-intro-shift-x: 0.8rem;
+  /* Shared left inset for intro + services; headline has no extra shift (see hero-headline-fluid.css) */
+  --hero-copy-align-x: 0rem;
+  --hero-intro-shift-x: var(--hero-copy-align-x);
   --hero-headline-scale-x: 1.4;
   --hero-headline-letter-scale-y: 1.61;
   --hero-headline-line-overlap: -0.12em;
   --hero-headline-tracking: 0.075em;
 
   --hero-frame-top-nudge: 0rem;
-  --hero-frame-right: max(5rem, env(safe-area-inset-right));
-  --hero-frame-w: 3.5rem;
-  --hero-frame-border: 4px;
+  /* Red frame size/inset: hero-red-frame.css (fluid cqh/cqw on .design-viewport) */
 
-  --hero-bottom-inset: max(env(safe-area-inset-bottom), 2rem);
-  --hero-bottom-gap: 1.5rem;
-  --hero-services-shift-x: 0.8rem;
+  /* Bottom stack inset/gap: hero-tagline-social-fluid.css on .design-viewport */
+  --hero-services-shift-x: var(--hero-copy-align-x);
   --hero-services-text: 1.05rem;
   --hero-services-panel-max-w: 17.5rem;
   --hero-services-panel-py: 0.95em;
 
-  --hero-tagline-size: 3.75rem;
+  /* Tagline + social icons: hero-tagline-social-fluid.css (fluid cqh/cqw) */
   --hero-tagline-tracking: 0.2em;
-  --hero-tagline-right: max(4rem, env(safe-area-inset-right));
-  --hero-tagline-bottom: max(env(safe-area-inset-bottom), 4.5rem);
-  --hero-tagline-gap: 0.375rem;
-
-  --hero-social-size: 2rem;
-  --hero-social-gap: 2rem;
 }
 
 /* Side labels + red frame: positioned inside .design-viewport (cqh + navbar offset) */
@@ -234,7 +228,7 @@ body {
 
 /*
  * Hero breakpoints (canvas = .design-viewport, container-type: size)
- * Width: >2150 default | ≤2150 | ≤1920 | ≤1620 | ≤1440 | ≤1366 | ≤1280 | ≤1240 | ≤1180 | ≤1135 | ≤1095 | ≤1024 (narrow file)
+ * Width: >2150 default | … | ≤1135 | ≤1095 | ≤890 | ≤810 | ≤800+tall | ≤768 (narrow + portrait-fluid)
  * Height/width: side labels + portrait fluid on .design-viewport (hero-side-labels-fluid.css, hero-portrait-fluid.css)
  * IMPORTANT: smaller max-width blocks must be LAST (later rules override).
  */

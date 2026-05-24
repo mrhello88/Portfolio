@@ -6,6 +6,8 @@ import "./hero-red-frame.css";
 import "./hero-side-labels-fluid.css";
 import "./hero-portrait-fluid.css";
 import "./hero-headline-fluid.css";
+import "./hero-tagline-social-fluid.css";
+import "./hero-layout-mobile.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

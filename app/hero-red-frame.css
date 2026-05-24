@@ -1,10 +1,25 @@
 /**
- * Red frame: top = side labels, bottom = 20% gap from canvas bottom (every screen).
+ * Red frame: fluid on canvas (cqh/cqw). Design 2560×1440 — w 3.5rem, right inset 5rem.
+ * Height = labels top → 80% of span (20% gap above canvas bottom).
  */
 .hero-section .design-viewport {
   --hero-red-frame-span: calc(
     100% - var(--hero-side-labels-pt) - max(0px, env(safe-area-inset-bottom))
   );
+
+  --hero-frame-w-w: clamp(2rem, 2.188cqw, 3.5rem);
+  --hero-frame-w-h: clamp(2rem, 3.89cqh, 3.5rem);
+  --hero-frame-w: min(var(--hero-frame-w-w), var(--hero-frame-w-h));
+
+  --hero-frame-right-w: clamp(1.25rem, 3.125cqw, 5rem);
+  --hero-frame-right-h: clamp(1.25rem, 5.56cqh, 5rem);
+  --hero-frame-right-fluid: min(var(--hero-frame-right-w), var(--hero-frame-right-h));
+  --hero-frame-right: max(
+    env(safe-area-inset-right, 0px),
+    var(--hero-frame-right-fluid)
+  );
+
+  --hero-frame-border: clamp(2px, min(0.278cqh, 0.156cqw), 4px);
 }
 
 .hero-section .design-viewport > .hero-red-frame {

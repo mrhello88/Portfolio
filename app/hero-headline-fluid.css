@@ -1,7 +1,14 @@
 /**
  * Intro + headline + services layout (see globals tokens for tune values).
+ *
+ * Alignment: `.hero-center-headline` padding-left clears side labels; intro/services
+ * must not add extra margin-left or they drift right of the headline (worse when
+ * headline shrinks on narrow canvas). Tune `--hero-copy-align-x` only.
  */
 .hero-section .design-viewport {
+  --hero-copy-align-x: 0rem;
+  --hero-intro-shift-x: var(--hero-copy-align-x);
+  --hero-services-shift-x: var(--hero-copy-align-x);
   --hero-headline-size-h: clamp(3.25rem, 9.17cqh, 8.25rem);
   --hero-headline-size-w: clamp(3.25rem, 5.16cqw, 8.25rem);
   --hero-headline-size-fluid: min(
@@ -18,6 +25,10 @@
   --hero-headline-scale-y-used: var(--hero-headline-letter-scale-y);
   --hero-intro-font-size-effective: var(--hero-intro-font-size);
   --hero-services-text-effective: var(--hero-services-text);
+  /* Match headline glyph edge (scaleX/tracking); scales down when headline shrinks */
+  --hero-copy-align-x: calc(var(--hero-headline-display-size-effective) * 0.1);
+  --hero-intro-shift-x: var(--hero-copy-align-x);
+  --hero-services-shift-x: var(--hero-copy-align-x);
   --hero-headline-scale-bleed: calc(
     (var(--hero-headline-scale-y-used) - 1) *
       var(--hero-headline-display-size-effective) * var(--hero-headline-stack-em)
@@ -68,6 +79,10 @@
   transform: none !important;
   position: relative !important;
   z-index: 2 !important;
+}
+
+.hero-section .design-viewport .hero-intro span + span {
+  margin-top: var(--hero-intro-line-gap) !important;
 }
 
 .hero-section .design-viewport .hero-headline-display {
