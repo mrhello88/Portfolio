@@ -291,7 +291,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
               </div>
             </div>
 
-            <div className="hero-bottom-stack pointer-events-none absolute bottom-(--hero-bottom-inset) left-0 right-0 z-25 flex flex-col items-center gap-(--hero-bottom-gap) px-6">
+            <div className="hero-bottom-stack pointer-events-none absolute bottom-(--hero-bottom-inset) left-0 right-0 z-32 flex flex-col items-center gap-(--hero-bottom-gap) px-6">
               <nav
                 aria-label="Social profiles"
                 className="pointer-events-auto flex items-center justify-center gap-(--hero-social-gap)"

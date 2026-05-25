@@ -47,7 +47,7 @@
   top: auto !important;
   bottom: 0 !important;
   left: auto !important;
-  z-index: 25 !important;
+  z-index: 20 !important;
   display: flex !important;
   justify-content: flex-end !important;
   align-items: flex-end !important;

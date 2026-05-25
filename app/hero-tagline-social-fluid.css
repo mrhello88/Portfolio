@@ -34,9 +34,13 @@
   );
 }
 
-/* Above bottom-stack (z-25) — portrait + tagline must not sit under social row */
+/* Portrait below social icons (bottom-stack z-32 in HeroSectionV2) */
 .hero-section .design-viewport .hero-stage-inner {
-  z-index: 28 !important;
+  z-index: 20 !important;
+}
+
+.hero-section .design-viewport .hero-bottom-stack {
+  z-index: 32 !important;
 }
 
 .hero-section .design-viewport .hero-portrait-wrap {
