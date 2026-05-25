@@ -29,8 +29,8 @@ export function usePortfolioAnimations(
           scale: 1,
         });
         gsap.set(
-          ".hero-side-labels, .hero-tagline-shift, .hero-bottom-stack, .hero-stage-inner",
-          { y: 0 },
+          ".hero-side-labels, .hero-bottom-stack, .hero-stage-inner",
+          { y: 0, opacity: 1, visibility: "visible" },
         );
         gsap.set(".site-header", { y: 0, opacity: 1 });
         gsap.set(".nav-link", { opacity: 1, y: 0 });
@@ -58,7 +58,7 @@ export function usePortfolioAnimations(
         scale: 1,
       });
       gsap.set(
-        ".hero-side-labels, .hero-tagline-shift, .hero-bottom-stack, .hero-stage-inner",
+        ".hero-side-labels, .hero-bottom-stack, .hero-stage-inner",
         { y: 0 },
       );
       gsap.set(".site-header", { y: -16, opacity: 0 });

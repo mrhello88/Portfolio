@@ -18,6 +18,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-montserrat);
   --font-anton: var(--font-anton-family);
+  --font-ballet: var(--font-ballet-family);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -160,9 +161,11 @@ body {
 .hero-section .design-viewport,
 .hero-section .hero-stage-inner,
 .hero-section .hero-portrait-row,
+.hero-section .hero-portrait-wrap,
 .hero-section .hero-portrait,
 .hero-section .hero-portrait-reveal,
-.hero-section .hero-portrait-scroll-zoom {
+.hero-section .hero-portrait-scroll-zoom,
+.hero-section .hero-tagline-shift {
   overflow: visible;
 }
 

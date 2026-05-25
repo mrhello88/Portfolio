@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Geist_Mono, Montserrat } from "next/font/google";
+import { Anton, Ballet, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./hero-breakpoints-narrow.css";
 import "./hero-red-frame.css";
@@ -22,6 +22,13 @@ const anton = Anton({
   display: "swap",
 });
 
+const ballet = Ballet({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-ballet-family",
+  display: "swap",
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -41,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${anton.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${anton.variable} ${ballet.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body

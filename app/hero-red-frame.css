@@ -47,17 +47,21 @@
   top: auto !important;
   bottom: 0 !important;
   left: auto !important;
-  z-index: 11 !important;
+  z-index: 25 !important;
   display: flex !important;
   justify-content: flex-end !important;
   align-items: flex-end !important;
+  overflow: visible !important;
   transform: translateY(var(--hero-portrait-shift-y))
     translateX(var(--hero-portrait-shift-x)) !important;
 }
 
-.hero-section .design-viewport .hero-portrait {
+.hero-section .design-viewport .hero-portrait-row .hero-portrait-wrap {
   width: var(--hero-portrait-w) !important;
-  height: auto !important;
   max-width: var(--hero-portrait-w) !important;
+}
+
+.hero-section .design-viewport .hero-portrait-row .hero-portrait {
+  height: auto !important;
   aspect-ratio: 4 / 5 !important;
 }

@@ -258,22 +258,34 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
 
             <div className="hero-stage-inner pointer-events-auto relative z-10 flex w-full flex-1 flex-col justify-end pr-(--hero-stage-pr) pt-(--hero-stage-pt) pl-(--hero-stage-pl) pb-[max(0px,env(safe-area-inset-bottom))]">
               <div className="hero-portrait-row flex w-full justify-end">
-                <div className="hero-portrait relative aspect-4/5 w-(--hero-portrait-w) overflow-hidden">
-                  <div className="hero-portrait-reveal absolute inset-0 opacity-0">
-                    <div className="hero-portrait-scroll-zoom absolute inset-0 will-change-transform">
-                      <Image
-                        src="/herosection-image.webp"
-                        alt=""
-                        fill
-                        priority
-                        sizes="(max-width: 1095px) 42vw, (max-width: 1440px) 52vw, 1152px"
-                        className="hero-portrait-img object-contain"
-                        style={{
-                          objectPosition: "right bottom",
-                          objectFit: "contain",
-                        }}
-                      />
+                <div className="hero-portrait-wrap">
+                  <div className="hero-portrait relative aspect-4/5 w-full overflow-hidden">
+                    <div className="hero-portrait-reveal absolute inset-0 opacity-0">
+                      <div className="hero-portrait-scroll-zoom absolute inset-0 will-change-transform">
+                        <Image
+                          src="/herosection-image.webp"
+                          alt=""
+                          fill
+                          priority
+                          sizes="(max-width: 1095px) 42vw, (max-width: 1440px) 52vw, 1152px"
+                          className="hero-portrait-img object-contain"
+                          style={{
+                            objectPosition: "right bottom",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </div>
                     </div>
+                  </div>
+                  <div className="hero-tagline-shift flex w-max shrink-0 flex-col gap-y-(--hero-tagline-gap)">
+                    <p className="hero-tagline font-ballet flex flex-col gap-y-(--hero-tagline-gap) text-center font-normal text-[#e60000]">
+                      <span className="hero-tagline-line1 w-full whitespace-nowrap">
+                        <span>Turning</span>
+                        <span>Coffee</span>
+                      </span>
+                      <span className="hero-tagline-into block w-full text-center">Into</span>
+                      <span className="block w-full text-center">Code</span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -328,17 +340,6 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   </li>
                 </ul>
               </nav>
-            </div>
-
-            <div className="hero-tagline-shift pointer-events-none absolute bottom-(--hero-tagline-bottom) right-(--hero-tagline-right) z-30 flex w-max max-w-[calc(100%-2rem)] shrink-0 flex-col gap-y-(--hero-tagline-gap)">
-              <p className="hero-tagline font-anton flex flex-col gap-y-(--hero-tagline-gap) text-center font-semibold leading-[1.08] text-[#e60000] text-(length:--hero-tagline-size) tracking-(--hero-tagline-tracking) [text-shadow:0.01em_0_0_currentColor,-0.01em_0_0_currentColor] drop-shadow-[0_2px_8px_rgba(0,0,0,0.38)]">
-                <span className="block w-full text-center">Turning</span>
-                <span className="block w-full text-center">Coffee</span>
-                <span className="block w-full text-center text-[0.62em] tracking-[0.14em]">
-                  Into
-                </span>
-                <span className="block w-full text-center">Code</span>
-              </p>
             </div>
           </div>
         </DesignViewportContainer>
