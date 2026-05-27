@@ -50,7 +50,18 @@ export function useLocomotiveScroll() {
       });
 
       ScrollTrigger.defaults({ scroller: document.documentElement });
-      unsubscribeLenis = lenis.on("scroll", ScrollTrigger.update);
+
+      const onLenisScroll = () => {
+        ScrollTrigger.update();
+        window.dispatchEvent(
+          new CustomEvent("portfolio-scroll", {
+            detail: { scroll: lenis.scroll },
+          }),
+        );
+      };
+
+      unsubscribeLenis = lenis.on("scroll", onLenisScroll);
+      onLenisScroll();
       ScrollTrigger.refresh();
     }
 

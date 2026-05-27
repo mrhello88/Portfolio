@@ -11,31 +11,39 @@ type BrandLogo = {
 };
 
 const BRAND_LOGOS: BrandLogo[] = [
-  { name: "DOVA", src: "/Dova-logo.png" },
+  {
+    name: "DOVA",
+    src: "/Dova-logo.png",
+    imageClass: "scale-[0.7] sm:scale-[0.82] md:scale-100",
+  },
   { name: "Energy Recruitement", src: "/energy-recruitement.webp" },
   { name: "LinkBiz", src: "/linkbizlogo.png", imageClass: "scale-[1.06]" },
   { name: "Tujitume", src: "/TujitumeLogo.svg" },
-  { name: "brand-appeal", src: "/brand-appeal.ico" },
+  {
+    name: "brand-appeal",
+    src: "/brand-appeal.ico",
+    imageClass: "scale-[0.65] sm:scale-[0.78] md:scale-100",
+  },
 ];
 
 /** One full viewport band: each brand once; duplicate band exists only for seamless GSAP loop. */
 function LogoBand({ ariaHidden }: { ariaHidden?: boolean }) {
   return (
     <div
-      className="flex min-w-[100vw] shrink-0 items-center justify-evenly gap-3 px-6 sm:gap-5 sm:px-10 md:gap-8 md:px-14"
+      className="flex min-w-[100vw] shrink-0 items-center justify-evenly gap-[clamp(0.375rem,1.2vw,2rem)] px-[clamp(0.5rem,2vw,3.5rem)]"
       aria-hidden={ariaHidden}
     >
       {BRAND_LOGOS.map((brand) => (
         <div
           key={brand.name}
-          className="relative z-0 flex h-16 min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1] sm:h-20 md:h-24"
+          className="relative z-0 flex h-[clamp(3rem,12vw,6rem)] min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1]"
         >
           <Image
             src={brand.src}
             alt={ariaHidden ? "" : `${brand.name} logo`}
             width={220}
             height={96}
-            className={`pointer-events-none h-full w-full max-h-full object-contain p-2 ${brand.imageClass ?? ""}`}
+            className={`pointer-events-none max-h-full max-w-full origin-center object-contain p-[clamp(0.125rem,0.65vw,0.5rem)] ${brand.imageClass ?? ""}`}
           />
         </div>
       ))}
@@ -119,17 +127,17 @@ export default function BrandLogosSection() {
   return (
     <section
       id="brands"
-      className="relative w-full overflow-x-hidden border-t border-white/10 bg-black py-14 md:py-18"
+      className="relative flex w-full flex-col justify-center overflow-x-hidden border-t border-white/10 bg-black py-[clamp(2rem,4.5vw,4.5rem)]"
     >
-      <div className="relative left-1/2 mt-8 w-screen max-w-[100vw] -translate-x-1/2">
+      <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
         <div
-          className="brand-marquee-wrap cursor-pointer overflow-hidden py-2"
+          className="brand-marquee-wrap flex min-h-[clamp(3rem,12vw,6rem)] cursor-pointer items-center overflow-hidden py-[clamp(0.25rem,0.8vw,0.5rem)]"
           onPointerEnter={onMarqueePointerEnter}
           onPointerLeave={onMarqueePointerLeave}
         >
           <div
             ref={trackRef}
-            className="brand-marquee-track flex w-max will-change-transform"
+            className="brand-marquee-track flex w-max items-center will-change-transform"
           >
             <LogoBand />
             <LogoBand ariaHidden />

@@ -2,8 +2,16 @@
 @import "locomotive-scroll/locomotive-scroll.css";
 
 :root {
-  /* Fixed SiteHeader bar (h-14) — added to hero side-labels top for visual balance */
-  --site-header-h: 3.5rem;
+  /* SiteHeader — fluid row height + top inset (fixed to viewport top) */
+  --site-header-h: clamp(3rem, 10vw, 3.75rem);
+  --site-header-offset-y: clamp(0.375rem, 1.2vw, 0.75rem);
+  --site-header-total-h: calc(
+    var(--site-header-h) + var(--site-header-offset-y)
+  );
+  --site-header-px: clamp(0.75rem, 3vw, 2.5rem);
+  --site-header-gap: clamp(0.5rem, 2vw, 1rem);
+  --site-header-nav-gap: clamp(0.75rem, 2.5vw, 1.5rem);
+  --site-header-cta-gap: clamp(1.25rem, 4vw, 2.5rem);
   --background: #fafaf9;
   --foreground: #1c1917;
   --muted: #78716c;
@@ -63,7 +71,7 @@ body {
   /* cqh + side insets must live on the container (not .hero-section) */
   --hero-side-pad-y: clamp(2rem, 6.11cqh, 5.5rem);
   --hero-side-labels-pt: calc(
-    var(--hero-side-pad-y) + var(--site-header-h, 3.5rem) +
+    var(--hero-side-pad-y) + var(--site-header-total-h, 4.25rem) +
       env(safe-area-inset-top, 0px)
   );
   --hero-side-labels-pb: var(--hero-side-pad-y);
