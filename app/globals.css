@@ -12,6 +12,9 @@
   --site-header-gap: clamp(0.5rem, 2vw, 1rem);
   --site-header-nav-gap: clamp(0.75rem, 2.5vw, 1.5rem);
   --site-header-cta-gap: clamp(1.25rem, 4vw, 2.5rem);
+  /* Figma design canvas (shared with Hero + Work) */
+  --design-viewport-max-w: 2560px;
+  --design-viewport-max-h: 1440px;
   --background: #fafaf9;
   --foreground: #1c1917;
   --muted: #78716c;
@@ -75,6 +78,254 @@ body {
       env(safe-area-inset-top, 0px)
   );
   --hero-side-labels-pb: var(--hero-side-pad-y);
+}
+
+/*
+ * Work section — fixed canvas (height, image, side, layout positions).
+ * Only content typography scales via --work-ui-scale (zoom-like resize).
+ */
+#work.work-section {
+  --work-min-h: min(92dvh, calc(var(--design-viewport-max-h) * 0.92));
+  display: flex;
+  flex-direction: column;
+  min-height: max(36rem, var(--work-min-h));
+  box-sizing: border-box;
+
+  /* Zoom-like type scale; bari screens par fonts thore baray (max 1.2 @ 2560) */
+  --work-fluid-vw: min(100vw, var(--design-viewport-max-w));
+  --work-ui-scale: clamp(
+    0.65,
+    calc(var(--work-fluid-vw) / 2140px),
+    1.2
+  );
+
+  /* Fixed side rail */
+  --work-side-left: 1rem;
+  --work-side-w: 7rem;
+  --work-side-it-size: 2.2rem;
+  --work-side-letter-size: 5.2rem;
+  --work-side-stack-gap: 0.75rem;
+  --work-side-letter-gap: 0.375rem;
+  --work-side-reserve: 0px;
+  --work-content-edge-gap: 0.625rem;
+  --work-side-bleed: 1rem;
+  --work-content-inset-left: 1.5rem;
+  --work-preview-side-gap: 0.75rem;
+  --work-preview-inset-left: var(--work-content-inset-left);
+  --work-preview-max-w: var(--work-preview-w);
+
+  /* Fixed preview */
+  --work-preview-w: 58rem;
+  --work-preview-h: 43.5rem;
+
+  /* Fixed layout spacing (design px — does NOT scale) */
+  --work-eyebrow-gap: 1rem;
+  --work-title-gap: 3rem;
+  --work-skill-py: 1.5rem;
+  --work-skill-desc-mt: 0.75rem;
+  --work-inline-gap: 1rem;
+  --work-btn-mt: 2rem;
+  --work-btn-h: 3rem;
+  --work-btn-px: 2.5rem;
+  --work-stats-mt: 5rem;
+  --work-stats-pt: 4rem;
+  --work-stats-gap: 2.5rem;
+  --work-stat-label-mt: 0.5rem;
+  --work-stat-pb: 2rem;
+  --work-stat-rule-mt: 1.5rem;
+
+  /* Scaled typography only */
+  --work-eyebrow-size: calc(1rem * var(--work-ui-scale));
+  --work-skill-title: calc(1.125rem * var(--work-ui-scale));
+  --work-skill-body: calc(0.9375rem * var(--work-ui-scale));
+  --work-skill-icon: calc(1.25rem * var(--work-ui-scale));
+  --work-bio-size: calc(1.125rem * var(--work-ui-scale));
+  --work-btn-text: calc(0.9375rem * var(--work-ui-scale));
+  --work-stat-value: calc(3.75rem * var(--work-ui-scale));
+  --work-stat-label: calc(1rem * var(--work-ui-scale));
+}
+
+@media (min-width: 768px) {
+  #work.work-section {
+    --work-side-left: 1.5rem;
+    --work-side-reserve: calc(
+      var(--work-side-left) + var(--work-side-w) + var(--work-content-edge-gap) +
+        var(--work-side-bleed)
+    );
+    --work-content-inset-left: max(2.5rem, var(--work-side-reserve));
+  }
+}
+
+@media (min-width: 1024px) {
+  #work.work-section {
+    --work-side-left: 2rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  #work.work-section {
+    --work-title-gap: 4rem;
+    --work-side-reserve: 0px;
+    --work-content-inset-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  #work.work-section {
+    --work-title-gap: 5rem;
+  }
+}
+
+@media (max-width: 1365px) {
+  #work.work-section {
+    min-height: auto;
+    padding-block: 0;
+    overflow-y: visible;
+    --work-stats-mt: 2.5rem;
+    --work-stats-pt: 2rem;
+    --work-skill-py: 1.125rem;
+  }
+
+  #work .work-section-spacer {
+    display: none;
+  }
+
+  #work .work-section-rail {
+    padding-top: clamp(7rem, 20vh, 11rem);
+    padding-bottom: clamp(7rem, 20vh, 11rem);
+  }
+}
+
+@media (max-width: 767px) {
+  #work.work-section {
+    --work-stats-mt: 2rem;
+    --work-stats-pt: 1.5rem;
+    --work-title-gap: 2rem;
+  }
+
+  #work .work-section-rail {
+    padding-top: clamp(5.5rem, 18vh, 9rem);
+    padding-bottom: max(
+      clamp(7rem, 20vh, 10.5rem),
+      clamp(9rem, 40vw, 16rem)
+    );
+  }
+}
+
+#work .work-section-preview {
+  width: var(--work-preview-max-w, var(--work-preview-w));
+  height: var(--work-preview-h);
+}
+
+/* 940px se neeche: image right par, side block se gap, thori bari */
+@media (max-width: 939px) {
+  #work.work-section {
+    --work-preview-sm-scale: 1.18;
+    --work-preview-max-h-cap: 72vh;
+    --work-preview-inset-left: var(--work-content-inset-left);
+    --work-preview-max-w: min(
+      var(--work-preview-w),
+      calc(100% - max(0px, var(--work-preview-inset-left) - 2rem))
+    );
+  }
+
+  @media (min-width: 768px) {
+    #work.work-section {
+      --work-preview-inset-left: calc(
+        var(--work-side-left) + var(--work-side-w) + var(--work-side-bleed) +
+          var(--work-preview-side-gap)
+      );
+    }
+  }
+
+  #work .work-section-preview {
+    right: 0;
+    left: auto;
+    width: var(--work-preview-max-w);
+    height: auto;
+    aspect-ratio: 4 / 3;
+    max-height: min(var(--work-preview-h), var(--work-preview-max-h-cap));
+    transform: scale(var(--work-preview-sm-scale));
+    transform-origin: bottom right;
+  }
+
+  #work .work-section-preview img {
+    object-position: right bottom;
+  }
+
+  #work .work-section-rail {
+    padding-bottom: max(
+      clamp(7rem, 20vh, 11rem),
+      clamp(9rem, 40vw, 16rem),
+      calc(
+        var(--work-preview-max-w) * 0.75 * var(--work-preview-sm-scale) +
+          var(--work-content-edge-gap)
+      )
+    );
+  }
+}
+
+#work .work-side-rail {
+  left: var(--work-side-left);
+  width: var(--work-side-w);
+  gap: var(--work-side-stack-gap);
+  padding-block: 0.5rem;
+}
+
+#work .work-side-it {
+  font-size: var(--work-side-it-size);
+}
+
+#work .work-side-letters {
+  gap: var(--work-side-letter-gap);
+}
+
+#work .work-side-letter {
+  font-size: var(--work-side-letter-size);
+}
+
+#work .work-section-spacer {
+  flex: 1 1 0;
+  min-height: 0;
+  pointer-events: none;
+}
+
+#work .work-section-rail {
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 1.5rem;
+  padding-left: var(--work-content-inset-left);
+}
+
+@media (min-width: 768px) {
+  #work .work-section-rail {
+    padding-right: 2.5rem;
+  }
+}
+
+#work .work-section-block {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1365px) {
+  #work .work-section-block {
+    margin-left: 0;
+    margin-right: auto;
+    max-width: min(64rem, 100%);
+  }
+}
+
+#work .work-section-bio {
+  padding-left: 0;
+}
+
+@media (min-width: 1366px) {
+  #work .work-section-bio {
+    padding-left: 1.5rem;
+  }
 }
 
 /* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */

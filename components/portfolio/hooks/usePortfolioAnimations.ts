@@ -196,21 +196,71 @@ export function usePortfolioAnimations(
         0.08,
       );
 
-      scrollTl.to(
-        ".work-section-head",
-        { opacity: 1, y: 0, duration: 0.11, ease: "power2.out" },
-        0.16,
-      );
-      scrollTl.to(
-        ".work-section-title",
-        { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
-        0.2,
-      );
-      scrollTl.to(
-        ".work-section-lede",
-        { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
-        0.24,
-      );
+      /* Work: page scrub ≥1365px; choti screen = section enter par reveal */
+      ScrollTrigger.matchMedia({
+        "(min-width: 1365px)": () => {
+          scrollTl.to(
+            ".work-section-head",
+            { opacity: 1, y: 0, duration: 0.11, ease: "power2.out" },
+            0.16,
+          );
+          scrollTl.to(
+            ".work-section-title",
+            { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" },
+            0.2,
+          );
+          scrollTl.to(
+            ".work-section-lede",
+            { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+            0.24,
+          );
+        },
+        "(max-width: 1364px)": () => {
+          let revealed = false;
+          const revealWork = () => {
+            if (revealed) return;
+            revealed = true;
+            gsap
+              .timeline({ defaults: { ease: "power2.out" } })
+              .to(".work-section-head", {
+                opacity: 1,
+                y: 0,
+                duration: 0.42,
+              })
+              .to(
+                ".work-section-title",
+                { opacity: 1, y: 0, duration: 0.48 },
+                "-=0.22",
+              )
+              .to(
+                ".work-section-lede",
+                { opacity: 1, y: 0, duration: 0.42 },
+                "-=0.28",
+              );
+          };
+
+          const workSt = ScrollTrigger.create({
+            trigger: "#work",
+            start: "top 88%",
+            once: true,
+            invalidateOnRefresh: true,
+            onEnter: revealWork,
+            onEnterBack: revealWork,
+          });
+
+          const revealIfPastTrigger = () => {
+            if (revealed || ScrollTrigger.scroll() < workSt.start) return;
+            revealWork();
+          };
+
+          requestAnimationFrame(revealIfPastTrigger);
+          ScrollTrigger.addEventListener("refresh", revealIfPastTrigger);
+
+          return () => {
+            ScrollTrigger.removeEventListener("refresh", revealIfPastTrigger);
+          };
+        },
+      });
 
       scrollTl.to(
         ".projects-section-head",
