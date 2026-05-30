@@ -328,6 +328,58 @@ body {
   }
 }
 
+/*
+ * Projects section — fixed gap from left side block (always same).
+ */
+#projects.projects-section {
+  --projects-content-side-gap: 3.25rem;
+  --projects-content-inset-left: 1.5rem;
+  --projects-content-inset-right: 1.5rem;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #projects.projects-section {
+    --projects-content-inset-left: calc(
+      0.75rem + (2 * clamp(12px, 1.8vw, 20px)) + 0.625rem + 0.625rem +
+        clamp(3.25rem, 7vw, 5rem) + 1rem + var(--projects-content-side-gap)
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  #projects.projects-section {
+    --projects-content-inset-left: calc(
+      1rem + (2 * clamp(12px, 1.8vw, 20px)) + 0.75rem + 0.75rem +
+        clamp(3.25rem, 7vw, 5rem) + 1rem + var(--projects-content-side-gap)
+    );
+  }
+}
+
+@media (min-width: 768px) {
+  #projects.projects-section {
+    --projects-content-inset-right: 2.5rem;
+  }
+}
+
+#projects .projects-section-rail {
+  box-sizing: border-box;
+  padding-right: var(--projects-content-inset-right);
+  padding-left: var(--projects-content-inset-left);
+}
+
+#projects .projects-section-block {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  align-self: stretch;
+}
+
+/* Side rail full section height */
+#projects .projects-side-rail,
+#projects .projects-side-rail-inner {
+  height: 100%;
+}
+
 /* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */
 .hero-section {
   --hero-scroll-runway: clamp(150vh, 115vh + 28vw, 220vh);

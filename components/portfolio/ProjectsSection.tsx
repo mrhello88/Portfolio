@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import {
-  IMPACT_SECTION_RAIL_CLASS,
+  LAYOUT_MAX_WIDTH_CLASS,
   SECTION_EYEBROW_CLASS,
   SECTION_EYEBROW_TO_CONTENT_CLASS,
 } from "./data";
@@ -12,6 +12,11 @@ import {
 /** Fixed crop box for every project card — same width & height ratio */
 const PROJECT_CARD_IMAGE_CLASS =
   "relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-white/5";
+
+const PROJECTS_SECTION_RAIL_CLASS = `projects-section-rail impact-section-rail relative z-20 mx-auto flex w-full flex-col items-stretch ${LAYOUT_MAX_WIDTH_CLASS}`;
+
+const PROJECTS_BLOCK_CLASS =
+  "projects-section-block mx-auto w-full max-w-5xl self-stretch";
 
 const ACCENT = "#e60000";
 
@@ -64,25 +69,25 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative w-full border-t border-white/10 bg-black pt-20 pb-20 md:pt-28 md:pb-28 lg:pt-36 lg:pb-36"
+      className="projects-section relative w-full border-t border-white/10 bg-black pt-20 pb-20 md:pt-28 md:pb-28 lg:pt-36 lg:pb-36"
     >
       <div
-        className="pointer-events-none absolute inset-y-0 left-2 z-20 hidden h-full min-h-0 w-auto md:left-3 md:flex md:flex-row md:items-stretch lg:left-4"
+        className="projects-side-rail pointer-events-none absolute inset-y-0 left-2 z-20 hidden h-full w-auto md:left-3 md:flex md:flex-row md:items-stretch lg:left-4"
         role="img"
         aria-label="Projects."
       >
-        <div className="flex h-full min-h-0 w-full flex-row items-stretch gap-2.5 lg:gap-3">
+        <div className="projects-side-rail-inner flex h-full w-full flex-row items-stretch gap-2.5 lg:gap-3">
           <div
             className={`relative h-full shrink-0 ${SIDE_BAR_WIDTH_CLASS}`}
             aria-hidden
           >
-            <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-white shadow-[2px_0_14px_rgba(255,255,255,0.35)]" />
+            <div className="absolute bottom-0 left-0 right-0 h-[92%] min-[940px]:h-[70%] bg-white shadow-[2px_0_14px_rgba(255,255,255,0.35)]" />
           </div>
           <div
             className={`relative h-full shrink-0 ${SIDE_BAR_WIDTH_CLASS}`}
             aria-hidden
           >
-            <div className="absolute bottom-0 left-0 right-0 h-[50%] rounded-[2px] bg-[#e60000]" />
+            <div className="absolute bottom-0 left-0 right-0 h-[78%] min-[940px]:h-[50%] rounded-[2px] bg-[#e60000]" />
           </div>
           <div className="flex min-h-0 min-w-[clamp(3.25rem,7vw,5rem)] flex-col items-center justify-start gap-3 py-1 mt-8 md:mt-12 md:gap-4 md:py-2 lg:mt-16 lg:gap-5">
             {SIDE_LABEL.split("").map((ch, i) => (
@@ -97,8 +102,8 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      <div className={IMPACT_SECTION_RAIL_CLASS}>
-        <div className="projects-section-head mx-auto w-full max-w-5xl text-left">
+      <div className={PROJECTS_SECTION_RAIL_CLASS}>
+        <div className={`projects-section-head ${PROJECTS_BLOCK_CLASS} text-left`}>
           <p className={SECTION_EYEBROW_CLASS} style={{ color: ACCENT }}>
             {"// Projects"}
           </p>
@@ -113,7 +118,9 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        <ul className="projects-section-grid mx-auto mt-14 grid w-full max-w-5xl list-none grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 md:mt-16 md:gap-10 lg:mt-20">
+        <ul
+          className={`projects-section-grid ${PROJECTS_BLOCK_CLASS} mt-14 grid w-full list-none grid-cols-1 gap-8 min-[940px]:grid-cols-2 md:mt-16 md:gap-10 lg:mt-20`}
+        >
           {PROJECTS.map((project) => (
             <li key={project.title} className="min-w-0">
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition hover:border-white/20 hover:bg-white/5">

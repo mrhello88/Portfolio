@@ -51,8 +51,8 @@ const SKILL_GROUPS = [
 
 const STATS = [
   { value: "1+", label: "Years in Experience" },
-  { value: "16+", label: "Clients Worldwide" },
-  { value: "97+", label: "Completed Projects" },
+  { value: "15+", label: "Clients Worldwide" },
+  { value: "21+", label: "Completed Projects" },
 ] as const;
 
 export default function WorkSection() {

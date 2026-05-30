@@ -249,7 +249,7 @@ export function usePortfolioAnimations(
           });
 
           const revealIfPastTrigger = () => {
-            if (revealed || ScrollTrigger.scroll() < workSt.start) return;
+            if (revealed || workSt.scroll() < workSt.start) return;
             revealWork();
           };
 
