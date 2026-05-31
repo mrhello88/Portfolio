@@ -380,6 +380,18 @@ body {
   height: 100%;
 }
 
+/* Services — image height follows right accordion column (md+) */
+#services .services-section-body {
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  #services .services-section-media {
+    height: 100%;
+    min-height: 100%;
+  }
+}
+
 /* HeroSectionV2 — 2560×1440 design tokens only (responsive later) */
 .hero-section {
   --hero-scroll-runway: clamp(150vh, 115vh + 28vw, 220vh);
