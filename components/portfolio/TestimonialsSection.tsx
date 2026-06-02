@@ -1,41 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import {
-  IMPACT_SECTION_RAIL_CLASS,
-  SECTION_EYEBROW_CLASS,
-} from "./data";
+import { IMPACT_SECTION_RAIL_CLASS, SECTION_EYEBROW_CLASS } from "./data";
+import TestimonialDetailModal from "./TestimonialDetailModal";
+import { TESTIMONIALS } from "./testimonialsData";
 
 const ACCENT = "#e60000";
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "Working with Bruno Simon was one of the best decisions we made for our web platform. He understood our vision, delivered clean & scalable code, and communicated clearly throughout the project.",
-    name: "Ronald Richards",
-    role: "CEO, BankTech Inc.",
-    avatar: "/testimonials-client.png",
-  },
-  {
-    quote:
-      "Exceptional attention to detail on both design and engineering. Deadlines were met, performance improved, and our team could ship features faster after launch.",
-    name: "Sarah Chen",
-    role: "Product Lead, NovaPay",
-    avatar: "/testimonials-client.png",
-  },
-  {
-    quote:
-      "A rare developer who thinks product-first. Clear documentation, thoughtful architecture, and a polished handoff made ongoing maintenance straightforward.",
-    name: "Marcus Webb",
-    role: "CTO, Atlas Labs",
-    avatar: "/testimonials-client.png",
-  },
-] as const;
-
 export default function TestimonialsSection() {
   const [index, setIndex] = useState(0);
+  const [detailOpen, setDetailOpen] = useState(false);
   const total = TESTIMONIALS.length;
   const active = TESTIMONIALS[index];
 
@@ -84,13 +60,51 @@ export default function TestimonialsSection() {
             &ldquo;
           </p>
 
-          <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
-            <div className="min-w-0 flex-1 lg:max-w-3xl">
-              <blockquote className="font-sans text-lg leading-relaxed text-white/90 md:text-xl md:leading-relaxed lg:text-2xl lg:leading-snug">
-                &ldquo;{active.quote}&rdquo;
-              </blockquote>
+          <article
+            key={index}
+            className="testimonials-carousel-card relative z-10 flex w-full min-h-[34rem] flex-col gap-6 rounded-xl border border-white/10 bg-white/3 p-5 sm:min-h-[36rem] sm:p-6 sm:gap-8 md:min-h-[38rem]"
+          >
+            <div className="flex shrink-0 items-center gap-4">
+              <div className="relative size-16 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 md:size-18">
+                <Image
+                  src={active.avatar}
+                  alt=""
+                  fill
+                  sizes="72px"
+                  className="object-cover object-center"
+                />
+              </div>
+              <div className="min-w-0">
+                <p className="line-clamp-1 font-sans text-base font-bold text-white md:text-lg">
+                  {active.name}
+                </p>
+                <p className="mt-0.5 line-clamp-2 font-sans text-sm text-white/55 md:text-[0.9375rem]">
+                  {active.role}
+                </p>
+                <p
+                  className="mt-1 line-clamp-2 font-mono text-xs font-medium"
+                  style={{ color: ACCENT }}
+                >
+                  {active.client}
+                </p>
+              </div>
+            </div>
 
-              <div className="mt-8 flex gap-3">
+            <div className="w-full shrink-0 space-y-2">
+              <p className="font-mono text-xs font-medium text-white/45">
+                Short summary
+              </p>
+              <p className="line-clamp-4 min-h-[5.75rem] w-full font-sans text-sm leading-relaxed text-white/75 md:min-h-[6.25rem] md:text-base md:leading-relaxed">
+                {active.shortSummary}
+              </p>
+            </div>
+
+            <blockquote className="line-clamp-5 min-h-[8.5rem] shrink-0 font-sans text-lg leading-relaxed text-white/90 md:line-clamp-5 md:min-h-[9.5rem] md:text-xl md:leading-relaxed lg:line-clamp-4 lg:min-h-[8.75rem] lg:text-2xl lg:leading-snug">
+              &ldquo;{active.quote}&rdquo;
+            </blockquote>
+
+            <div className="mt-auto flex shrink-0 flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={goPrev}
@@ -108,30 +122,24 @@ export default function TestimonialsSection() {
                   <ChevronRight className="size-5" strokeWidth={2.5} aria-hidden />
                 </button>
               </div>
+              <button
+                type="button"
+                onClick={() => setDetailOpen(true)}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#e60000] px-4 py-3 font-sans text-sm font-semibold text-black transition hover:bg-[#ff1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:ml-auto sm:w-auto sm:min-w-[14rem]"
+              >
+                View Client Journey
+                <ArrowRight className="size-4" strokeWidth={2.5} aria-hidden />
+              </button>
             </div>
-
-            <div className="flex shrink-0 items-center gap-4 lg:pt-2">
-              <div className="relative size-16 overflow-hidden rounded-lg border border-white/10 bg-white/5 md:size-[4.5rem]">
-                <Image
-                  src={active.avatar}
-                  alt=""
-                  fill
-                  sizes="72px"
-                  className="object-cover object-center"
-                />
-              </div>
-              <div>
-                <p className="font-sans text-base font-bold text-white md:text-lg">
-                  {active.name}
-                </p>
-                <p className="mt-0.5 font-sans text-sm text-white/55 md:text-[0.9375rem]">
-                  {active.role}
-                </p>
-              </div>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
+
+      <TestimonialDetailModal
+        open={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        testimonial={active}
+      />
     </section>
   );
 }

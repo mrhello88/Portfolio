@@ -4,6 +4,7 @@ import { useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LocomotiveScroll from "locomotive-scroll";
+import { setPortfolioLenis } from "../portfolioLenis";
 
 /**
  * Smooth scroll (Locomotive v5 → Lenis) + GSAP ScrollTrigger scroller proxy.
@@ -32,6 +33,7 @@ export function useLocomotiveScroll() {
     let unsubscribeLenis: (() => void) | undefined;
 
     if (lenis) {
+      setPortfolioLenis(lenis);
       ScrollTrigger.scrollerProxy(document.documentElement, {
         scrollTop(value) {
           if (arguments.length && typeof value === "number") {
@@ -66,6 +68,7 @@ export function useLocomotiveScroll() {
     }
 
     return () => {
+      setPortfolioLenis(null);
       unsubscribeLenis?.();
       loco.destroy();
       ScrollTrigger.defaults({ scroller: window });
