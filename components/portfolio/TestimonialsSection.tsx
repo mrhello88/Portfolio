@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
 
           <article
             key={index}
-            className="testimonials-carousel-card relative z-10 flex w-full min-h-[34rem] flex-col gap-6 rounded-xl border border-white/10 bg-white/3 p-5 sm:min-h-[36rem] sm:p-6 sm:gap-8 md:min-h-[38rem]"
+            className="testimonials-carousel-card relative z-10 flex w-full min-h-136 flex-col gap-6 rounded-xl border border-white/10 bg-white/3 p-5 sm:min-h-144 sm:p-6 sm:gap-8 md:min-h-152"
           >
             <div className="flex shrink-0 items-center gap-4">
               <div className="relative size-16 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 md:size-18">
@@ -94,12 +94,12 @@ export default function TestimonialsSection() {
               <p className="font-mono text-xs font-medium text-white/45">
                 Short summary
               </p>
-              <p className="line-clamp-4 min-h-[5.75rem] w-full font-sans text-sm leading-relaxed text-white/75 md:min-h-[6.25rem] md:text-base md:leading-relaxed">
+              <p className="line-clamp-4 min-h-23 w-full font-sans text-sm leading-relaxed text-white/75 md:min-h-25 md:text-base md:leading-relaxed">
                 {active.shortSummary}
               </p>
             </div>
 
-            <blockquote className="line-clamp-5 min-h-[8.5rem] shrink-0 font-sans text-lg leading-relaxed text-white/90 md:line-clamp-5 md:min-h-[9.5rem] md:text-xl md:leading-relaxed lg:line-clamp-4 lg:min-h-[8.75rem] lg:text-2xl lg:leading-snug">
+            <blockquote className="line-clamp-5 min-h-34 shrink-0 font-sans text-lg leading-relaxed text-white/90 md:line-clamp-5 md:min-h-38 md:text-xl md:leading-relaxed lg:line-clamp-4 lg:min-h-35 lg:text-2xl lg:leading-snug">
               &ldquo;{active.quote}&rdquo;
             </blockquote>
 
@@ -125,7 +125,7 @@ export default function TestimonialsSection() {
               <button
                 type="button"
                 onClick={() => setDetailOpen(true)}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#e60000] px-4 py-3 font-sans text-sm font-semibold text-black transition hover:bg-[#ff1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:ml-auto sm:w-auto sm:min-w-[14rem]"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#e60000] px-4 py-3 font-sans text-sm font-semibold text-black transition hover:bg-[#ff1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:ml-auto sm:w-auto sm:min-w-56"
               >
                 View Client Journey
                 <ArrowRight className="size-4" strokeWidth={2.5} aria-hidden />

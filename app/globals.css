@@ -47,12 +47,18 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(230 0 0 / 0.42) rgb(255 255 255 / 0.06);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, sans-serif;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(230 0 0 / 0.42) rgb(255 255 255 / 0.06);
 }
 
 /* Shared design canvas — 2560×1440 only (responsive later) */
@@ -709,4 +715,55 @@ body {
   .hero-section .hero-headline-display {
     font-size: 4.5rem !important;
   }
+}
+
+/* Site-wide scrollbar — dark surface + #e60000 accent (html + nested scroll areas) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.testimonial-modal-scroll::-webkit-scrollbar,
+.portfolio-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.testimonial-modal-scroll::-webkit-scrollbar-track,
+.portfolio-scrollbar::-webkit-scrollbar-track {
+  margin-block: 0.35rem;
+  background: rgb(255 255 255 / 0.05);
+  border-radius: 9999px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.testimonial-modal-scroll::-webkit-scrollbar-thumb,
+.portfolio-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgb(230 0 0 / 0.55),
+    rgb(230 0 0 / 0.28)
+  );
+  border: 2px solid rgb(10 10 10);
+  border-radius: 9999px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+.testimonial-modal-scroll::-webkit-scrollbar-thumb:hover,
+.portfolio-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(230 0 0 / 0.72);
+}
+
+html::-webkit-scrollbar-thumb:active,
+body::-webkit-scrollbar-thumb:active,
+.testimonial-modal-scroll::-webkit-scrollbar-thumb:active,
+.portfolio-scrollbar::-webkit-scrollbar-thumb:active {
+  background: rgb(255 26 26 / 0.85);
+}
+
+.testimonial-modal-scroll,
+.portfolio-scrollbar {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(230 0 0 / 0.42) rgb(255 255 255 / 0.06);
 }

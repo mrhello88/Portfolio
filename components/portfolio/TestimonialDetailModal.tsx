@@ -121,7 +121,7 @@ export default function TestimonialDetailModal({
 
         <div
           data-lenis-prevent
-          className="min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-contain px-5 py-5 sm:space-y-8 sm:px-6 sm:py-6"
+          className="testimonial-modal-scroll min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-contain px-5 py-5 pr-4 sm:space-y-8 sm:px-6 sm:py-6 sm:pr-5"
         >
           <ModalSection label="// 1. Client requirements">
             <p className="whitespace-pre-line font-sans text-base leading-relaxed text-white/85 sm:text-[1.0625rem]">
