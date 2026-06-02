@@ -154,10 +154,10 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   style={{ transform: "translate3d(0px,0px,0px)" }}
                 >
                   <Image
-                    src="/portfolio-background.jpg"
+                    src="/portfolio-background.webp"
                     alt=""
                     fill
-                    priority
+                    preload
                     sizes="100vw"
                     className="object-cover object-center"
                   />
@@ -266,7 +266,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                           src="/herosection-image.webp"
                           alt=""
                           fill
-                          priority
+                          preload
                           sizes="(max-width: 1095px) 42vw, (max-width: 1440px) 52vw, 1152px"
                           className="hero-portrait-img object-contain"
                           style={{

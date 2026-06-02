@@ -12,6 +12,7 @@ import ProjectsSection from "./ProjectsSection";
 import ServicesSection from "./ServicesSection";
 import TestimonialsSection from "./TestimonialsSection";
 import SiteFooter from "./SiteFooter";
+import PortfolioImagePreloader from "./PortfolioImagePreloader";
 
 export default function PortfolioHome() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,7 @@ export default function PortfolioHome() {
 
   return (
     <div ref={rootRef}>
+      <PortfolioImagePreloader />
       <SiteHeader />
       <main ref={mainRef}>
         <HeroSectionV2 ref={heroRef} />

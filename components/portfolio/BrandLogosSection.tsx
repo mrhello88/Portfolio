@@ -13,7 +13,7 @@ type BrandLogo = {
 const BRAND_LOGOS: BrandLogo[] = [
   {
     name: "DOVA",
-    src: "/Dova-logo.png",
+    src: "/Dova-logo.webp",
     imageClass: "scale-[0.7] sm:scale-[0.82] md:scale-100",
   },
   { name: "Energy Recruitement", src: "/energy-recruitement.webp" },
@@ -43,6 +43,7 @@ function LogoBand({ ariaHidden }: { ariaHidden?: boolean }) {
             alt={ariaHidden ? "" : `${brand.name} logo`}
             width={220}
             height={96}
+            loading="eager"
             className={`pointer-events-none max-h-full max-w-full origin-center object-contain p-[clamp(0.125rem,0.65vw,0.5rem)] ${brand.imageClass ?? ""}`}
           />
         </div>

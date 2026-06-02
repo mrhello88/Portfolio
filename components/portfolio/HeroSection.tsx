@@ -105,7 +105,7 @@ const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) {
       >
         <div className="hero-bg-orb absolute inset-0">
           <Image
-            src="/portfolio-background.jpg"
+            src="/portfolio-background.webp"
             alt=""
             fill
             priority

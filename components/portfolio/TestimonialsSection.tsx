@@ -71,6 +71,7 @@ export default function TestimonialsSection() {
                   alt=""
                   fill
                   sizes="72px"
+                  loading="eager"
                   className="object-cover object-center"
                 />
               </div>

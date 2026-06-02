@@ -197,8 +197,8 @@ body {
   }
 
   #work .work-section-rail {
-    padding-top: clamp(7rem, 20vh, 11rem);
-    padding-bottom: clamp(7rem, 20vh, 11rem);
+    padding-top: clamp(4.5rem, 14vh, 8rem);
+    padding-bottom: clamp(4.5rem, 14vh, 8rem);
   }
 }
 
@@ -210,10 +210,10 @@ body {
   }
 
   #work .work-section-rail {
-    padding-top: clamp(5.5rem, 18vh, 9rem);
+    padding-top: clamp(2.75rem, 8vh, 4.5rem);
     padding-bottom: max(
-      clamp(7rem, 20vh, 10.5rem),
-      clamp(9rem, 40vw, 16rem)
+      clamp(4rem, 12vh, 6rem),
+      clamp(5rem, 28vw, 9rem)
     );
   }
 }
@@ -261,8 +261,8 @@ body {
 
   #work .work-section-rail {
     padding-bottom: max(
-      clamp(7rem, 20vh, 11rem),
-      clamp(9rem, 40vw, 16rem),
+      clamp(4.5rem, 13vh, 7rem),
+      clamp(5.5rem, 30vw, 10rem),
       calc(
         var(--work-preview-max-w) * 0.75 * var(--work-preview-sm-scale) +
           var(--work-content-edge-gap)

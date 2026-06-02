@@ -22,7 +22,7 @@ const SERVICES = [
     title: "Custom Web Development",
     description:
       "Build complete web applications from scratch — frontend to backend — optimized for speed, security, and scalability.",
-    image: "/services-section/custom-website.jpg",
+    image: "/services-section/custom-website.webp",
     hireHref: HIRE_HREF,
   },
   {
@@ -30,7 +30,7 @@ const SERVICES = [
     title: "Frontend Engineering",
     description:
       "Pixel-accurate UI, accessible components, and performance-minded React / Next.js interfaces that feel fast in production.",
-    image: "/services-section/frontend-engineering.jpg",
+    image: "/services-section/frontend-engineering.webp",
     hireHref: HIRE_HREF,
   },
   {
@@ -38,7 +38,7 @@ const SERVICES = [
     title: "Server logic & API Development",
     description:
       "REST and GraphQL APIs, auth flows, databases, and deployment pipelines built for reliability and clear contracts.",
-    image: "/services-section/api-development.jpg",
+    image: "/services-section/api-development.webp",
     hireHref: HIRE_HREF,
   },
   {
@@ -46,7 +46,7 @@ const SERVICES = [
     title: "Full Stack Application Development",
     description:
       "End-to-end product delivery — from discovery and architecture through launch, monitoring, and iterative improvements.",
-    image: "/services-section/fullstack-development.jpg",
+    image: "/services-section/fullstack-development.webp",
     hireHref: HIRE_HREF,
   },
 ] as const;
@@ -96,6 +96,21 @@ export default function ServicesSection() {
         </div>
 
         <div className="services-section-body mx-auto mt-10 grid w-full max-w-5xl grid-cols-1 items-stretch gap-10 md:mt-12 md:grid-cols-[1.22fr_1fr] md:gap-10 lg:gap-14">
+          <div
+            className="pointer-events-none absolute size-0 overflow-hidden opacity-0"
+            aria-hidden
+          >
+            {SERVICES.map((service) => (
+              <Image
+                key={`preload-${service.id}`}
+                src={service.image}
+                alt=""
+                width={960}
+                height={640}
+                loading="eager"
+              />
+            ))}
+          </div>
           <div className="services-section-media relative min-h-[14rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:min-h-[18rem] md:min-h-0 md:h-full">
             <Image
               key={activeService.id}
@@ -103,8 +118,8 @@ export default function ServicesSection() {
               alt={activeService.title}
               fill
               sizes="(max-width: 768px) 100vw, 480px"
+              loading="eager"
               className="object-cover object-center transition-opacity duration-500 ease-out"
-              priority={false}
             />
             <div
               className="pointer-events-none absolute inset-0 z-10 bg-black/45"

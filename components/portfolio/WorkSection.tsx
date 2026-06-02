@@ -87,14 +87,13 @@ export default function WorkSection() {
         className="work-section-preview pointer-events-none absolute right-0 bottom-0 z-10 origin-bottom-right"
       >
         <Image
-          src="/about-us-page.png"
+          src="/about-us-page.webp"
           alt=""
           width={2400}
           height={1800}
           sizes="928px"
-          unoptimized
+          loading="eager"
           className="block h-full w-full rounded-lg object-contain object-bottom-right shadow-[0_28px_100px_rgba(0,0,0,0.5)]"
-          priority={false}
         />
       </div>
 
