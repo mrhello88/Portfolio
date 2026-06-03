@@ -1,9 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useId, useState } from "react";
-import { LAYOUT_MAX_WIDTH_CLASS, SITE_NAV } from "./data";
+import {
+  LAYOUT_MAX_WIDTH_CLASS,
+  SITE_BRAND_PRIMARY,
+  SITE_BRAND_SECONDARY,
+  SITE_LOGO_SRC,
+  SITE_NAV,
+  SITE_TITLE,
+} from "./data";
 
 const navLinkClass =
   "nav-link text-(length:--site-header-nav-size) leading-none text-white/80 transition-colors hover:text-white";
@@ -84,11 +92,23 @@ export default function SiteHeader() {
       >
         <Link
           href="/"
-          className="site-header-logo relative z-60 inline-flex shrink-0 items-baseline gap-[0.28em] font-sans text-(length:--site-header-logo-size) font-medium leading-none tracking-tight antialiased"
+          aria-label={SITE_TITLE}
+          className="site-header-logo relative z-60 inline-flex shrink-0 items-center gap-[0.45em] font-sans text-(length:--site-header-logo-size) font-medium leading-none tracking-tight antialiased"
           onClick={closeMenu}
         >
-          <span className="text-white">AbuBakar</span>
-          <span className="text-neutral-400">Siddiqi</span>
+          <Image
+            src={SITE_LOGO_SRC}
+            alt=""
+            width={48}
+            height={36}
+            priority
+            sizes="48px"
+            className="h-[1.35em] w-auto shrink-0"
+          />
+          <span className="inline-flex items-baseline gap-[0.28em]">
+            <span className="text-white">{SITE_BRAND_PRIMARY}</span>
+            <span className="text-neutral-400">{SITE_BRAND_SECONDARY}</span>
+          </span>
         </Link>
 
         <div className="hidden items-center md:flex md:gap-(--site-header-cta-gap) md:pr-[clamp(0.25rem,2vw,1.25rem)]">
