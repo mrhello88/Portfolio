@@ -13,6 +13,8 @@ import ServicesSection from "./ServicesSection";
 import TestimonialsSection from "./TestimonialsSection";
 import SiteFooter from "./SiteFooter";
 import PortfolioImagePreloader from "./PortfolioImagePreloader";
+import ContactModal from "./ContactModal";
+import { ContactModalProvider } from "./ContactModalContext";
 
 export default function PortfolioHome() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -22,8 +24,10 @@ export default function PortfolioHome() {
   usePortfolioAnimations(rootRef, mainRef, heroRef);
 
   return (
+    <ContactModalProvider>
     <div ref={rootRef}>
       <PortfolioImagePreloader />
+      <ContactModal />
       <SiteHeader />
       <main ref={mainRef}>
         <HeroSectionV2 ref={heroRef} />
@@ -37,5 +41,6 @@ export default function PortfolioHome() {
         </div>
       </main>
     </div>
+    </ContactModalProvider>
   );
 }

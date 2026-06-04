@@ -1,20 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import {
   IMPACT_SECTION_RAIL_CLASS,
   SECTION_EYEBROW_CLASS,
 } from "./data";
+import { useContactModal } from "./ContactModalContext";
 
 const ACCENT = "#e60000";
-
-const HIRE_HREF =
-  process.env.NEXT_PUBLIC_HIRE_EMAIL?.trim()
-    ? `mailto:${process.env.NEXT_PUBLIC_HIRE_EMAIL.trim()}`
-    : "mailto:you@example.com";
 
 const SERVICES = [
   {
@@ -23,7 +18,6 @@ const SERVICES = [
     description:
       "Build complete web applications from scratch — frontend to backend — optimized for speed, security, and scalability.",
     image: "/services-section/custom-website.webp",
-    hireHref: HIRE_HREF,
   },
   {
     id: "02",
@@ -31,7 +25,6 @@ const SERVICES = [
     description:
       "Pixel-accurate UI, accessible components, and performance-minded React / Next.js interfaces that feel fast in production.",
     image: "/services-section/frontend-engineering.webp",
-    hireHref: HIRE_HREF,
   },
   {
     id: "03",
@@ -39,7 +32,6 @@ const SERVICES = [
     description:
       "REST and GraphQL APIs, auth flows, databases, and deployment pipelines built for reliability and clear contracts.",
     image: "/services-section/api-development.webp",
-    hireHref: HIRE_HREF,
   },
   {
     id: "04",
@@ -47,11 +39,11 @@ const SERVICES = [
     description:
       "End-to-end product delivery — from discovery and architecture through launch, monitoring, and iterative improvements.",
     image: "/services-section/fullstack-development.webp",
-    hireHref: HIRE_HREF,
   },
 ] as const;
 
 export default function ServicesSection() {
+  const { openContact } = useContactModal();
   const [openId, setOpenId] = useState<string>(SERVICES[0].id);
   const [activeId, setActiveId] = useState<string>(SERVICES[0].id);
 
@@ -111,7 +103,7 @@ export default function ServicesSection() {
               />
             ))}
           </div>
-          <div className="services-section-media relative min-h-[14rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:min-h-[18rem] md:min-h-0 md:h-full">
+          <div className="services-section-media relative min-h-56 w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:min-h-72 md:min-h-0 md:h-full">
             <Image
               key={activeService.id}
               src={activeService.image}
@@ -153,9 +145,10 @@ export default function ServicesSection() {
                       <p className="max-w-md font-sans text-sm leading-relaxed text-white/55 md:text-[0.9375rem]">
                         {service.description}
                       </p>
-                      <Link
-                        href={service.hireHref}
-                        className="mt-5 inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff4d4d] hover:decoration-[#ff4d4d] md:text-[0.9375rem]"
+                      <button
+                        type="button"
+                        onClick={openContact}
+                        className="mt-5 inline-flex cursor-pointer items-center gap-1.5 bg-transparent font-sans text-sm font-semibold text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff4d4d] hover:decoration-[#ff4d4d] md:text-[0.9375rem]"
                       >
                         Hire Me
                         <ArrowUpRight
@@ -163,7 +156,7 @@ export default function ServicesSection() {
                           strokeWidth={2}
                           aria-hidden
                         />
-                      </Link>
+                      </button>
                     </div>
                   ) : null}
                 </li>

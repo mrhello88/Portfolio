@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { forwardRef, useLayoutEffect, useRef } from "react";
 import { DesignViewportContainer } from "./DesignViewportContainer";
+import { useContactModal } from "./ContactModalContext";
 import { useHeroCanvasBreakpoint } from "./hooks/useHeroCanvasBreakpoint";
 
 type ParallaxFrameFn = () => void;
@@ -64,6 +64,7 @@ const HERO_CENTER_LINE_2 = "NEW\u200ADIGITAL";
 const HERO_CENTER_LINE_3 = "STANDARDS";
 
 const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
+  const { openContact } = useContactModal();
   const heroStageRef = useRef<HTMLDivElement>(null);
   useHeroCanvasBreakpoint(heroStageRef);
   const heroBgParallaxRef = useRef<HTMLDivElement>(null);
@@ -170,7 +171,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
           <div aria-hidden className="hero-red-frame" />
 
           <div className="hero-layout-rail relative z-10 flex h-full min-h-0 w-full flex-col items-stretch">
-            <div className="hero-center-headline pointer-events-none absolute left-0 right-0 z-14 flex items-end justify-start pr-(--hero-headline-pr) pl-(--hero-headline-pl-effective)">
+            <div className="hero-center-headline pointer-events-none absolute left-0 right-0 z-24 flex items-end justify-start pr-(--hero-headline-pr) pl-(--hero-headline-pl-effective)">
               <div className="hero-headline-stack inline-flex w-max max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
                 <div className="hero-copy-block flex w-max max-w-full flex-col items-start">
                   <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
@@ -202,9 +203,10 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                     <li>Branding & Strategy</li>
                   </ul>
                   <div className="hero-services-rule h-px bg-white/12" aria-hidden />
-                  <Link
-                    href="/#services"
-                    className="mt-[0.75em] inline-flex items-center gap-[0.4em] font-sans font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] text-(length:--hero-services-text)"
+                  <button
+                    type="button"
+                    onClick={openContact}
+                    className="mt-[0.75em] inline-flex cursor-pointer items-center gap-[0.4em] bg-transparent font-sans font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] text-(length:--hero-services-text)"
                   >
                     How can I help?
                     <ArrowUpRight
@@ -212,7 +214,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                       strokeWidth={1.75}
                       aria-hidden
                     />
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

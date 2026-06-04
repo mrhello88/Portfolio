@@ -46,6 +46,8 @@
   overflow: visible !important;
   align-items: flex-end !important;
   justify-content: flex-start !important;
+  /* Above portrait row (z-20), below bottom social (z-32) */
+  z-index: 24 !important;
 }
 
 .hero-section .design-viewport .hero-headline-stack {
@@ -124,8 +126,15 @@
 
 .hero-section .design-viewport .hero-headline-stack .hero-services-panel,
 .hero-section .design-viewport .hero-headline-stack .hero-services-panel ul,
-.hero-section .design-viewport .hero-headline-stack .hero-services-panel a {
+.hero-section .design-viewport .hero-headline-stack .hero-services-panel a,
+.hero-section .design-viewport .hero-headline-stack .hero-services-panel button {
   font-size: var(--hero-services-text-effective) !important;
+}
+
+.hero-section .design-viewport .hero-headline-stack .hero-services-panel button {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
 }
 
 .hero-section .design-viewport .hero-services-rule {

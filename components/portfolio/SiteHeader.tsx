@@ -12,6 +12,7 @@ import {
   SITE_NAV,
   SITE_TITLE,
 } from "./data";
+import { useContactModal } from "./ContactModalContext";
 
 const navLinkClass =
   "nav-link text-(length:--site-header-nav-size) leading-none text-white/80 transition-colors hover:text-white";
@@ -22,17 +23,19 @@ const mobileNavLinkClass =
 const letsTalkLinkClass =
   "site-header-cta shrink-0 text-(length:--site-header-cta-size) font-medium leading-none text-white underline decoration-white underline-offset-[0.2em] transition-[color,text-decoration-color] hover:text-white/90 hover:decoration-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
 
-const LETS_TALK_HREF = process.env.NEXT_PUBLIC_HIRE_EMAIL?.trim()
-  ? `mailto:${process.env.NEXT_PUBLIC_HIRE_EMAIL.trim()}`
-  : "mailto:you@example.com";
-
 const SCROLL_BLUR_THRESHOLD = 16;
 
 export default function SiteHeader() {
+  const { openContact } = useContactModal();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuId = useId();
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  const openContactForm = useCallback(() => {
+    closeMenu();
+    openContact();
+  }, [closeMenu, openContact]);
 
   useEffect(() => {
     const updateScrolled = (scrollY: number) => {
@@ -83,7 +86,7 @@ export default function SiteHeader() {
     <header
       className={`site-header fixed inset-x-0 top-0 z-50 flex w-full flex-col pt-[env(safe-area-inset-top,0px)] transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300 motion-reduce:transition-none [--site-header-cta-size:clamp(1rem,2.8vw,1.125rem)] [--site-header-logo-size:clamp(1rem,3.2vw,1.5rem)] [--site-header-menu-icon:clamp(1.25rem,4vw,1.5rem)] [--site-header-menu-size:clamp(2.25rem,8vw,2.5rem)] [--site-header-mobile-cta-size:clamp(1.0625rem,3vw,1.25rem)] [--site-header-mobile-nav-size:clamp(0.8125rem,2vw,1rem)] [--site-header-nav-size:clamp(0.6875rem,1.5vw,0.875rem)] ${
         scrolled
-          ? "border-b border-white/5 bg-white/[0.015] shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-[2px]"
+          ? "border-b border-white/5 bg-white/1.5 shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-[2px]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -122,9 +125,13 @@ export default function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <Link href={LETS_TALK_HREF} className={letsTalkLinkClass}>
+          <button
+            type="button"
+            onClick={openContactForm}
+            className={`${letsTalkLinkClass} cursor-pointer bg-transparent`}
+          >
             Let&apos;s talk!
-          </Link>
+          </button>
         </div>
 
         <button
@@ -182,14 +189,14 @@ export default function SiteHeader() {
                 </li>
               ))}
               <li>
-                <Link
-                  href={LETS_TALK_HREF}
-                  className={`${letsTalkLinkClass} flex min-h-[clamp(2.5rem,10vw,3rem)] items-center rounded-md px-[clamp(0.25rem,1vw,0.5rem)] text-(length:--site-header-mobile-cta-size)`}
+                <button
+                  type="button"
+                  className={`${letsTalkLinkClass} flex min-h-[clamp(2.5rem,10vw,3rem)] w-full items-center rounded-md bg-transparent px-[clamp(0.25rem,1vw,0.5rem)] text-left text-(length:--site-header-mobile-cta-size)`}
                   tabIndex={menuOpen ? 0 : -1}
-                  onClick={closeMenu}
+                  onClick={openContactForm}
                 >
                   Let&apos;s talk!
-                </Link>
+                </button>
               </li>
             </ul>
           </nav>

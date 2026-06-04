@@ -63,7 +63,8 @@
     text-align: left !important;
   }
 
-  .hero-section .design-viewport .hero-headline-stack .hero-services-panel a {
+  .hero-section .design-viewport .hero-headline-stack .hero-services-panel a,
+  .hero-section .design-viewport .hero-headline-stack .hero-services-panel button {
     justify-content: flex-start !important;
   }
 }

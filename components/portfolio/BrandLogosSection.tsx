@@ -30,7 +30,7 @@ const BRAND_LOGOS: BrandLogo[] = [
 function LogoBand({ ariaHidden }: { ariaHidden?: boolean }) {
   return (
     <div
-      className="flex min-w-[100vw] shrink-0 items-center justify-evenly gap-[clamp(0.375rem,1.2vw,2rem)] px-[clamp(0.5rem,2vw,3.5rem)]"
+      className="flex min-w-screen shrink-0 items-center justify-evenly gap-[clamp(0.375rem,1.2vw,2rem)] px-[clamp(0.5rem,2vw,3.5rem)]"
       aria-hidden={ariaHidden}
     >
       {BRAND_LOGOS.map((brand) => (

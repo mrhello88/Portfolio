@@ -482,6 +482,10 @@ body {
 }
 
 .hero-section .hero-stage-inner .hero-portrait-row {
+  pointer-events: none;
+}
+
+.hero-section .hero-stage-inner .hero-portrait-row .hero-portrait-wrap {
   pointer-events: auto;
 }
 
