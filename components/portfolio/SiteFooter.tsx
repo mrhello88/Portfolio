@@ -28,7 +28,7 @@ export default function SiteFooter() {
           >
             <Image
               src={SITE_LOGO_SRC}
-              alt=""
+              alt={`${SITE_BRAND_PRIMARY} ${SITE_BRAND_SECONDARY} logo`}
               width={48}
               height={36}
               sizes="40px"

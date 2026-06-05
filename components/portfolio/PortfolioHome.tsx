@@ -29,7 +29,7 @@ export default function PortfolioHome() {
       <PortfolioImagePreloader />
       <ContactModal />
       <SiteHeader />
-      <main ref={mainRef}>
+      <main ref={mainRef} id="main-content">
         <HeroSectionV2 ref={heroRef} />
         <div className={`mx-auto w-full ${LAYOUT_MAX_WIDTH_CLASS}`}>
           <BrandLogosSection />

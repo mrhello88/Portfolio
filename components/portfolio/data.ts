@@ -17,23 +17,82 @@ export const IMPACT_SECTION_RAIL_CLASS = `impact-section-rail relative z-20 mx-a
 export const SITE_LOGO_SRC =
   "/logo/Generated_image-background-remover.png";
 
+/** Browser tab / home screen icons (public/logo/) — separate from header wordmark PNG */
+export const SITE_FAVICON_ICO = "/logo/favicon.ico";
+export const SITE_FAVICON_SVG = "/logo/favicon.svg";
+export const SITE_FAVICON_96 = "/logo/favicon-96x96.png";
+export const SITE_APPLE_TOUCH_ICON = "/logo/apple-touch-icon.png";
+export const SITE_WEB_MANIFEST = "/logo/site.webmanifest";
+export const SITE_THEME_COLOR = "#000000";
+
 /** Production URL — required for WhatsApp / social link previews (absolute og:image) */
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
   "https://www.abubakarsiddiqi.me";
 
+/** Primary on-page SEO keyword */
+export const SITE_SEO_PRIMARY_KEYWORD = "ABUBAKAR SIDDIQI";
+
 /** Browser tab title + SEO + Open Graph */
 export const SITE_TITLE = "AbuBakar Siddiqi | Full Stack Developer";
 
 export const SITE_DESCRIPTION =
-  "Full stack web developer building fast, modern websites and web apps with Next.js, React, and scalable backends for clients worldwide.";
+  "AbuBakar Siddiqi is a full stack web developer building fast, modern websites and web apps with Next.js, React, and scalable backends for clients worldwide.";
+
+/** Name spelling variants for schema + discoverability */
+export const SITE_ALTERNATE_NAMES = [
+  "Abubakar Siddiqi",
+  "ABUBAKAR SIDDIQI",
+  "Abu Bakar Siddiqi",
+  "Abubakar Siddique",
+  "Abubakar Sadiq",
+  "Muhammad Abubakar",
+  "M Abubakar",
+  "Abubakar Sattar",
+  "Abubakar Khan",
+  "Malik Abubakar",
+  "Rana Abubakar",
+  "Hafiz Abubakar",
+  "Dr Abubakar Siddique",
+  "Dr Abubakar",
+  "Abubakar Bhai",
+] as const;
+
+/** Meta keywords — includes brand + supporting search terms */
+export const SITE_SEO_KEYWORDS = [
+  SITE_SEO_PRIMARY_KEYWORD,
+  "AbuBakar Siddiqi",
+  "AbuBakar Siddiqi full stack developer",
+  "AbuBakar Siddiqi portfolio",
+  "AbuBakar Siddiqi web developer",
+  "abubakar siddiqi",
+  "abubakar name meaning in quran",
+  "hazrat abubakar",
+  "abubakar sadiq",
+  "abubakar bhai",
+  "muhammad abubakar",
+  "m abubakar",
+  "dr abubakar siddique",
+  "dr abubakar",
+  "rana abubakar",
+  "malik abubakar",
+  "abubakar 2",
+  "abubakar sattar",
+  "abubakar nurmagomedov",
+  "abubakar khan",
+  "hafiz abubakar",
+  "abubakar name style",
+  "full stack developer",
+  "Next.js developer",
+  "React developer",
+] as const;
 
 /** WhatsApp, LinkedIn, Facebook link preview (1200×630) */
 export const SITE_OG_IMAGE_SRC = "/whatsapp/herosection-portfolio-whatsapp.png";
 export const SITE_OG_IMAGE_WIDTH = 1201;
 export const SITE_OG_IMAGE_HEIGHT = 630;
 export const SITE_OG_IMAGE_ALT =
-  "AbuBakar Siddiqi — Full Stack Developer. Defining new digital standards.";
+  "AbuBakar Siddiqi — ABUBAKAR SIDDIQI Full Stack Developer portfolio";
 
 /** Header wordmark (logo + text) */
 export const SITE_BRAND_PRIMARY = "AbuBakar";

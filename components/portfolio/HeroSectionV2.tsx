@@ -4,6 +4,10 @@ import Image from "next/image";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { forwardRef, useLayoutEffect, useRef } from "react";
 import { DesignViewportContainer } from "./DesignViewportContainer";
+import {
+  SITE_BRAND_PRIMARY,
+  SITE_BRAND_SECONDARY,
+} from "./data";
 import { useContactModal } from "./ContactModalContext";
 import { useHeroCanvasBreakpoint } from "./hooks/useHeroCanvasBreakpoint";
 
@@ -55,8 +59,6 @@ const HERO_NAME_RED_END_INDEX = HERO_NAME_ABUBAKR.length;
 
 const heroVerticalLetterClass =
   "font-sans block w-full origin-center scale-y-[1.05] select-none text-center font-bold uppercase leading-none tracking-tight antialiased text-(length:--hero-side-letter) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]";
-
-const HERO_INTRO_LINE_2 = "abubakr siddiqi";
 
 const HERO_CENTER_LINE_1 = "DEFINING";
 /** Hair space (U+200A) between NEW and DIGITAL — tighter than thin space. */
@@ -136,6 +138,8 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
   return (
     <section
       ref={ref}
+      id="home"
+      aria-label="AbuBakar Siddiqi portfolio hero"
       className="hero-section relative w-full min-h-(--hero-scroll-runway)"
     >
       <div className="hero-stage-sticky sticky top-0 z-0 flex w-full justify-center overflow-hidden">
@@ -178,9 +182,9 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                     <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                       Hi there<span className="text-[#e60000]">!</span> this is
                     </span>
-                    <span className="block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
-                      {HERO_INTRO_LINE_2}
-                    </span>
+                    <h1 className="block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                      {SITE_BRAND_PRIMARY} {SITE_BRAND_SECONDARY}
+                    </h1>
                   </p>
                   <p className="hero-headline-display inline-flex max-w-(--hero-headline-display-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                     <span className="hero-headline-line text-white">

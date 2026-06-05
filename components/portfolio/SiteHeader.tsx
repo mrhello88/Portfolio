@@ -101,7 +101,7 @@ export default function SiteHeader() {
         >
           <Image
             src={SITE_LOGO_SRC}
-            alt=""
+            alt={`${SITE_BRAND_PRIMARY} ${SITE_BRAND_SECONDARY} logo`}
             width={48}
             height={36}
             priority
