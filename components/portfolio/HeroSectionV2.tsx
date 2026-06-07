@@ -178,14 +178,16 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
             <div className="hero-center-headline pointer-events-none absolute left-0 right-0 z-24 flex items-end justify-start pr-(--hero-headline-pr) pl-(--hero-headline-pl-effective)">
               <div className="hero-headline-stack inline-flex w-max max-w-(--hero-headline-max-w) flex-col items-start will-change-transform">
                 <div className="hero-copy-block flex w-max max-w-full flex-col items-start">
-                  <p className="hero-intro pointer-events-auto w-max max-w-none cursor-text select-text text-left font-sans font-normal leading-snug tracking-normal">
-                    <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
-                      Hi there<span className="text-[#e60000]">!</span> this is
-                    </span>
-                    <h1 className="block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                  <div className="hero-intro pointer-events-auto w-max max-w-none text-left font-sans font-normal leading-snug tracking-normal">
+                    <p className="m-0 cursor-text select-text">
+                      <span className="block text-white/90 [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
+                        Hi there <span className="text-[#e60000]">!</span> this is
+                      </span>
+                    </p>
+                    <h1 className="hero-intro-name m-0 block font-semibold capitalize text-[#e60000] [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                       {SITE_BRAND_PRIMARY} {SITE_BRAND_SECONDARY}
                     </h1>
-                  </p>
+                  </div>
                   <p className="hero-headline-display inline-flex max-w-(--hero-headline-display-max-w) origin-bottom-left flex-col items-start gap-0 text-left font-sans uppercase font-black leading-none tracking-(--hero-headline-tracking) [text-shadow:0_0.04em_0.12em_rgba(0,0,0,0.22)] drop-shadow-[0_2px_14px_rgba(0,0,0,0.22)]">
                     <span className="hero-headline-line text-white">
                       {HERO_CENTER_LINE_1}
