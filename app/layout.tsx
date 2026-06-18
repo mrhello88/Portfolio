@@ -19,6 +19,7 @@ import {
   SITE_WEB_MANIFEST,
 } from "@/components/portfolio/data";
 import JsonLd from "@/components/seo/JsonLd";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { PORTFOLIO_LCP_IMAGES } from "@/components/portfolio/portfolioImages";
 import "./globals.css";
 import "./hero-breakpoints-narrow.css";
@@ -137,6 +138,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <GoogleAnalytics />
         <JsonLd />
         {PORTFOLIO_LCP_IMAGES.map((href) => (
           <link

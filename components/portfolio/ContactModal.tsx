@@ -52,7 +52,7 @@ export default function ContactModal() {
         aria-modal="true"
         aria-labelledby={titleId}
         data-lenis-prevent
-        className="testimonial-modal-scroll relative z-10 flex max-h-[min(92vh,40rem)] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a] shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
+        className="testimonial-modal-scroll relative z-10 flex max-h-[min(92vh,44rem)] w-full max-w-xl flex-col overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a] shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
         onWheel={(event) => event.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/10 px-5 py-5 sm:px-6">
@@ -70,7 +70,7 @@ export default function ContactModal() {
               Let&apos;s talk
             </h2>
             <p className="mt-1 font-sans text-sm text-white/55">
-              Share your project details — I&apos;ll reply as soon as I can.
+              Share your project details. I&apos;ll reply as soon as I can.
             </p>
           </div>
           <button
