@@ -12,6 +12,8 @@ import {
   type ContactFormFieldErrors,
   type ContactFormValues,
 } from "@/lib/validations/contact";
+import { trackContactFormSubmit } from "@/lib/analytics/gtag";
+import type { ContactSource } from "./ContactModalContext";
 
 const initialState: SubmitContactState = {
   ok: false,
@@ -42,7 +44,7 @@ function fieldClass(hasError: boolean, multiline = false) {
 }
 
 type ContactFormProps = {
-  source?: "header" | "contact-section" | "services" | "hero";
+  source?: ContactSource;
   onSuccess?: () => void;
 };
 
@@ -52,6 +54,7 @@ export default function ContactForm({
 }: ContactFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const successHandledRef = useRef(false);
+  const submitTrackedRef = useRef(false);
   const errorSummaryId = useId();
   const [values, setValues] = useState<ContactFormValues>(emptyValues);
   const [clientErrors, setClientErrors] = useState<ContactFormFieldErrors>({});
@@ -84,6 +87,20 @@ export default function ContactForm({
     el?.focus();
     el?.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }, [state.fieldErrors]);
+
+  useEffect(() => {
+    if (pending) {
+      submitTrackedRef.current = false;
+      return;
+    }
+    if (submitTrackedRef.current) return;
+    if (!state.message && !state.ok) return;
+
+    submitTrackedRef.current = true;
+    trackContactFormSubmit(source, state.ok ? "success" : "error", {
+      error_message: state.ok ? undefined : state.message,
+    });
+  }, [pending, state.ok, state.message, source]);
 
   useEffect(() => {
     if (!state.ok) {

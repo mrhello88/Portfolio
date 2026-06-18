@@ -211,7 +211,7 @@ const HeroSectionV2 = forwardRef<HTMLElement>(function HeroSectionV2(_, ref) {
                   <div className="hero-services-rule h-px bg-white/12" aria-hidden />
                   <button
                     type="button"
-                    onClick={openContact}
+                    onClick={() => openContact("hero")}
                     className="mt-[0.75em] inline-flex cursor-pointer items-center gap-[0.4em] bg-transparent font-sans font-medium text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff1a1a] hover:decoration-[#ff1a1a] text-(length:--hero-services-text)"
                   >
                     How can I help?

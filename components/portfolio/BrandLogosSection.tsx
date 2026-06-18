@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import { trackBrandLogoClick } from "@/lib/analytics/gtag";
 
 type BrandLogo = {
   name: string;
@@ -27,26 +28,36 @@ const BRAND_LOGOS: BrandLogo[] = [
 ];
 
 /** One full viewport band: each brand once; duplicate band exists only for seamless GSAP loop. */
-function LogoBand({ ariaHidden }: { ariaHidden?: boolean }) {
+function LogoBand({
+  ariaHidden,
+  onLogoClick,
+}: {
+  ariaHidden?: boolean;
+  onLogoClick: (brandName: string) => void;
+}) {
   return (
     <div
       className="flex min-w-screen shrink-0 items-center justify-evenly gap-[clamp(0.375rem,1.2vw,2rem)] px-[clamp(0.5rem,2vw,3.5rem)]"
       aria-hidden={ariaHidden}
     >
       {BRAND_LOGOS.map((brand) => (
-        <div
+        <button
           key={brand.name}
-          className="relative z-0 flex h-[clamp(3rem,12vw,6rem)] min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1]"
+          type="button"
+          aria-label={ariaHidden ? undefined : `${brand.name} logo`}
+          tabIndex={ariaHidden ? -1 : 0}
+          onClick={() => onLogoClick(brand.name)}
+          className="relative z-0 flex h-[clamp(3rem,12vw,6rem)] min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           <Image
             src={brand.src}
-            alt={ariaHidden ? "" : `${brand.name} logo`}
+            alt=""
             width={220}
             height={96}
             loading="eager"
             className={`pointer-events-none max-h-full max-w-full origin-center object-contain p-[clamp(0.125rem,0.65vw,0.5rem)] ${brand.imageClass ?? ""}`}
           />
-        </div>
+        </button>
       ))}
     </div>
   );
@@ -77,6 +88,10 @@ export default function BrandLogosSection() {
         tweenRef.current?.play();
       }
     }, 45);
+  }, []);
+
+  const onLogoClick = useCallback((brandName: string) => {
+    trackBrandLogoClick(brandName);
   }, []);
 
   useLayoutEffect(() => {
@@ -140,8 +155,8 @@ export default function BrandLogosSection() {
             ref={trackRef}
             className="brand-marquee-track flex w-max items-center will-change-transform"
           >
-            <LogoBand />
-            <LogoBand ariaHidden />
+            <LogoBand onLogoClick={onLogoClick} />
+            <LogoBand ariaHidden onLogoClick={onLogoClick} />
           </div>
         </div>
       </div>

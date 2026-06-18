@@ -1,6 +1,9 @@
 "use client";
 
 import {
+  trackContactModalOpen,
+} from "@/lib/analytics/gtag";
+import {
   createContext,
   useCallback,
   useContext,
@@ -9,9 +12,19 @@ import {
   type ReactNode,
 } from "react";
 
+export type ContactSource =
+  | "header"
+  | "hero"
+  | "services"
+  | "contact-section";
+
 type ContactModalContextValue = {
   open: boolean;
-  openContact: () => void;
+  source: ContactSource;
+  openContact: (
+    source?: ContactSource,
+    extra?: Record<string, string | undefined>,
+  ) => void;
   closeContact: () => void;
 };
 
@@ -21,13 +34,25 @@ const ContactModalContext = createContext<ContactModalContextValue | null>(
 
 export function ContactModalProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [source, setSource] = useState<ContactSource>("header");
 
-  const openContact = useCallback(() => setOpen(true), []);
+  const openContact = useCallback(
+    (
+      from: ContactSource = "header",
+      extra?: Record<string, string | undefined>,
+    ) => {
+      setSource(from);
+      setOpen(true);
+      trackContactModalOpen(from, extra);
+    },
+    [],
+  );
+
   const closeContact = useCallback(() => setOpen(false), []);
 
   const value = useMemo(
-    () => ({ open, openContact, closeContact }),
-    [open, openContact, closeContact],
+    () => ({ open, source, openContact, closeContact }),
+    [open, source, openContact, closeContact],
   );
 
   return (

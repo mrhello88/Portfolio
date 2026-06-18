@@ -34,7 +34,7 @@ export default function SiteHeader() {
 
   const openContactForm = useCallback(() => {
     closeMenu();
-    openContact();
+    openContact("header");
   }, [closeMenu, openContact]);
 
   useEffect(() => {

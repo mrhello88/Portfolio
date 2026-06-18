@@ -8,6 +8,7 @@ import {
   DESIGN_VIEWPORT_MAX_WIDTH_PX,
   LAYOUT_MAX_WIDTH_CLASS,
 } from "./data";
+import { trackResumeDownload } from "@/lib/analytics/gtag";
 
 const ACCENT = "#e60000";
 
@@ -145,6 +146,7 @@ export default function WorkSection() {
             </p>
             <Link
               href="/resume.pdf"
+              onClick={() => trackResumeDownload("work_section")}
               className="mt-(--work-btn-mt) inline-flex h-(--work-btn-h) w-max items-center justify-center rounded-full bg-[#e60000] px-(--work-btn-px) font-sans font-semibold text-(length:--work-btn-text) text-black transition hover:bg-[#ff1a1a]"
             >
               My Resume

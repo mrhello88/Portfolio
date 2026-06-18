@@ -10,7 +10,7 @@ import { getPortfolioLenis } from "./portfolioLenis";
 const ACCENT = "#e60000";
 
 export default function ContactModal() {
-  const { open, closeContact } = useContactModal();
+  const { open, source, closeContact } = useContactModal();
   const titleId = useId();
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function ContactModal() {
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-6 sm:py-6">
-          <ContactForm source="header" />
+          <ContactForm source={source} />
         </div>
       </div>
     </div>,

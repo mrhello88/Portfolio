@@ -147,7 +147,12 @@ export default function ServicesSection() {
                       </p>
                       <button
                         type="button"
-                        onClick={openContact}
+                        onClick={() =>
+                          openContact("services", {
+                            service_id: service.id,
+                            service_title: service.title,
+                          })
+                        }
                         className="mt-5 inline-flex cursor-pointer items-center gap-1.5 bg-transparent font-sans text-sm font-semibold text-[#e60000] underline decoration-[#e60000] underline-offset-[0.22em] transition hover:text-[#ff4d4d] hover:decoration-[#ff4d4d] md:text-[0.9375rem]"
                       >
                         Hire Me
