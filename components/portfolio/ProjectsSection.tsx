@@ -8,6 +8,7 @@ import {
   SECTION_EYEBROW_CLASS,
   SECTION_EYEBROW_TO_CONTENT_CLASS,
 } from "./data";
+import { PROJECTS } from "./projectsData";
 
 /** Fixed crop box for every project card — same width & height ratio */
 const PROJECT_CARD_IMAGE_CLASS =
@@ -28,42 +29,6 @@ const sideLetterClass =
 
 /** White + red side bars share this width */
 const SIDE_BAR_WIDTH_CLASS = "w-[clamp(12px,1.8vw,20px)]";
-
-/** Add images under /public — set `image` to e.g. "/projects/my-app.webp" */
-const PROJECTS = [
-  {
-    title: "E‑commerce dashboard",
-    description:
-      "Admin analytics, orders, and inventory with role-based access and fast tables.",
-    href: "#",
-    image: "",
-    tags: ["Next.js", "TypeScript", "REST"],
-  },
-  {
-    title: "Marketing site refresh",
-    description:
-      "Content-led pages, accessible components, and scroll storytelling for a product launch.",
-    href: "#",
-    image: "",
-    tags: ["React", "GSAP", "a11y"],
-  },
-  {
-    title: "API & auth service",
-    description:
-      "Session handling, OAuth flows, and observability hooks for a multi-tenant app.",
-    href: "#",
-    image: "",
-    tags: ["Node.js", "Postgres", "Docker"],
-  },
-  {
-    title: "Mobile app MVP",
-    description:
-      "Cross-platform flows, offline-friendly state, and a polished handoff for beta testers.",
-    href: "#",
-    image: "",
-    tags: ["React Native", "Expo", "Firebase"],
-  },
-] as const;
 
 export default function ProjectsSection() {
   return (
@@ -122,37 +87,47 @@ export default function ProjectsSection() {
           className={`projects-section-grid ${PROJECTS_BLOCK_CLASS} mt-14 grid w-full list-none grid-cols-1 gap-8 min-[940px]:grid-cols-2 md:mt-16 md:gap-10 lg:mt-20`}
         >
           {PROJECTS.map((project) => (
-            <li key={project.title} className="min-w-0">
+            <li key={project.slug} className="min-w-0">
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/3 transition hover:border-white/20 hover:bg-white/5">
-                <div className={PROJECT_CARD_IMAGE_CLASS}>
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={`${project.title} preview`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
-                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center border-b border-white/10 bg-linear-to-br from-white/6 to-white/2">
-                      <span className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.2em] text-white/30">
-                        Image soon
-                      </span>
-                    </div>
-                  )}
-                </div>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  <div className={PROJECT_CARD_IMAGE_CLASS}>
+                    {project.cardImage ? (
+                      <Image
+                        src={project.cardImage}
+                        alt={`${project.title} preview`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
+                        className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center border-b border-white/10 bg-linear-to-br from-white/6 to-white/2">
+                        <span className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.2em] text-white/30">
+                          Image soon
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
                 <div className="flex flex-1 flex-col p-6 md:p-7">
                   <h3 className="font-sans text-xl font-semibold text-white md:text-2xl">
-                    {project.title}
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="transition hover:text-[#e60000]"
+                    >
+                      {project.title}
+                    </Link>
                   </h3>
                   <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-white/55 md:text-[0.9375rem]">
-                    {project.description}
+                    {project.cardDescription}
                   </p>
                   <ul
                     className="mt-5 flex flex-wrap gap-2"
                     aria-label="Tech stack"
                   >
-                    {project.tags.map((tag) => (
+                    {project.cardTags.map((tag) => (
                       <li key={tag}>
                         <span className="inline-flex rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[0.6875rem] font-medium uppercase tracking-wide text-white/70">
                           {tag}
@@ -161,7 +136,7 @@ export default function ProjectsSection() {
                     ))}
                   </ul>
                   <Link
-                    href={project.href}
+                    href={`/projects/${project.slug}`}
                     className="mt-6 inline-flex items-center gap-2 font-sans text-sm font-semibold text-white transition hover:text-[#ff4d4d]"
                   >
                     View project
