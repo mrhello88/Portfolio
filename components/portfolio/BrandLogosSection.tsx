@@ -8,6 +8,7 @@ import { trackBrandLogoClick } from "@/lib/analytics/gtag";
 type BrandLogo = {
   name: string;
   src: string;
+  href: string;
   imageClass?: string;
 };
 
@@ -15,14 +16,29 @@ const BRAND_LOGOS: BrandLogo[] = [
   {
     name: "DOVA",
     src: "/Dova-logo.webp",
+    href: "https://dova.fyi/",
     imageClass: "scale-[0.7] sm:scale-[0.82] md:scale-100",
   },
-  { name: "Energy Recruitement", src: "/energy-recruitement.webp" },
-  { name: "LinkBiz", src: "/linkbizlogo.png", imageClass: "scale-[1.06]" },
-  { name: "Tujitume", src: "/TujitumeLogo.svg" },
   {
-    name: "brand-appeal",
+    name: "Energy Recruitment Hub",
+    src: "/energy-recruitement.webp",
+    href: "https://www.energyrecruitmenthub.com/",
+  },
+  {
+    name: "LinkBiz",
+    src: "/linkbizlogo.png",
+    href: "https://www.linkbiz.co.za/",
+    imageClass: "scale-[1.06]",
+  },
+  {
+    name: "Tujitume",
+    src: "/TujitumeLogo.svg",
+    href: "https://www.tujitume.com/",
+  },
+  {
+    name: "Brand Appeal",
     src: "/brand-appeal.ico",
+    href: "https://brandappeal.io/",
     imageClass: "scale-[0.65] sm:scale-[0.78] md:scale-100",
   },
 ];
@@ -33,7 +49,7 @@ function LogoBand({
   onLogoClick,
 }: {
   ariaHidden?: boolean;
-  onLogoClick: (brandName: string) => void;
+  onLogoClick: (brandName: string, href: string) => void;
 }) {
   return (
     <div
@@ -41,13 +57,15 @@ function LogoBand({
       aria-hidden={ariaHidden}
     >
       {BRAND_LOGOS.map((brand) => (
-        <button
+        <a
           key={brand.name}
-          type="button"
-          aria-label={ariaHidden ? undefined : `${brand.name} logo`}
+          href={brand.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={ariaHidden ? undefined : `${brand.name} (opens in new tab)`}
           tabIndex={ariaHidden ? -1 : 0}
-          onClick={() => onLogoClick(brand.name)}
-          className="relative z-0 flex h-[clamp(3rem,12vw,6rem)] min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          onClick={() => onLogoClick(brand.name, brand.href)}
+          className="relative z-0 flex h-[clamp(3rem,12vw,6rem)] min-w-0 max-w-[min(220px,19vw)] flex-1 basis-0 cursor-pointer items-center justify-center bg-transparent p-0 transition-transform duration-200 ease-out will-change-transform hover:z-10 hover:scale-[1.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e60000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           <Image
             src={brand.src}
@@ -57,7 +75,7 @@ function LogoBand({
             loading="eager"
             className={`pointer-events-none max-h-full max-w-full origin-center object-contain p-[clamp(0.125rem,0.65vw,0.5rem)] ${brand.imageClass ?? ""}`}
           />
-        </button>
+        </a>
       ))}
     </div>
   );
@@ -90,8 +108,8 @@ export default function BrandLogosSection() {
     }, 45);
   }, []);
 
-  const onLogoClick = useCallback((brandName: string) => {
-    trackBrandLogoClick(brandName);
+  const onLogoClick = useCallback((brandName: string, href: string) => {
+    trackBrandLogoClick(brandName, href);
   }, []);
 
   useLayoutEffect(() => {

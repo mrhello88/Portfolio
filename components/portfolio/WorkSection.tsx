@@ -7,6 +7,7 @@ import {
   DESIGN_VIEWPORT_MAX_HEIGHT_PX,
   DESIGN_VIEWPORT_MAX_WIDTH_PX,
   LAYOUT_MAX_WIDTH_CLASS,
+  SITE_RESUME_PDF,
 } from "./data";
 import { trackResumeDownload } from "@/lib/analytics/gtag";
 
@@ -40,7 +41,7 @@ const SKILL_GROUPS = [
       "HTML · CSS · JavaScript · React · Next.js · TypeScript · Tailwind CSS",
   },
   {
-    title: "Server-side development",
+    title: "Server side development",
     items: "Node.js · REST APIs · Auth · Databases · Performance · Deployment",
   },
   {
@@ -145,7 +146,9 @@ export default function WorkSection() {
               production.
             </p>
             <Link
-              href="/resume.pdf"
+              href={SITE_RESUME_PDF}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => trackResumeDownload("work_section")}
               className="mt-(--work-btn-mt) inline-flex h-(--work-btn-h) w-max items-center justify-center rounded-full bg-[#e60000] px-(--work-btn-px) font-sans font-semibold text-(length:--work-btn-text) text-black transition hover:bg-[#ff1a1a]"
             >

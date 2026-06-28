@@ -1,3 +1,5 @@
+import { SITE_RESUME_PDF } from "@/components/portfolio/data";
+
 export type GtagEventParams = Record<
   string,
   string | number | boolean | undefined
@@ -26,8 +28,8 @@ export function trackEvent(eventName: string, params?: GtagEventParams) {
 export function trackResumeDownload(location: string) {
   trackEvent("resume_download", {
     event_category: "engagement",
-    file_name: "resume.pdf",
-    link_url: "/resume.pdf",
+    file_name: "abubakar-resume-original.pdf",
+    link_url: SITE_RESUME_PDF,
     location,
   });
 }
@@ -56,9 +58,10 @@ export function trackContactFormSubmit(
   });
 }
 
-export function trackBrandLogoClick(brandName: string) {
+export function trackBrandLogoClick(brandName: string, linkUrl: string) {
   trackEvent("brand_logo_click", {
     event_category: "engagement",
     brand_name: brandName,
+    link_url: linkUrl,
   });
 }

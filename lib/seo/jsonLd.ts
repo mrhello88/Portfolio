@@ -42,7 +42,7 @@ export function buildSiteJsonLd() {
       {
         "@type": "ProfessionalService",
         "@id": `${base}/#service`,
-        name: "AbuBakar Siddiqi — Full Stack Web Development",
+        name: "AbuBakar Siddiqi, Full Stack Web Development",
         url: base,
         description: SITE_DESCRIPTION,
         provider: { "@id": `${base}/#person` },

@@ -152,7 +152,7 @@ What went well
   {
     client: "E-Commerce Platform (Admin, Sellers & Users)",
     shortSummary:
-      "Stabilize and complete an existing e-commerce platform with auth failures, dashboard instability, backend bugs, and deployment issues. Work moved through staged fixes into platform wide optimization, payments, database integration, and production readiness for admins, sellers, and end users.",
+      "Stabilize and complete an existing ecommerce platform with auth failures, dashboard instability, backend bugs, and deployment issues. Work moved through staged fixes into platform wide optimization, payments, database integration, and production readiness for admins, sellers, and end users.",
     quote:
       "Very clean and professional. His work is really on point.",
     name: "dacallender1112",
@@ -201,7 +201,7 @@ Deployment and infrastructure
     delivered: [
       "Admin and user authentication recovery",
       "Access management improvements",
-      "Core e-commerce functionality fixes",
+      "Core ecommerce functionality fixes",
       "Stripe integration and payment flow validation",
       "Seller dashboard stabilization",
       "Admin panel and user management enhancements",

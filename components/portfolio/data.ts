@@ -17,6 +17,9 @@ export const IMPACT_SECTION_RAIL_CLASS = `impact-section-rail relative z-20 mx-a
 export const SITE_LOGO_SRC =
   "/logo/Generated_image-background-remover.png";
 
+/** Resume PDF served from public/resume/ */
+export const SITE_RESUME_PDF = "/resume/abubakar-resume-original.pdf";
+
 /** Browser tab / home screen icons (public/logo/) — separate from header wordmark PNG */
 export const SITE_FAVICON_ICO = "/logo/favicon.ico";
 export const SITE_FAVICON_SVG = "/logo/favicon.svg";
@@ -92,7 +95,7 @@ export const SITE_OG_IMAGE_SRC = "/whatsapp/herosection-portfolio-whatsapp.png";
 export const SITE_OG_IMAGE_WIDTH = 1201;
 export const SITE_OG_IMAGE_HEIGHT = 630;
 export const SITE_OG_IMAGE_ALT =
-  "AbuBakar Siddiqi — ABUBAKAR SIDDIQI Full Stack Developer portfolio";
+  "AbuBakar Siddiqi, ABUBAKAR SIDDIQI Full Stack Developer portfolio";
 
 /** Header wordmark (logo + text) */
 export const SITE_BRAND_PRIMARY = "AbuBakar";

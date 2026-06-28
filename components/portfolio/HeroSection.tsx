@@ -146,7 +146,7 @@ const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) {
         </div>
 
         <p className="hero-sub max-w-2xl text-lg leading-relaxed text-(--muted) md:text-xl md:leading-relaxed">
-          One intro timeline on load — then the full page is a single scrubbed{" "}
+          One intro timeline on load, then the full page is a single scrubbed{" "}
           <code className="rounded bg-(--surface) px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
             gsap.timeline
           </code>{" "}

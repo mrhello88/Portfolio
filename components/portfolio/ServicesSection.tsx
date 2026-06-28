@@ -16,7 +16,7 @@ const SERVICES = [
     id: "01",
     title: "Custom Web Development",
     description:
-      "Build complete web applications from scratch — frontend to backend — optimized for speed, security, and scalability.",
+      "Build complete web applications from scratch, frontend to backend, optimized for speed, security, and scalability.",
     image: "/services-section/custom-website.webp",
   },
   {
@@ -37,7 +37,7 @@ const SERVICES = [
     id: "04",
     title: "Full Stack Application Development",
     description:
-      "End-to-end product delivery — from discovery and architecture through launch, monitoring, and iterative improvements.",
+      "End to end product delivery, from discovery and architecture through launch, monitoring, and iterative improvements.",
     image: "/services-section/fullstack-development.webp",
   },
 ] as const;
@@ -64,7 +64,7 @@ export default function ServicesSection() {
             {"//services"}
           </p>
           <h2 className="max-w-2xl font-sans text-3xl font-bold leading-tight tracking-tight text-white md:text-right md:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">
-            End-to-End Web Development Services
+            End to End Web Development Services
           </h2>
         </div>
 

@@ -46,7 +46,7 @@ export async function sendContactNotificationEmail(payload: {
       from,
       to: [to],
       reply_to: payload.email,
-      subject: `Portfolio contact — ${payload.name}`,
+      subject: `Portfolio contact: ${payload.name}`,
       text,
     }),
   });

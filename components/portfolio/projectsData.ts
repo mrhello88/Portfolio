@@ -319,7 +319,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
     cardTags: ["Next.js", "Stripe", "Canva", "MongoDB"],
     tagline:
       "Brand Appeal (The Brand Appeal Boardroom™) is a subscription SaaS platform for aesthetic professionals, med spas, injectors, skincare providers, and similar businesses. It delivers done for you social media content via Canva templates, content planning tools, and monthly Boardroom membership perks positioned as strategic content for aesthetic brands.",
-    liveUrl: "https://user.brandappeal.io",
+    liveUrl: "https://brandappeal.io/",
     client: "Aesthetic & beauty industry",
     industry: "Membership / Content SaaS",
     timeline: "Production release",
@@ -372,19 +372,19 @@ export const PROJECTS: readonly ProjectDetail[] = [
       { label: "Deployment", value: "Vercel (@vercel/node for Express API)" },
     ],
     keyFeatures: [
-      "Register, login, email verification, and JWT-based session handling",
-      "Post-checkout onboarding flow (/onboarding?session_id=...)",
+      "Register, login, email verification, and JWT based session handling",
+      "Post checkout onboarding flow (/onboarding?session_id=...)",
       "Frontend route guards on /user/* and /admin/* paths",
       "Stripe plan CRUD, Checkout sessions, billing portal, cancel, and billing history",
       "Stripe webhooks for checkout completion and subscription updates",
       "Admin Canva template import with publish workflow and trending algorithm",
       "Template browse with search, filters, pagination, free tier (10) vs paid (unlimited)",
       "Canva team access request queue with admin approve/reject flow",
-      "User Canva OAuth (PKCE) for in-app template editing",
+      "User Canva OAuth (PKCE) for in app template editing",
       "User dashboard: trending templates, Content Vault bookmarks, social calendar",
       "Admin dashboard: user stats, user management, template management, plans, FAQ CRUD",
       "Trending score from edit, bookmark, and view counts with recency weighting",
-      "Multi-layer gating: subscription → team access → Canva OAuth connection",
+      "Multi layer gating: subscription → team access → Canva OAuth connection",
     ],
     modulesSectionTitle: "Boardroom modules",
     platformModules: [
@@ -399,7 +399,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
       {
         title: "Social Calendar",
         items: [
-          "FullCalendar-based posting schedule (/user/calendar)",
+          "FullCalendar based posting schedule (/user/calendar)",
           "Track template usage and content planning",
           "Paginated calendar history",
         ],
@@ -408,7 +408,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
         title: "Trend Report",
         items: [
           "Trending template library (/user/template)",
-          "Algorithm-driven trending score on save",
+          "Algorithm driven trending score on save",
           "Search with debounced filters and pagination",
         ],
       },
@@ -423,7 +423,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
         title: "Executive Suite",
         items: [
           "Premium content and strategy services",
-          "Agency-level consultation positioning",
+          "Agency level consultation positioning",
         ],
       },
       {
@@ -520,26 +520,26 @@ export const PROJECTS: readonly ProjectDetail[] = [
       },
       {
         challenge:
-          "Multi-layer Canva gating before users can view or edit templates.",
+          "Multi layer Canva gating before users can view or edit templates.",
         solution:
           "Chained subscription check → team access approval → OAuth connection with middleware returning clear error messages.",
       },
       {
         challenge: "Subscription activation after Stripe Checkout.",
         solution:
-          "Post-checkout onboarding UI paired with Stripe webhooks (checkout.session.completed, subscription updated/deleted).",
+          "Post checkout onboarding UI paired with Stripe webhooks (checkout.session.completed, subscription updated/deleted).",
       },
       {
         challenge: "Trending content discovery at scale.",
         solution:
-          "Pre-save trending algorithm weighting edit, bookmark, and view counts with recency decay on Template model.",
+          "Pre save trending algorithm weighting edit, bookmark, and view counts with recency decay on Template model.",
       },
     ],
     results: [
       "Full SaaS platform delivered, marketing site, member portal, admin portal, and REST API.",
       "Live production at user.brandappeal.io with API deployed on Vercel.",
       "Monetization via Stripe subscriptions ($49/month unlimited access positioning).",
-      "Canva-powered workflow from admin template import to member edit in Canva.",
+      "Canva powered workflow from admin template import to member edit in Canva.",
       "Member experience: trending library, bookmarks, social calendar, profile, and billing.",
       "Production ready authentication, subscription gating, and admin content operations.",
     ],
@@ -554,8 +554,8 @@ export const PROJECTS: readonly ProjectDetail[] = [
     cardImage: "/projects/project-3.png",
     cardTags: ["Next.js", "React", "TypeScript", "MongoDB"],
     tagline:
-      "A multi role educational platform built for tutoring centers and learning institutes. Beyond traditional course delivery, it handles end-to-end institute management: students, teachers, class scheduling, family billing, room operations, learning materials, feedback, and role based permissions across eight user types.",
-    liveUrl: "#",
+      "A multi role educational platform built for tutoring centers and learning institutes. Beyond traditional course delivery, it handles end to end institute management: students, teachers, class scheduling, family billing, room operations, learning materials, feedback, and role based permissions across eight user types.",
+    liveUrl: "https://lms-olive-five.vercel.app/",
     client: "Tutoring & learning institutes",
     industry: "EdTech / LMS",
     timeline: "Production release",
@@ -565,7 +565,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
     overview: [
       "Learning Management System (LMS) is a multi role educational platform designed for tutoring centers and learning institutes. It is not a traditional video only LMS. It manages the full institute workflow from enrollment and scheduling to attendance, billing, and feedback.",
       "The platform covers student and teacher management, class scheduling and attendance, family and guardian billing, room scheduling, learning materials, tasks, reports, and granular role based permissions across eight user types.",
-      "Architecture follows a multi-frontend, single REST API model: three frontend applications (Super Admin, Admin Panel, Teacher/Student/Guardian) connected to one Node.js, Express, and MongoDB backend.",
+      "Architecture follows a multi frontend, single REST API model: three frontend applications (Super Admin, Admin Panel, Teacher/Student/Guardian) connected to one Node.js, Express, and MongoDB backend.",
     ],
     role: [
       "Frontend Developer, designed and implemented 8 role based dashboards",
@@ -573,7 +573,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
       "Admin Panel, Finance, Academic, Operations, General (Next.js 15 App Router)",
       "Role Base Dashboard, Teacher, Student, Guardian (Next.js 15 App Router)",
       "Role prefixed routing and protected routes",
-      "Permission-driven UI (sidebar, forms, actions show/hide)",
+      "permission driven UI (sidebar, forms, actions show/hide)",
       "API integration with Axios and JWT",
       "Dashboards, CRUD screens, calendars, charts, and PDF export",
       "Context API and Redux state management",
@@ -610,8 +610,8 @@ export const PROJECTS: readonly ProjectDetail[] = [
       },
     ],
     keyFeatures: [
-      "JWT-based login across all dashboards",
-      "Role based route guards and module-level permissions",
+      "JWT based login across all dashboards",
+      "Role based route guards and module level permissions",
       "Dynamic sidebar showing only allowed modules",
       "Student and teacher CRUD with performance tracking",
       "Class scheduling via FullCalendar (day/week/timegrid views)",
@@ -692,7 +692,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
         title: "General Admin",
         items: [
           "/general dashboard",
-          "Read-heavy access with limited create permissions",
+          "Read heavy access with limited create permissions",
         ],
       },
       {
@@ -739,7 +739,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
       "    │       ├── operations/",
       "    │       └── general/",
       "    ├── super/lms-super-admin/        ← Super Admin (Vite + Redux)",
-      "    └── LMS-Role-Base/lms-role-base/    ← Teacher / Student / Guardian",
+      "    └── LMS-role base/lms-role base/    ← Teacher / Student / Guardian",
       "        └── src/app/dashboard/",
       "",
       "Architecture:",
@@ -758,8 +758,8 @@ export const PROJECTS: readonly ProjectDetail[] = [
       "                    └───────────────────┘",
     ],
     performanceOptimizations: [
-      "Dashboard data cache with 5-minute TTL (DashboardContext.js)",
-      "Axios request throttling with 1-second interval (AxiosConfig.js)",
+      "Dashboard data cache with 5 minute TTL (DashboardContext.js)",
+      "Axios request throttling with 1 second interval (AxiosConfig.js)",
       "Duplicate request cancellation (AxiosConfig.js)",
       "429 retry with exponential backoff (AxiosConfig.js)",
       "Debounced calendar API calls (FullCalendarComponent.jsx)",
@@ -772,11 +772,11 @@ export const PROJECTS: readonly ProjectDetail[] = [
     ],
     architecturePoints: [
       "Role prefixed routing, same components across four admin URL prefixes",
-      "Permission-driven UI with hasPermission(module, action) for buttons and sidebar",
+      "permission driven UI with hasPermission(module, action) for buttons and sidebar",
       "Nested Context Provider composition (Auth → Dashboard → Student → …)",
       "Feature based API modules, StudentsApi.js, TeacherApi.js, and related services",
       "Client-side route guards with JWT and role checks",
-      "Redux feature slices for Super Admin domain-wise CRUD flows",
+      "Redux feature slices for Super Admin domain wise CRUD flows",
       "23 MongoDB models on backend including User, Student, Family, Class, Invoice, and more",
     ],
     challenges: [
@@ -808,12 +808,12 @@ export const PROJECTS: readonly ProjectDetail[] = [
       {
         challenge: "Multiple frontend apps connected to one API.",
         solution:
-          "Consistent JWT auth and feature-based API modules across all frontends.",
+          "Consistent JWT auth and feature based API modules across all frontends.",
       },
       {
         challenge: "Super Admin vs Admin state complexity.",
         solution:
-          "Redux for complex CRUD flows vs Context API for simpler admin and role-base flows.",
+          "Redux for complex CRUD flows vs Context API for simpler admin and role base flows.",
       },
       {
         challenge: "Guardian vs Family naming mismatch across stack.",
@@ -824,7 +824,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
     results: [
       "Delivered 8 complete role based dashboards from Super Admin to Student and Guardian.",
       "Built 3 frontend applications (Next.js × 2, Vite × 1) on one unified REST API.",
-      "RBAC across 10 modules with granular actions and permission-driven UI.",
+      "RBAC across 10 modules with granular actions and permission driven UI.",
       "Full institute workflow, enrollment, scheduling, attendance, billing, and feedback.",
       "Production ready patterns, JWT auth, route guards, API throttling, caching, and pagination.",
       "Modern stack, React 19, Next.js 15, Tailwind CSS 4, TypeScript (Super Admin).",
@@ -842,7 +842,7 @@ export const PROJECTS: readonly ProjectDetail[] = [
     cardTags: ["React", "Node.js", "MongoDB", "Paystack"],
     tagline:
       "LinkBiz is a SaaS platform built to help businesses capture, organize, and manage customer enquiries generated through WhatsApp. Instead of customers directly opening a WhatsApp chat, LinkBiz first collects their name, contact number, enquiry, and lead source through a simple form before redirecting them to WhatsApp.",
-    liveUrl: "#",
+    liveUrl: "https://www.linkbiz.co.za/",
     client: "Small and medium businesses",
     industry: "SaaS / CRM",
     timeline: "Production release",
