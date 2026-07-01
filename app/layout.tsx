@@ -138,6 +138,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta
+          name="p:domain_verify"
+          content="b6715aeb933cb21206d2c66f963f34a8"
+        />
         <GoogleAnalytics />
         <JsonLd />
         {PORTFOLIO_LCP_IMAGES.map((href) => (
